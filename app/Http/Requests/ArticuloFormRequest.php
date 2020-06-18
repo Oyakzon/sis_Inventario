@@ -24,7 +24,9 @@ class ArticuloFormRequest extends Request
     public function rules()
     {
         return [
-            //
+            'idcategoria'=>'required',
+            'codigo'=>'required|max:50'
+            
         ];
     }
 }
