@@ -27,9 +27,9 @@
 					<td>{{ $per->tipo_documento}}</td>
 					<td>{{ $per->num_documento}}</td>
 					<td>{{ $per->telefono}}</td>
-					<td>{{ $per->tipo_email}}</td>
+					<td>{{ $per->email}}</td>
 					<td>
-						<a href="{{URL::action('PersonaController@edit',$per->idpersona)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="{{URL::action('ClienteController@edit',$per->idpersona)}}"><button class="btn btn-info">Editar</button></a>
                          <a href="" data-target="#modal-delete-{{$per->idpersona}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>

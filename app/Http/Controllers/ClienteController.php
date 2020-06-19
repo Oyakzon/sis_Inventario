@@ -38,7 +38,7 @@ class ClienteController extends Controller
     public function store (PersonaFormRequest $request)
     {
         $persona=new Persona;
-        $persona->tipo_persona=$request->get('Cliente');
+        $persona->tipo_persona=('Cliente');
         $persona->nombre=$request->get('nombre');
         $persona->tipo_documento=$request->get('tipo_documento');
         $persona->num_documento=$request->get('num_documento');
@@ -66,7 +66,7 @@ class ClienteController extends Controller
         $persona->direccion=$request->get('direccion');
         $persona->telefono=$request->get('telefono');
         $persona->email=$request->get('email');
-        $categoria->update();
+        $persona->update();
         return Redirect::to('ventas/cliente');
     }
     public function destroy($id)
