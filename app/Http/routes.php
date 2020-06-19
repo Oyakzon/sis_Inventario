@@ -21,4 +21,4 @@ Route::resource('almacen/articulo','ArticuloController');
 
 Route::resource('ventas/cliente','ClienteController');
 
-
+Route::resource('compras/proveedor','ProveedorController');
