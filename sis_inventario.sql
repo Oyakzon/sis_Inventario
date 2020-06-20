@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 17-06-2020 a las 02:50:02
+-- Tiempo de generación: 20-06-2020 a las 03:16:48
 -- Versión del servidor: 8.0.20
 -- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,6 +29,7 @@ USE `sis_inventario`;
 -- Estructura de tabla para la tabla `articulo`
 --
 
+DROP TABLE IF EXISTS `articulo`;
 CREATE TABLE `articulo` (
   `idarticulo` int NOT NULL,
   `idcategoria` int NOT NULL,
@@ -41,12 +41,20 @@ CREATE TABLE `articulo` (
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `articulo`
+--
+
+INSERT INTO `articulo` (`idarticulo`, `idcategoria`, `codigo`, `nombre`, `stock`, `descripcion`, `imagen`, `estado`) VALUES
+(5, 1, '123213', 'maderax', 70, 'madera de palos', 'concepto-material-madera-textura-papel-pintado-fon', 'Activo');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `categoria`
 --
 
+DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE `categoria` (
   `idcategoria` int NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -54,12 +62,22 @@ CREATE TABLE `categoria` (
   `condicion` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `condicion`) VALUES
+(1, 'Palos', 'Palos de madera', 1),
+(2, 'Palosghgh', 'Palos de madera', 1),
+(3, 'Categoria', 'ahdghajsd', 1);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `detalle_ingreso`
 --
 
+DROP TABLE IF EXISTS `detalle_ingreso`;
 CREATE TABLE `detalle_ingreso` (
   `iddetalle_ingreso` int NOT NULL,
   `idingreso` int NOT NULL,
@@ -69,12 +87,37 @@ CREATE TABLE `detalle_ingreso` (
   `precio_venta` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `detalle_ingreso`
+--
+
+INSERT INTO `detalle_ingreso` (`iddetalle_ingreso`, `idingreso`, `idarticulo`, `cantidad`, `precio_compra`, `precio_venta`) VALUES
+(3, 5, 5, 123, '12321.00', '12333.00'),
+(4, 7, 5, 12, '123.00', '123.00'),
+(5, 8, 5, 12, '1222.00', '12222.00'),
+(6, 9, 5, 12, '12.00', '12.00'),
+(7, 10, 5, 12, '15.00', '17.00'),
+(8, 11, 5, 12, '12.00', '23.00');
+
+--
+-- Disparadores `detalle_ingreso`
+--
+DROP TRIGGER IF EXISTS `tr_updStockIngreso`;
+DELIMITER $$
+CREATE TRIGGER `tr_updStockIngreso` AFTER INSERT ON `detalle_ingreso` FOR EACH ROW BEGIN
+	UPDATE articulo SET stock = stock + NEW.cantidad
+    WHERE articulo.idarticulo = NEW.idarticulo;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `detalle_venta`
 --
 
+DROP TABLE IF EXISTS `detalle_venta`;
 CREATE TABLE `detalle_venta` (
   `iddetalle_venta` int NOT NULL,
   `idventa` int NOT NULL,
@@ -90,6 +133,7 @@ CREATE TABLE `detalle_venta` (
 -- Estructura de tabla para la tabla `ingreso`
 --
 
+DROP TABLE IF EXISTS `ingreso`;
 CREATE TABLE `ingreso` (
   `idingreso` int NOT NULL,
   `idproveedor` int NOT NULL,
@@ -101,12 +145,26 @@ CREATE TABLE `ingreso` (
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `ingreso`
+--
+
+INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `fecha_hora`, `impuesto`, `estado`) VALUES
+(5, 1, 'Boleta', '001', '0008', '2020-06-19 16:33:06', '19.00', 'A'),
+(6, 1, 'Boleta', '001', '0008', '2020-06-19 16:33:06', '19.00', 'A'),
+(7, 2, 'Factura', '123213', '123213', '2020-06-19 21:50:44', '19.00', 'A'),
+(8, 2, 'Boleta', '121212', '1212', '2020-06-19 22:08:26', '19.00', 'A'),
+(9, 2, 'Boleta', '12321', '32131', '2020-06-19 22:48:30', '19.00', 'A'),
+(10, 2, 'Factura', '4535435', '345345', '2020-06-19 23:11:02', '19.00', 'C'),
+(11, 2, 'Boleta', '123213', '12312', '2020-06-19 23:15:32', '19.00', 'A');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `persona`
 --
 
+DROP TABLE IF EXISTS `persona`;
 CREATE TABLE `persona` (
   `idpersona` int NOT NULL,
   `tipo_persona` varchar(20) NOT NULL,
@@ -118,12 +176,21 @@ CREATE TABLE `persona` (
   `email` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`) VALUES
+(1, 'Cliente', 'Sebastian Acosta', 'DNI', '123123123123', '11 de septiembre #2554', '962969091', 'sebastian.ipchile@gmail.com'),
+(2, 'Proveedor', 'Sebastian', 'RUC', '31342534512345', '11 de septiembre', '261527352672', 'sebastian.acosta195@outlook.com');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `venta`
 --
 
+DROP TABLE IF EXISTS `venta`;
 CREATE TABLE `venta` (
   `idventa` int NOT NULL,
   `idcliente` int NOT NULL,
@@ -197,19 +264,19 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcategoria` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idcategoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_ingreso`
 --
 ALTER TABLE `detalle_ingreso`
-  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT;
+  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
@@ -221,13 +288,13 @@ ALTER TABLE `detalle_venta`
 -- AUTO_INCREMENT de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idpersona` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idpersona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`

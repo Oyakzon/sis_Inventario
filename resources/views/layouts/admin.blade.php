@@ -8,6 +8,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <!-- Theme style -->
@@ -29,7 +31,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>sis</b>I</I></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>sisInventario</b></span>
+          <span class="logo-lg"><b>Tu Oficina S.A.</b></span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -55,7 +57,7 @@
                     
                     <p>
                       REPTECH - Desarrollando Software
-                      <small>www.youtube.com/jcarlosad7</small>
+                      <small>www.link.com/xxxxxxx</small>
                     </p>
                   </li>
                   
@@ -199,8 +201,10 @@
       
     <!-- jQuery 2.1.4 -->
     <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>
+    @stack('scripts')
     <!-- Bootstrap 3.3.5 -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('js/app.min.js')}}"></script>
     
