@@ -23,6 +23,10 @@ Route::resource('ventas/cliente','ClienteController');
 
 Route::resource('compras/proveedor','ProveedorController');
 
+Route::resource('seguridad/usuario','UsuarioController');
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+

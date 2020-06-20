@@ -8,7 +8,7 @@ use sis_Inventario\Http\Requests;
 
 use sis_Inventario\User;
 use Illuminate\Support\Facades\Redirect;
-use sis_Inventario\Http\Request\UsuarioFormRequest;
+use sis_Inventario\Http\Requests\UsuarioFormRequest;
 use DB;
 
 class UsuarioController extends Controller
