@@ -28,9 +28,9 @@ class VentaController extends Controller
         if ($request)
         {
             $query=trim($request->get('searchText'));
-            $ventas=DB::table('ingreso as v')
-             ->join('persona as p','i.idcliente','=','p.idpersona')
-             ->join('detalle_ingreso as dv','v.venta','=','dv.idventa')
+            $ventas=DB::table('venta as v')
+             ->join('persona as p','v.idcliente','=','p.idpersona')
+             ->join('detalle_venta as dv','v.idventa','=','dv.idventa')
              ->select('v.idventa','v.fecha_hora','p.nombre','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta')
              ->where('v.num_comprobante','LIKE','%'.$query.'%')
              ->orderBy('v.idventa','desc')
@@ -102,13 +102,13 @@ class VentaController extends Controller
 
         return Redirect::to('ventas/venta');
     }
-    //MOSTRAR INGRESOS Y DETALLES EN UNA VISTA
+    //MOSTRAR VENTAS Y DETALLES EN UNA VISTA
     public function show($id)
     {
         //MOSTRAR DATOS
         $venta=DB::table('venta as v')
             ->join('persona as p','v.idventa','=','p.idpersona')
-            ->join('detalle_ingreso as dv','v.idventa','=','dv.idventa')
+            ->join('detalle_venta as dv','v.idventa','=','dv.idventa')
             ->select('v.idventa','v.fecha_hora','p.nombre','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado', 'v.total_venta')
             ->where('v.idventa','=',$id)
             ->firts();
