@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 20-06-2020 a las 03:16:48
+-- Tiempo de generación: 21-06-2020 a las 07:12:22
 -- Versión del servidor: 8.0.20
 -- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -46,7 +47,9 @@ CREATE TABLE `articulo` (
 --
 
 INSERT INTO `articulo` (`idarticulo`, `idcategoria`, `codigo`, `nombre`, `stock`, `descripcion`, `imagen`, `estado`) VALUES
-(5, 1, '123213', 'maderax', 70, 'madera de palos', 'concepto-material-madera-textura-papel-pintado-fon', 'Activo');
+(5, 1, '123213', 'maderax', 71, 'madera de palos', 'concepto-material-madera-textura-papel-pintado-fon', 'Inactivo'),
+(7, 2, '123', 'hojas', 30, ':V', 'PicsArt_12-30-02.35.39.jpg', 'Activo'),
+(8, 1, '1234567', 'jajajajaaja', 50, 'kkkkkkkk', 'PicsArt_12-30-02.59.40.jpg', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -97,7 +100,9 @@ INSERT INTO `detalle_ingreso` (`iddetalle_ingreso`, `idingreso`, `idarticulo`, `
 (5, 8, 5, 12, '1222.00', '12222.00'),
 (6, 9, 5, 12, '12.00', '12.00'),
 (7, 10, 5, 12, '15.00', '17.00'),
-(8, 11, 5, 12, '12.00', '23.00');
+(8, 11, 5, 12, '12.00', '23.00'),
+(9, 12, 5, 1, '1500.00', '2000.00'),
+(10, 13, 8, 30, '200.00', '300.00');
 
 --
 -- Disparadores `detalle_ingreso`
@@ -126,6 +131,26 @@ CREATE TABLE `detalle_venta` (
   `precio_venta` decimal(11,2) NOT NULL,
   `descuento` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `detalle_venta`
+--
+
+INSERT INTO `detalle_venta` (`iddetalle_venta`, `idventa`, `idarticulo`, `cantidad`, `precio_venta`, `descuento`) VALUES
+(1, 5, 8, 2, '300.00', '0.00');
+
+--
+-- Disparadores `detalle_venta`
+--
+DROP TRIGGER IF EXISTS `tr_updStockVenta`;
+DELIMITER $$
+CREATE TRIGGER `tr_updStockVenta` AFTER INSERT ON `detalle_venta` FOR EACH ROW BEGIN
+UPDATE articulo SET stock = stock -
+NEW.cantidad
+WHERE articulo.idarticulo = NEW.idarticulo;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -156,7 +181,9 @@ INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_co
 (8, 2, 'Boleta', '121212', '1212', '2020-06-19 22:08:26', '19.00', 'A'),
 (9, 2, 'Boleta', '12321', '32131', '2020-06-19 22:48:30', '19.00', 'A'),
 (10, 2, 'Factura', '4535435', '345345', '2020-06-19 23:11:02', '19.00', 'C'),
-(11, 2, 'Boleta', '123213', '12312', '2020-06-19 23:15:32', '19.00', 'A');
+(11, 2, 'Boleta', '123213', '12312', '2020-06-19 23:15:32', '19.00', 'A'),
+(12, 2, 'Boleta', '123', '1234', '2020-06-19 23:32:32', '19.00', 'A'),
+(13, 2, 'Boleta', '123', '123', '2020-06-20 21:32:16', '19.00', 'A');
 
 -- --------------------------------------------------------
 
@@ -182,7 +209,8 @@ CREATE TABLE `persona` (
 
 INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`) VALUES
 (1, 'Cliente', 'Sebastian Acosta', 'DNI', '123123123123', '11 de septiembre #2554', '962969091', 'sebastian.ipchile@gmail.com'),
-(2, 'Proveedor', 'Sebastian', 'RUC', '31342534512345', '11 de septiembre', '261527352672', 'sebastian.acosta195@outlook.com');
+(2, 'Proveedor', 'Sebastian', 'RUC', '31342534512345', '11 de septiembre', '261527352672', 'sebastian.acosta195@outlook.com'),
+(3, 'Cliente', 'marcos', 'RUC', '444', 'aroca', '666', 'oyarzo@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -202,6 +230,26 @@ CREATE TABLE `venta` (
   `total_venta` decimal(11,2) NOT NULL,
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `venta`
+--
+
+INSERT INTO `venta` (`idventa`, `idcliente`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `fecha_hora`, `impuesto`, `total_venta`, `estado`) VALUES
+(5, 1, 'Boleta', '222', '222', '2020-06-21 01:58:21', '19.00', '600.00', 'Anulada');
+
+--
+-- Disparadores `venta`
+--
+DROP TRIGGER IF EXISTS `tr_updStockAnularVenta`;
+DELIMITER $$
+CREATE TRIGGER `tr_updStockAnularVenta` AFTER UPDATE ON `venta` FOR EACH ROW update articulo a
+    join detalleventa di
+      on di.Id_Articulo = a.Id_Articulo
+     and di.IdVenta = new.IdVenta
+     set a.stock = a.stock + di.cantidad
+$$
+DELIMITER ;
 
 --
 -- Índices para tablas volcadas
@@ -264,7 +312,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -276,31 +324,31 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detalle_ingreso`
 --
 ALTER TABLE `detalle_ingreso`
-  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `iddetalle_venta` int NOT NULL AUTO_INCREMENT;
+  MODIFY `iddetalle_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idpersona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idpersona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idventa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
