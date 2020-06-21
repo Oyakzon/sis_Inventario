@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 21-06-2020 a las 07:12:22
--- Versión del servidor: 8.0.20
--- Versión de PHP: 7.4.7
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 21-06-2020 a las 20:30:14
+-- Versión del servidor: 8.0.18
+-- Versión de PHP: 7.4.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,16 +31,18 @@ USE `sis_inventario`;
 --
 
 DROP TABLE IF EXISTS `articulo`;
-CREATE TABLE `articulo` (
-  `idarticulo` int NOT NULL,
-  `idcategoria` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `articulo` (
+  `idarticulo` int(11) NOT NULL AUTO_INCREMENT,
+  `idcategoria` int(11) NOT NULL,
   `codigo` varchar(50) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
-  `stock` int NOT NULL,
+  `stock` int(11) NOT NULL,
   `descripcion` varchar(512) DEFAULT NULL,
   `imagen` varchar(50) DEFAULT NULL,
-  `estado` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `estado` varchar(20) NOT NULL,
+  PRIMARY KEY (`idarticulo`),
+  KEY `fk_articulo_categoria_idx` (`idcategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `articulo`
@@ -58,12 +60,13 @@ INSERT INTO `articulo` (`idarticulo`, `idcategoria`, `codigo`, `nombre`, `stock`
 --
 
 DROP TABLE IF EXISTS `categoria`;
-CREATE TABLE `categoria` (
-  `idcategoria` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `idcategoria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   `descripcion` varchar(256) DEFAULT NULL,
-  `condicion` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `condicion` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idcategoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categoria`
@@ -81,14 +84,17 @@ INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `condicion`) VA
 --
 
 DROP TABLE IF EXISTS `detalle_ingreso`;
-CREATE TABLE `detalle_ingreso` (
-  `iddetalle_ingreso` int NOT NULL,
-  `idingreso` int NOT NULL,
-  `idarticulo` int NOT NULL,
-  `cantidad` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `detalle_ingreso` (
+  `iddetalle_ingreso` int(11) NOT NULL AUTO_INCREMENT,
+  `idingreso` int(11) NOT NULL,
+  `idarticulo` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
   `precio_compra` decimal(11,2) NOT NULL,
-  `precio_venta` decimal(11,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `precio_venta` decimal(11,2) NOT NULL,
+  PRIMARY KEY (`iddetalle_ingreso`),
+  KEY `fk_detalle_ingreso_idx` (`idingreso`),
+  KEY `fk_detalle_ingreso_articulo_idx` (`idarticulo`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalle_ingreso`
@@ -123,14 +129,17 @@ DELIMITER ;
 --
 
 DROP TABLE IF EXISTS `detalle_venta`;
-CREATE TABLE `detalle_venta` (
-  `iddetalle_venta` int NOT NULL,
-  `idventa` int NOT NULL,
-  `idarticulo` int NOT NULL,
-  `cantidad` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `detalle_venta` (
+  `iddetalle_venta` int(11) NOT NULL AUTO_INCREMENT,
+  `idventa` int(11) NOT NULL,
+  `idarticulo` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
   `precio_venta` decimal(11,2) NOT NULL,
-  `descuento` decimal(11,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `descuento` decimal(11,2) NOT NULL,
+  PRIMARY KEY (`iddetalle_venta`),
+  KEY `fk_detalle_venta_articulo_idx` (`idarticulo`),
+  KEY `fk_detalle_venta_idx` (`idventa`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `detalle_venta`
@@ -159,16 +168,18 @@ DELIMITER ;
 --
 
 DROP TABLE IF EXISTS `ingreso`;
-CREATE TABLE `ingreso` (
-  `idingreso` int NOT NULL,
-  `idproveedor` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `ingreso` (
+  `idingreso` int(11) NOT NULL AUTO_INCREMENT,
+  `idproveedor` int(11) NOT NULL,
   `tipo_comprobante` varchar(20) NOT NULL,
   `serie_comprobante` varchar(7) DEFAULT NULL,
   `num_comprobante` varchar(10) NOT NULL,
   `fecha_hora` datetime NOT NULL,
   `impuesto` decimal(4,2) NOT NULL,
-  `estado` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `estado` varchar(20) NOT NULL,
+  PRIMARY KEY (`idingreso`),
+  KEY `fk_ingreso_persona_idx` (`idproveedor`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ingreso`
@@ -188,20 +199,56 @@ INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_co
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `migration` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `migrations`
+--
+
+INSERT INTO `migrations` (`migration`, `batch`) VALUES
+('2014_10_12_000000_create_users_table', 1),
+('2014_10_12_100000_create_password_resets_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_resets`
+--
+
+DROP TABLE IF EXISTS `password_resets`;
+CREATE TABLE IF NOT EXISTS `password_resets` (
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL,
+  KEY `password_resets_email_index` (`email`),
+  KEY `password_resets_token_index` (`token`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `persona`
 --
 
 DROP TABLE IF EXISTS `persona`;
-CREATE TABLE `persona` (
-  `idpersona` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `persona` (
+  `idpersona` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_persona` varchar(20) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `tipo_documento` varchar(20) DEFAULT NULL,
   `num_documento` varchar(15) DEFAULT NULL,
   `direccion` varchar(70) DEFAULT NULL,
   `telefono` varchar(15) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idpersona`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `persona`
@@ -215,21 +262,50 @@ INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Francisco Guerrero', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', 'dq7ygf5EcQeSLayjOBP4qT9ENwTYoEwjhswEIqXjlxNN9Gr5anUDPfHXC3hF', '2020-06-19 20:08:38', '2020-06-19 23:55:30'),
+(2, 'seba', 'seba1@gmail.com', '$2y$10$4TU30b2CYlqvD5YWEXrPcu5PUsdDQx0CmClc2.9acSZJbtjXW2x.O', 'I52oP4k2inhMuoIwwrCZ6m2P8atY2c3KTer4AtKbhsomT4qeKYCeiMqhGegy', '2020-06-19 23:54:52', '2020-06-20 00:19:55');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `venta`
 --
 
 DROP TABLE IF EXISTS `venta`;
-CREATE TABLE `venta` (
-  `idventa` int NOT NULL,
-  `idcliente` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `venta` (
+  `idventa` int(11) NOT NULL AUTO_INCREMENT,
+  `idcliente` int(11) NOT NULL,
   `tipo_comprobante` varchar(20) NOT NULL,
   `serie_comprobante` varchar(7) NOT NULL,
   `num_comprobante` varchar(10) NOT NULL,
   `fecha_hora` datetime NOT NULL,
   `impuesto` decimal(4,2) NOT NULL,
   `total_venta` decimal(11,2) NOT NULL,
-  `estado` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `estado` varchar(20) NOT NULL,
+  PRIMARY KEY (`idventa`),
+  KEY `fk_venta_cliente_idx` (`idcliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `venta`
@@ -250,105 +326,6 @@ CREATE TRIGGER `tr_updStockAnularVenta` AFTER UPDATE ON `venta` FOR EACH ROW upd
      set a.stock = a.stock + di.cantidad
 $$
 DELIMITER ;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `articulo`
---
-ALTER TABLE `articulo`
-  ADD PRIMARY KEY (`idarticulo`),
-  ADD KEY `fk_articulo_categoria_idx` (`idcategoria`);
-
---
--- Indices de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`idcategoria`);
-
---
--- Indices de la tabla `detalle_ingreso`
---
-ALTER TABLE `detalle_ingreso`
-  ADD PRIMARY KEY (`iddetalle_ingreso`),
-  ADD KEY `fk_detalle_ingreso_idx` (`idingreso`),
-  ADD KEY `fk_detalle_ingreso_articulo_idx` (`idarticulo`);
-
---
--- Indices de la tabla `detalle_venta`
---
-ALTER TABLE `detalle_venta`
-  ADD PRIMARY KEY (`iddetalle_venta`),
-  ADD KEY `fk_detalle_venta_articulo_idx` (`idarticulo`),
-  ADD KEY `fk_detalle_venta_idx` (`idventa`);
-
---
--- Indices de la tabla `ingreso`
---
-ALTER TABLE `ingreso`
-  ADD PRIMARY KEY (`idingreso`),
-  ADD KEY `fk_ingreso_persona_idx` (`idproveedor`);
-
---
--- Indices de la tabla `persona`
---
-ALTER TABLE `persona`
-  ADD PRIMARY KEY (`idpersona`);
-
---
--- Indices de la tabla `venta`
---
-ALTER TABLE `venta`
-  ADD PRIMARY KEY (`idventa`),
-  ADD KEY `fk_venta_cliente_idx` (`idcliente`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `articulo`
---
-ALTER TABLE `articulo`
-  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  MODIFY `idcategoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `detalle_ingreso`
---
-ALTER TABLE `detalle_ingreso`
-  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de la tabla `detalle_venta`
---
-ALTER TABLE `detalle_venta`
-  MODIFY `iddetalle_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `ingreso`
---
-ALTER TABLE `ingreso`
-  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de la tabla `persona`
---
-ALTER TABLE `persona`
-  MODIFY `idpersona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `venta`
---
-ALTER TABLE `venta`
-  MODIFY `idventa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
