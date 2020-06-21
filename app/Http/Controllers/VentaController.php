@@ -47,7 +47,7 @@ class VentaController extends Controller
         $personas=DB::table('persona')->where('tipo_persona','=','Cliente')->get();
         $articulos = DB::table('articulo as art')
             ->join('detalle_ingreso as di','art.idarticulo','=','di.idarticulo')
-            ->select(DB::raw('CONCAT(art.codigo, " ",art.nombre) AS articulo'),'art.idarticulo','art.stock',DB::raw('avg(di.precio_venta) as (precio_promedio)'))
+            ->select(DB::raw('CONCAT(art.codigo, " ",art.nombre) AS articulo'),'art.idarticulo','art.stock',DB::raw('avg(di.precio_venta) as precio_promedio'))
             ->where('art.estado','=','Activo')
             ->where('art.stock','>','0')
             ->groupBy('articulo','art.idarticulo','art.stock')
@@ -55,7 +55,7 @@ class VentaController extends Controller
         return view("ventas.venta.create",["personas"=>$personas,"articulos"=>$articulos]);
         
     }
-    //FUNCION ALMACENAR DETALLES Y INGRESOS
+    //FUNCION ALMACENAR DETALLES Y VENTAS
     public function store (VentaFormRequest $request)
     {
         try {
@@ -107,11 +107,11 @@ class VentaController extends Controller
     {
         //MOSTRAR DATOS
         $venta=DB::table('venta as v')
-            ->join('persona as p','v.idventa','=','p.idpersona')
+            ->join('persona as p','v.idcliente','=','p.idpersona')
             ->join('detalle_venta as dv','v.idventa','=','dv.idventa')
             ->select('v.idventa','v.fecha_hora','p.nombre','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado', 'v.total_venta')
             ->where('v.idventa','=',$id)
-            ->firts();
+            ->first();
 
         $detalles=DB::table('detalle_venta as d')
             ->join('articulo as a','d.idarticulo','=','a.idarticulo')
