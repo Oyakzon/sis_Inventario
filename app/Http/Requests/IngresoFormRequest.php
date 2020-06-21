@@ -26,7 +26,7 @@ class IngresoFormRequest extends Request
         return [
             'idproveedor'=>'required',
             'tipo_comprobante'=>'required|max:20',
-            'tipo_comprobante'=>'max:7',
+            'serie_comprobante'=>'max:7',
             'num_comprobante'=>'required|max:10',
             'idarticulo'=>'required',
             'cantidad'=>'required',

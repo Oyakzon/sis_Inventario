@@ -46,7 +46,7 @@
 								<th></th>
 								<th></th>
 								<th></th>
-								<th><h4 id="total">{{$ingreso->total}}</h4></th>
+								<th><h4 id="total">Total: ${{$ingreso->total}}</h4></th>
 							</tfoot>
 							<tbody>								
 								@foreach($detalles as $det)

@@ -49,7 +49,7 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <small class="bg-red">Online</small>
-                  <span class="hidden-xs">Juan Carlos Arcila Díaz</span>
+                  <span class="hidden-xs">REPTECH</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
@@ -57,7 +57,7 @@
                     
                     <p>
                       REPTECH - Desarrollando Software
-                      <small>www.link.com/xxxxxxx</small>
+                      <small>suscribete a mi canal de youtube <br> y agregame en Habbo</small>
                     </p>
                   </li>
                   
@@ -164,7 +164,7 @@
             <div class="col-md-12">
               <div class="box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Sistema de Ventas</h3>
+                  <h3 class="box-title">Sistema de Inventarios</h3>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     
@@ -195,7 +195,7 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 2.3.0
         </div>
-        <strong>Copyright &copy; 2015-2020 <a href="www.incanatoit.com">IncanatoIT</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2020 <a href="https://www.ipchile.cl/">REPTECH</a>.</strong> Todos los derechos reservados.
       </footer>
 
       

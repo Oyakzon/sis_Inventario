@@ -65,7 +65,7 @@ class IngresoController extends Controller
              $mytime = Carbon::now('America/Santiago');
              $ingreso->fecha_hora=$mytime->toDateTimeString();
              $ingreso->impuesto='19';
-             $ingreso->estado='A';
+             $ingreso->estado='Aprobado';
              $ingreso->save();
 
              $idarticulo = $request->get('idarticulo');
@@ -120,7 +120,7 @@ class IngresoController extends Controller
     public function destroy($id)
     {
         $ingreso=Ingreso::findOrFail($id);
-        $ingreso->Estado='C';
+        $ingreso->Estado='Anulado';
         $ingreso->update();
         return Redirect::to('compras/ingreso');
     }
