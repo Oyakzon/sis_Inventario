@@ -8,6 +8,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <!-- Theme style -->
@@ -29,7 +31,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>sis</b>I</I></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>sisInventario</b></span>
+          <span class="logo-lg"><b>Tu Oficina S.A.</b></span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -47,7 +49,7 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <small class="bg-red">Online</small>
-                  <span class="hidden-xs">Juan Carlos Arcila Díaz</span>
+                  <span class="hidden-xs">REPTECH</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
@@ -55,7 +57,7 @@
                     
                     <p>
                       REPTECH - Desarrollando Software
-                      <small>www.youtube.com/jcarlosad7</small>
+                      <small>suscribete a mi canal de youtube <br> y agregame en Habbo</small>
                     </p>
                   </li>
                   
@@ -162,7 +164,7 @@
             <div class="col-md-12">
               <div class="box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Sistema de Ventas</h3>
+                  <h3 class="box-title">Sistema de Inventarios</h3>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     
@@ -193,14 +195,16 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 2.3.0
         </div>
-        <strong>Copyright &copy; 2015-2020 <a href="www.incanatoit.com">IncanatoIT</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2020 <a href="https://www.ipchile.cl/">REPTECH</a>.</strong> Todos los derechos reservados.
       </footer>
 
       
     <!-- jQuery 2.1.4 -->
     <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>
+    @stack('scripts')
     <!-- Bootstrap 3.3.5 -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('js/app.min.js')}}"></script>
     

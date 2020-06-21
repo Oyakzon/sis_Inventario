@@ -30,3 +30,6 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 
+Route::resource('compras/ingreso','IngresoController');
+
+Route::resource('ventas/venta','VentaController');

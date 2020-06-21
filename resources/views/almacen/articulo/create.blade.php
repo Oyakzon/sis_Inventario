@@ -27,7 +27,7 @@
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			<div class="form-group">
 				<label>Categoria</label>
-					<select name="idcategoria" class="form-control">
+					<select name="idcategoria" class="form-control selectpicker" data-live-search="true">
 						@foreach ($categorias as $cat)
 							<option value="{{$cat->idcategoria}}">{{$cat->nombre}}</option>
 						@endforeach
