@@ -53,7 +53,7 @@ foreach ($totales as $total )
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">Registrados <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{url('seguridad/usuario')}}" class="small-box-footer">Registrados <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-3">
@@ -66,7 +66,7 @@ foreach ($totales as $total )
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="{{url('seguridad/usuario')}}" class="small-box-footer">Articulos <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{url('almacen/articulo')}}" class="small-box-footer">Articulos <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
         </div>
