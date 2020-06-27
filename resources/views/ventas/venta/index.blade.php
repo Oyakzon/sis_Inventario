@@ -2,7 +2,7 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3> Listado de Ventas <a href="venta/create"><button class="btn btn-success">Nuevo</button></a></h3>
+	<h3>Listado de Ventas <a href="venta/create"><button class="btn btn-success">Nuevo</button></a> <a href="{{url('reporteventas')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
 		@include('ventas.venta.search')
 	</div>
 </div>
@@ -30,6 +30,7 @@
 					<td>{{ $ven->estado}}</td>
 					<td>
 						<a href="{{URL::action('VentaController@show',$ven->idventa)}}"><button class="btn btn-primary">Detalles</button></a>
+						<a target="_blank" href="{{URL::action('VentaController@reportec',$ven->idventa)}}"><button class="btn btn-info">Reporte</button></a>
                          <a href="" data-target="#modal-delete-{{$ven->idventa}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
 					</td>
 				</tr>
@@ -40,5 +41,10 @@
 		{{$ventas->render()}}
 	</div>
 </div>
-
+@push ('scripts')
+<script>
+$('#liVentas').addClass("treeview active");
+$('#liVentass').addClass("active");
+</script>
+@endpush
 @endsection

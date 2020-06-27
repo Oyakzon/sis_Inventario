@@ -36,11 +36,17 @@
 		</div>
 
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-			<div class="form-group">
-            	<label for="codigo">Codigo</label>
-            	<input type="text" name="codigo" required value="{{old('codigo')}}" class="form-control" placeholder="Codigo del articulo...">
+    		<div class="form-group">
+            	<label for="codigo">Código</label>
+            	<input type="text" name="codigo" id="codigobar" required value="{{old('codigo')}}" class="form-control" placeholder="Código del artículo...">
+                <br>
+               <button class="btn btn-success" type="button" onclick="generarBarcode()">Generar</button>
+                <button class="btn btn-info" onclick="imprimir()"type="button">imprimir</button>
+                <div id="print">
+                    <svg id="barcode"></svg>
+                </div>
             </div>
-		</div>
+    	</div>
 
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 			<div class="form-group">
@@ -73,6 +79,31 @@
             
             
 
-			{!!Form::close()!!}		
-            
+			{!!Form::close()!!}	
+@push ('scripts')
+<script src="{{asset('js/JsBarcode.all.min.js')}}"></script>
+<script src="{{asset('js/jquery.PrintArea.js')}}"></script>
+<script>
+function generarBarcode()
+{   
+    codigo=$("#codigobar").val();
+    JsBarcode("#barcode", codigo, {
+    format: "CODE128",
+    font: "OCRB",
+    fontSize: 18,
+    textMargin: 0
+    });
+}
+$('#liAlmacen').addClass("treeview active");
+$('#liArticulos').addClass("active");
+
+
+//Código para imprimir el svg
+function imprimir()
+{
+    $("#print").printArea();
+}
+</script>
+@endpush 
+
 @endsection

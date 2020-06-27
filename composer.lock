@@ -4,9 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f6da9d5940727ed2adc542ca6c6d8335",
-    "content-hash": "0feb6af5bef0e094e776fba476c27e7c",
+    "hash": "a0ffb116d6cec0c0cc449e9205868a30",
+    "content-hash": "b78f7d70e40fb2a74064bc4ac3256d63",
     "packages": [
+        {
+            "name": "anouar/fpdf",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:xroot/laravel-fpdf.git",
+                "reference": "master"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xroot/laravel-fpdf/zipball/master",
+                "reference": "master",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Anouar\\Fpdf": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Anouar",
+                    "email": "dtekind@gmail.com"
+                }
+            ],
+            "description": "Fpdf allows to generate PDF files",
+            "time": "2015-03-30 12:59:05"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.0.0",

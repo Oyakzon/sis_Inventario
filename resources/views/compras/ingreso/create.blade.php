@@ -126,8 +126,9 @@
 					<button class="btn btn-danger" type="reset">Cancelar</button>
 				</div>
 			</div>
-			{!!Form::close()!!}			
+					
 		</div>
+			{!!Form::close()!!}	
 @push ('scripts')
 <script>
 		$(document).ready(function(){
@@ -139,6 +140,20 @@
 		total=0;
 		subtotal=[];
 		$("#guardar").hide();
+		$("#tipo_comprobante").change(marcarImpuesto);
+
+		function marcarImpuesto()
+  {
+			tipo_comprobante=$("#tipo_comprobante option:selected").text();
+			if (tipo_comprobante=='Factura')
+			{
+				$("#impuesto").prop("checked", true); 
+			}
+			else
+			{
+				$("#impuesto").prop("checked", false);
+			}
+  }
 
 		function agregar()
 		{
@@ -168,7 +183,7 @@
 		//LIMPIAR CASILLAS TEXT NOMBRADAS
 		function limpiar(){
 			$("#pcantidad").val("");
-			$("#pprecio_compraa").val("");
+			$("#pprecio_compra").val("");
 			$("#pprecio_venta").val("");
 		}
 		//EVALUAR SI SE INGRESARON DETALLES SCRIPT
@@ -190,6 +205,8 @@
 			$("#fila" + index).remove();
 			evaluar();
 		}
+		$('#liCompras').addClass("treeview active");
+$('#liIngresos').addClass("active");
 </script>
 @endpush
 @endsection

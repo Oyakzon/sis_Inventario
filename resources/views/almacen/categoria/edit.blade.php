@@ -32,4 +32,10 @@
             
 		</div>
 	</div>
+@push ('scripts')
+<script>
+$('#liAlmacen').addClass("treeview active");
+$('#liCategorias').addClass("active");
+</script>
+@endpush
 @endsection

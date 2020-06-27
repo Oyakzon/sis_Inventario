@@ -12,6 +12,8 @@ use sis_Inventario\Http\Requests\ArticuloFormRequest;
 use sis_Inventario\Articulo;
 use DB;
 
+use Fpdf;
+
 class ArticuloController extends Controller
 {
     public function __construct()
@@ -77,6 +79,7 @@ class ArticuloController extends Controller
         $articulo->nombre=$request->get('nombre');
         $articulo->stock=$request->get('stock');
         $articulo->descripcion=$request->get('descripcion');
+        $articulo->estado='Activo';
         
         
         if (Input::hasFile('imagen')){
@@ -95,4 +98,45 @@ class ArticuloController extends Controller
         $articulo->update();
         return Redirect::to('almacen/articulo');
     }
+    public function reporte(){
+        //Obtenemos los registros
+        $registros=DB::table('articulo as a')
+           ->join('categoria as c','a.idcategoria','=','c.idcategoria')
+           ->select('a.idarticulo','a.nombre','a.codigo','a.stock','c.nombre as categoria','a.descripcion','a.imagen','a.estado')
+           ->orderBy('a.nombre','asc')
+           ->get();
+
+        $pdf = new Fpdf();
+        $pdf::AddPage();
+        $pdf::SetTextColor(35,56,113);
+        $pdf::SetFont('Arial','B',11);
+        $pdf::Cell(0,10,utf8_decode("Listado Artículos"),0,"","C");
+        $pdf::Ln();
+        $pdf::Ln();
+        $pdf::SetTextColor(0,0,0);  // Establece el color del texto 
+        $pdf::SetFillColor(206, 246, 245); // establece el color del fondo de la celda 
+        $pdf::SetFont('Arial','B',10); 
+        //El ancho de las columnas debe de sumar promedio 190        
+        $pdf::cell(30,8,utf8_decode("Código"),1,"","L",true);
+        $pdf::cell(80,8,utf8_decode("Nombre"),1,"","L",true);
+        $pdf::cell(65,8,utf8_decode("Categoría"),1,"","L",true);
+        $pdf::cell(15,8,utf8_decode("Stock"),1,"","L",true);
+        
+        $pdf::Ln();
+        $pdf::SetTextColor(0,0,0);  // Establece el color del texto 
+        $pdf::SetFillColor(255, 255, 255); // establece el color del fondo de la celda
+        $pdf::SetFont("Arial","",9);
+        
+        foreach ($registros as $reg)
+        {
+           $pdf::cell(30,6,utf8_decode($reg->codigo),1,"","L",true);
+           $pdf::cell(80,6,utf8_decode($reg->nombre),1,"","L",true);
+           $pdf::cell(65,6,utf8_decode($reg->categoria),1,"","L",true);
+           $pdf::cell(15,6,utf8_decode($reg->stock),1,"","L",true);
+           $pdf::Ln(); 
+        }
+
+        $pdf::Output();
+        exit;
+   }
 }

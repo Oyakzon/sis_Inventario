@@ -27,6 +27,13 @@
 					<p>{{$ingreso->num_comprobante}}</p>
 				</div>
 			</div>
+			<div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+            	<div class="form-group">
+                	<label for="impuesto">Impuesto</label>
+                	<p>{{$ingreso->impuesto}} %</p>
+            	</div>
+        	</div>
+			
 		</div>
 
 		<div class="row">
@@ -46,7 +53,7 @@
 								<th></th>
 								<th></th>
 								<th></th>
-								<th><h4 id="total">Total: ${{$ingreso->total}}</h4></th>
+								<th><h4 id="total">{{$ingreso->total}}</h4></th> 
 							</tfoot>
 							<tbody>								
 								@foreach($detalles as $det)
@@ -63,5 +70,11 @@
 					</div>
 
 				</div>
-			</div>						
+			</div>
+@push ('scripts')
+<script>
+$('#liCompras').addClass("treeview active");
+$('#liIngresos').addClass("active");
+</script>
+@endpush					
 @endsection

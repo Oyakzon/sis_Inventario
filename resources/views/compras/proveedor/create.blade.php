@@ -64,7 +64,13 @@
 					<button class="btn btn-danger" type="reset">Cancelar</button>
 				</div>
 			</div>
-			{!!Form::close()!!}			
+					
 		</div>
-		
+	{!!Form::close()!!}	
+@push ('scripts')
+<script>
+$('#liCompras').addClass("treeview active");
+$('#liProveedores').addClass("active");
+</script>
+@endpush		
 @endsection

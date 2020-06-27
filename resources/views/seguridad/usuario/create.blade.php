@@ -79,5 +79,11 @@
 			{!!Form::close()!!}		
             
 		</div>
-	</div>
+    </div>
+    @push ('scripts')
+<script>
+$('#liAcceso').addClass("treeview active");
+$('#liUsuarios').addClass("active");
+</script>
+@endpush
 @endsection

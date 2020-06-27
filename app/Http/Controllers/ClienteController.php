@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Redirect;
 use sis_Inventario\Http\Requests\PersonaFormRequest;
 use DB;
 
+use Fpdf;
+
 class ClienteController extends Controller
 {
     public function __construct()
@@ -76,4 +78,44 @@ class ClienteController extends Controller
         $persona->update();
         return Redirect::to('ventas/cliente');
     }
+    public function reporte(){
+        //Obtenemos los registros
+        $registros=DB::table('persona')
+           ->where ('tipo_persona','=','Cliente')
+           ->orderBy('idpersona','desc')
+           ->get();
+
+        $pdf = new Fpdf();
+        $pdf::AddPage();
+        $pdf::SetTextColor(35,56,113);
+        $pdf::SetFont('Arial','B',11);
+        $pdf::Cell(0,10,utf8_decode("Listado Clientes"),0,"","C");
+        $pdf::Ln();
+        $pdf::Ln();
+        $pdf::SetTextColor(0,0,0);  // Establece el color del texto 
+        $pdf::SetFillColor(206, 246, 245); // establece el color del fondo de la celda 
+        $pdf::SetFont('Arial','B',10); 
+        //El ancho de las columnas debe de sumar promedio 190        
+        $pdf::cell(80,8,utf8_decode("Nombre"),1,"","L",true);
+        $pdf::cell(35,8,utf8_decode("Documento"),1,"","L",true);
+        $pdf::cell(50,8,utf8_decode("Email"),1,"","L",true);
+        $pdf::cell(25,8,utf8_decode("Teléfono"),1,"","L",true);
+        
+        $pdf::Ln();
+        $pdf::SetTextColor(0,0,0);  // Establece el color del texto 
+        $pdf::SetFillColor(255, 255, 255); // establece el color del fondo de la celda
+        $pdf::SetFont("Arial","",9);
+        
+        foreach ($registros as $reg)
+        {
+           $pdf::cell(80,6,utf8_decode($reg->nombre),1,"","L",true);
+           $pdf::cell(35,6,utf8_decode($reg->num_documento),1,"","L",true);
+           $pdf::cell(50,6,utf8_decode($reg->email),1,"","L",true);
+           $pdf::cell(25,6,utf8_decode($reg->telefono),1,"","L",true);
+           $pdf::Ln(); 
+        }
+
+        $pdf::Output();
+        exit;
+   }
 }

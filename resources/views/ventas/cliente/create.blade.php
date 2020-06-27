@@ -1,7 +1,7 @@
 @extends ('layouts.admin')
 @section ('contenido')
 	<div class="row">
-		<h3>Nuevo cliente</h3>
+		<h3>Nuevo Cliente</h3>
 		@if (count($errors)>0)
 		<div class="alert alert-danger">
 			<ul>
@@ -58,7 +58,13 @@
           		<button class="btn btn-primary" type="submit">Guardar</button>
            		<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
-		</div>
-		{!!Form::close()!!}			
+		</div>			
 	</div>
+	{!!Form::close()!!}
+@push ('scripts')
+<script>
+$('#liVentas').addClass("treeview active");
+$('#liClientes').addClass("active");
+</script>
+@endpush
 @endsection

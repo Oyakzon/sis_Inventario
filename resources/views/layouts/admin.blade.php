@@ -8,7 +8,6 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
@@ -21,13 +20,13 @@
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
 
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-black sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{{url('home')}}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>sis</b>I</I></span>
           <!-- logo for regular state and mobile devices -->
@@ -48,16 +47,16 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <small class="bg-red">Online</small>
-                  <span class="hidden-xs">REPTECH</span>
+                  <small class="bg-green">Online</small>
+                  <span class="hidden-xs">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     
                     <p>
-                      REPTECH - Desarrollando Software
-                      <small>suscribete a mi canal de youtube <br> y agregame en Habbo</small>
+                      www.REPTECH.com - Desarrollando Software
+                      <small>Gracias por preferirnos como su empresa<br></small>
                     </p>
                   </li>
                   
@@ -75,6 +74,7 @@
           </div>
 
         </nav>
+
       </header>
       <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar">
@@ -85,60 +85,66 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header"></li>
+
+            <li id="liEscritorio">
+              <a href="{{url('home')}}">
+                <i class="fa fa-bar-chart"></i> <span>Estadisticas</span>
+              </a>
+            </li>
             
-            <li class="treeview">
+            <li id="liAlmacen" class="treeview">
               <a href="#">
-                <i class="fa fa-laptop"></i>
+                <i class="fa fa-archive"></i>
                 <span>Almacén</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{url('almacen/articulo')}}"><i class="fa fa-circle-o"></i> Artículos</a></li>
-                <li><a href="{{url('almacen/categoria')}}"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                <li id="liArticulos"><a href="{{url('almacen/articulo')}}"><i class="fa fa-circle-o"></i> Artículos</a></li>
+                <li id="liCategorias"><a href="{{url('almacen/categoria')}}"><i class="fa fa-circle-o"></i> Categorías</a></li>
               </ul>
             </li>
             
-            <li class="treeview">
+            <li id="liCompras" class="treeview">
               <a href="#">
-                <i class="fa fa-th"></i>
+                <i class="fa fa-money"></i>
                 <span>Compras</span>
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{url('compras/ingreso')}}"><i class="fa fa-circle-o"></i> Ingresos</a></li>
-                <li><a href="{{url('compras/proveedor')}}"><i class="fa fa-circle-o"></i> Proveedores</a></li>
+                <li id="liIngresos"><a href="{{url('compras/ingreso')}}"><i class="fa fa-circle-o"></i> Ingresos</a></li>
+                <li id="liProveedores"><a href="{{url('compras/proveedor')}}"><i class="fa fa-circle-o"></i> Proveedores</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li id="liVentas" class="treeview">
               <a href="#">
                 <i class="fa fa-shopping-cart"></i>
                 <span>Ventas</span>
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{url('ventas/venta')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
-                <li><a href="{{url('ventas/cliente')}}"><i class="fa fa-circle-o"></i> Clientes</a></li>
+                <li id="liVentass"><a href="{{url('ventas/venta')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
+                <li id="liClientes"><a href="{{url('ventas/cliente')}}"><i class="fa fa-circle-o"></i> Clientes</a></li>
               </ul>
             </li>
                        
-            <li class="treeview">
+            <li id="liAcceso" class="treeview">
               <a href="#">
-                <i class="fa fa-folder"></i> <span>Acceso</span>
+                <i class="fa fa-user"></i> <span>Usuarios</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{url('seguridad/usuario')}}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                <li id="liUsuarios"><a href="{{url('seguridad/usuario')}}"><i class="fa fa-circle-o"></i> Registrar</a></li>
                 
               </ul>
             </li>
-             <li>
-              <a href="#">
-                <i class="fa fa-plus-square"></i> <span>Ayuda</span>
+            <li>
+              <a href="" target="_blank">
+                <i class="fa fa-question-circle"></i> <span>Ayuda</span>
                 <small class="label pull-right bg-red">PDF</small>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="{{url('acerca')}}">
                 <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
                 <small class="label pull-right bg-yellow">IT</small>
               </a>
@@ -191,10 +197,7 @@
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
       <!--Fin-Contenido-->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
-        </div>
+      <footer class="main-footer">>
         <strong>Copyright &copy; 2020 <a href="https://www.ipchile.cl/">REPTECH</a>.</strong> Todos los derechos reservados.
       </footer>
 

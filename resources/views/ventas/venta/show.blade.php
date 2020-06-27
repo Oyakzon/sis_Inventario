@@ -1,6 +1,5 @@
 @extends ('layouts.admin')
 @section ('contenido')
-
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="form-group">
@@ -27,6 +26,13 @@
 					<p>{{$venta->num_comprobante}}</p>
 				</div>
 			</div>
+
+			<div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+				<div class="form-group">
+					<label for="impuesto">Impuesto</label>
+					<p>{{$venta->impuesto}} %</p>
+				</div>
+        	</div>
 		</div>
 
 		<div class="row">
@@ -42,20 +48,27 @@
 								<th>Subtotal</th>
 							</thead>
 							<tfoot>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th><h4 id="total">Total: ${{$venta->total_venta}}</h4></th>
+							<tr>
+                                <th  colspan="4"><p align="right">Total:</p></th>
+                                <th><p align="right">S/. {{$venta->total_venta}}</p></th>
+                            </tr>
+                            <tr>
+                                <th colspan="4"><p align="right">Total Impuesto (18%):</p></th>
+                                <th><p align="right">S/. {{$venta->total_venta*$venta->impuesto/100}}</p></th>
+                            </tr>
+                            <tr>
+                                <th  colspan="4"><p align="right">Total Pagar:</p></th>
+                                <th><p align="right">S/. {{$venta->total_venta+($venta->total_venta*$venta->impuesto/100)}}</p></th>
+                            </tr>
 							</tfoot>
 							<tbody>								
 								@foreach($detalles as $det)
 								<tr>
 									<td>{{$det->articulo}}</td>
 									<td>{{$det->cantidad}}</td>
-									<td>{{$det->precio_venta}}</td>
-									<td>{{$det->descuento}}</td>
-									<td>{{$det->cantidad*$det->precio_venta}}</td>
+									<td>$/. {{$det->precio_venta}}</td>
+									<td>$/. {{$det->descuento}}</td>
+									<td align="right">$/. {{$det->cantidad*$det->precio_venta-$det->descuento}}</td>
 								</tr>
 								@endforeach
 							</tbody>
@@ -63,5 +76,11 @@
 					</div>
 
 				</div>
-			</div>						
+			</div>
+@push ('scripts')
+<script>
+$('#liVentas').addClass("treeview active");
+$('#liVentass').addClass("active");
+</script>
+@endpush								
 @endsection

@@ -3,11 +3,14 @@
 namespace League\Flysystem;
 
 use InvalidArgumentException;
+use League\Flysystem\Adapter\CanOverwriteFiles;
 use League\Flysystem\Plugin\PluggableTrait;
 use League\Flysystem\Util\ContentListingFormatter;
 
 /**
  * @method array getWithMetadata(string $path, array $metadata)
+ * @method bool  forceCopy(string $path, string $newpath)
+ * @method bool  forceRename(string $path, string $newpath)
  * @method array listFiles(string $path = '', boolean $recursive = false)
  * @method array listPaths(string $path = '', boolean $recursive = false)
  * @method array listWith(array $keys = [], $directory = '', $recursive = false)
@@ -92,7 +95,7 @@ class Filesystem implements FilesystemInterface
         $path = Util::normalizePath($path);
         $config = $this->prepareConfig($config);
 
-        if ($this->has($path)) {
+        if ( ! $this->getAdapter() instanceof CanOverwriteFiles && $this->has($path)) {
             return (bool) $this->getAdapter()->update($path, $contents, $config);
         }
 
@@ -112,7 +115,7 @@ class Filesystem implements FilesystemInterface
         $config = $this->prepareConfig($config);
         Util::rewindStream($resource);
 
-        if ($this->has($path)) {
+        if ( ! $this->getAdapter() instanceof CanOverwriteFiles && $this->has($path)) {
             return (bool) $this->getAdapter()->updateStream($path, $resource, $config);
         }
 
@@ -267,7 +270,8 @@ class Filesystem implements FilesystemInterface
         $directory = Util::normalizePath($directory);
         $contents = $this->getAdapter()->listContents($directory, $recursive);
 
-        return (new ContentListingFormatter($directory, $recursive))->formatListing($contents);
+        return (new ContentListingFormatter($directory, $recursive, $this->config->get('case_sensitive', true)))
+            ->formatListing($contents);
     }
 
     /**
@@ -278,7 +282,7 @@ class Filesystem implements FilesystemInterface
         $path = Util::normalizePath($path);
         $this->assertPresent($path);
 
-        if ( ! $object = $this->getAdapter()->getMimetype($path)) {
+        if (( ! $object = $this->getAdapter()->getMimetype($path)) || ! array_key_exists('mimetype', $object)) {
             return false;
         }
 
@@ -293,11 +297,11 @@ class Filesystem implements FilesystemInterface
         $path = Util::normalizePath($path);
         $this->assertPresent($path);
 
-        if ( ! $object = $this->getAdapter()->getTimestamp($path)) {
+        if (( ! $object = $this->getAdapter()->getTimestamp($path)) || ! array_key_exists('timestamp', $object)) {
             return false;
         }
 
-        return $object['timestamp'];
+        return (int) $object['timestamp'];
     }
 
     /**
@@ -308,7 +312,7 @@ class Filesystem implements FilesystemInterface
         $path = Util::normalizePath($path);
         $this->assertPresent($path);
 
-        if (($object = $this->getAdapter()->getVisibility($path)) === false) {
+        if (( ! $object = $this->getAdapter()->getVisibility($path)) || ! array_key_exists('visibility', $object)) {
             return false;
         }
 
@@ -321,8 +325,9 @@ class Filesystem implements FilesystemInterface
     public function getSize($path)
     {
         $path = Util::normalizePath($path);
+        $this->assertPresent($path);
 
-        if (($object = $this->getAdapter()->getSize($path)) === false || ! isset($object['size'])) {
+        if (( ! $object = $this->getAdapter()->getSize($path)) || ! array_key_exists('size', $object)) {
             return false;
         }
 
@@ -335,6 +340,7 @@ class Filesystem implements FilesystemInterface
     public function setVisibility($path, $visibility)
     {
         $path = Util::normalizePath($path);
+        $this->assertPresent($path);
 
         return (bool) $this->getAdapter()->setVisibility($path, $visibility);
     }
@@ -359,7 +365,7 @@ class Filesystem implements FilesystemInterface
 
         if ( ! $handler) {
             $metadata = $this->getMetadata($path);
-            $handler = $metadata['type'] === 'file' ? new File($this, $path) : new Directory($this, $path);
+            $handler = ($metadata && $metadata['type'] === 'file') ? new File($this, $path) : new Directory($this, $path);
         }
 
         $handler->setPath($path);
@@ -374,10 +380,12 @@ class Filesystem implements FilesystemInterface
      * @param string $path path to file
      *
      * @throws FileNotFoundException
+     *
+     * @return void
      */
     public function assertPresent($path)
     {
-        if ( ! $this->has($path)) {
+        if ($this->config->get('disable_asserts', false) === false && ! $this->has($path)) {
             throw new FileNotFoundException($path);
         }
     }
@@ -388,10 +396,12 @@ class Filesystem implements FilesystemInterface
      * @param string $path path to file
      *
      * @throws FileExistsException
+     *
+     * @return void
      */
     public function assertAbsent($path)
     {
-        if ($this->has($path)) {
+        if ($this->config->get('disable_asserts', false) === false && $this->has($path)) {
             throw new FileExistsException($path);
         }
     }

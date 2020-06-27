@@ -2,7 +2,7 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Categorías <a href="categoria/create"><button class="btn btn-success">Nuevo</button></a></h3>
+	<h3>Listado de Categorías <a href="categoria/create"><button class="btn btn-success">Nuevo</button></a> <a href="{{url('reportecategorias')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
 		@include('almacen.categoria.search')
 	</div>
 </div>
@@ -34,5 +34,10 @@
 		{{$categorias->render()}}
 	</div>
 </div>
-
+@push ('scripts')
+<script>
+$('#liAlmacen').addClass("treeview active");
+$('#liCategorias').addClass("active");
+</script>
+@endpush
 @endsection

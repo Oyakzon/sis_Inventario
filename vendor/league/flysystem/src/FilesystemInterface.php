@@ -2,6 +2,8 @@
 
 namespace League\Flysystem;
 
+use InvalidArgumentException;
+
 interface FilesystemInterface
 {
     /**
@@ -61,6 +63,8 @@ interface FilesystemInterface
      *
      * @param string $path The path to the file.
      *
+     * @throws FileNotFoundException
+     *
      * @return int|false The file size or false on failure.
      */
     public function getSize($path);
@@ -83,7 +87,7 @@ interface FilesystemInterface
      *
      * @throws FileNotFoundException
      *
-     * @return string|false The timestamp or false on failure.
+     * @return int|false The timestamp or false on failure.
      */
     public function getTimestamp($path);
 
@@ -216,6 +220,8 @@ interface FilesystemInterface
      * @param string $path       The path to the file.
      * @param string $visibility One of 'public' or 'private'.
      *
+     * @throws FileNotFoundException
+     *
      * @return bool True on success, false on failure.
      */
     public function setVisibility($path, $visibility);
@@ -257,6 +263,8 @@ interface FilesystemInterface
 
     /**
      * Get a file/directory handler.
+     *
+     * @deprecated
      *
      * @param string  $path    The path to the file.
      * @param Handler $handler An optional existing handler to populate.
