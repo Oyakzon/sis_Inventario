@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 23-06-2020 a las 22:28:34
+-- Tiempo de generación: 27-06-2020 a las 16:43:15
 -- Versión del servidor: 8.0.20
 -- Versión de PHP: 7.4.7
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sis_inventario`
 --
+DROP DATABASE IF EXISTS `sis_inventario`;
 CREATE DATABASE IF NOT EXISTS `sis_inventario` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `sis_inventario`;
 
@@ -29,6 +30,7 @@ USE `sis_inventario`;
 -- Estructura de tabla para la tabla `articulo`
 --
 
+DROP TABLE IF EXISTS `articulo`;
 CREATE TABLE `articulo` (
   `idarticulo` int NOT NULL,
   `idcategoria` int NOT NULL,
@@ -46,12 +48,12 @@ CREATE TABLE `articulo` (
 
 INSERT INTO `articulo` (`idarticulo`, `idcategoria`, `codigo`, `nombre`, `stock`, `descripcion`, `imagen`, `estado`) VALUES
 (5, 1, '21231233', 'Fechadores-Numeradores', 71, 'Impresión instantánea', 'db9c9e2e1f7c796f1d857257b23ab0a8.png', 'Activo'),
-(7, 1, '125254531', 'Cubiletes', 254, 'Portalapiz', '540.png', 'Activo'),
-(8, 1, '1234567', 'Abrecartas', 184, 'Abrir cartas de forma sencilla', 'unnamed.jpg', 'Activo'),
-(9, 2, '4216512', 'Blocs de notas y cartas', 300, 'Variedad de blocs de notas y cartas', 'blocs-notas.jpg', 'Activo'),
-(10, 2, '126377', 'Libretas espiral', 200, 'Libretas de tipo espiral variedad', 'rite-673.png', 'Activo'),
-(11, 4, '123123', 'Calculadoras y accesorios', 100, 'Calculadoras y sus accesorios', 'product-nspire-cx-cas-hero.png', 'Activo'),
-(12, 4, '123652163', 'Destructor de documentos', 20, 'Para destruir archivos basura', 'Destructora_de_papel_Despacho.png', 'Activo');
+(7, 1, '125254531', 'Cubiletes', 266, 'Portalapiz', '540.png', 'Activo'),
+(8, 1, '1234567', 'Abrecartas', 462, 'Abrir cartas de forma sencilla', 'unnamed.jpg', 'Activo'),
+(9, 2, '4216512', 'Blocs de notas y cartas', 322, 'Variedad de blocs de notas y cartas', 'blocs-notas.jpg', 'Activo'),
+(10, 2, '126377', 'Libretas espiral', 588, 'Libretas de tipo espiral variedad', 'rite-673.png', 'Activo'),
+(11, 4, '123123', 'Calculadoras y accesorios', 40, 'Calculadoras y sus accesorios', 'product-nspire-cx-cas-hero.png', 'Activo'),
+(12, 4, '123652163', 'Destructor de documentos', 98, 'Para destruir archivos basura', 'Destructora_de_papel_Despacho.png', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -59,6 +61,7 @@ INSERT INTO `articulo` (`idarticulo`, `idcategoria`, `codigo`, `nombre`, `stock`
 -- Estructura de tabla para la tabla `categoria`
 --
 
+DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE `categoria` (
   `idcategoria` int NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -83,6 +86,7 @@ INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `condicion`) VA
 -- Estructura de tabla para la tabla `detalle_ingreso`
 --
 
+DROP TABLE IF EXISTS `detalle_ingreso`;
 CREATE TABLE `detalle_ingreso` (
   `iddetalle_ingreso` int NOT NULL,
   `idingreso` int NOT NULL,
@@ -97,18 +101,15 @@ CREATE TABLE `detalle_ingreso` (
 --
 
 INSERT INTO `detalle_ingreso` (`iddetalle_ingreso`, `idingreso`, `idarticulo`, `cantidad`, `precio_compra`, `precio_venta`) VALUES
-(11, 14, 8, 12, '14.00', '118.00'),
-(12, 15, 8, 122, '2000.00', '3000.00'),
-(13, 16, 7, 200, '4000.00', '6000.00'),
-(14, 17, 11, 100, '3000.00', '4500.00'),
-(15, 17, 10, 200, '3000.00', '3500.00'),
-(16, 17, 12, 20, '200000.00', '300000.00'),
-(17, 17, 9, 300, '1000.00', '2000.00'),
-(18, 18, 7, 24, '12.00', '12.00');
+(21, 20, 8, 400, '5000.00', '7000.00'),
+(22, 20, 12, 100, '2000.00', '5000.00'),
+(23, 21, 12, 10, '2000000.00', '5000000.00'),
+(24, 22, 9, 122, '5000.00', '9000.00');
 
 --
 -- Disparadores `detalle_ingreso`
 --
+DROP TRIGGER IF EXISTS `tr_updStockIngreso`;
 DELIMITER $$
 CREATE TRIGGER `tr_updStockIngreso` AFTER INSERT ON `detalle_ingreso` FOR EACH ROW BEGIN
 	UPDATE articulo SET stock = stock + NEW.cantidad
@@ -123,6 +124,7 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `detalle_venta`
 --
 
+DROP TABLE IF EXISTS `detalle_venta`;
 CREATE TABLE `detalle_venta` (
   `iddetalle_venta` int NOT NULL,
   `idventa` int NOT NULL,
@@ -137,11 +139,22 @@ CREATE TABLE `detalle_venta` (
 --
 
 INSERT INTO `detalle_venta` (`iddetalle_venta`, `idventa`, `idarticulo`, `cantidad`, `precio_venta`, `descuento`) VALUES
-(1, 5, 8, 2, '300.00', '0.00');
+(1, 5, 8, 2, '300.00', '0.00'),
+(2, 6, 7, 12, '3006.00', '1.00'),
+(3, 7, 8, 40, '1559.00', '0.00'),
+(4, 7, 10, 12, '3500.00', '0.00'),
+(5, 8, 8, 122, '1559.00', '0.00'),
+(6, 8, 10, 100, '3500.00', '0.00'),
+(7, 9, 12, 12, '300000.00', '0.00'),
+(8, 10, 11, 100, '4500.00', '0.00'),
+(9, 10, 10, 12, '3500.00', '0.00'),
+(10, 11, 9, 100, '9000.00', '0.00'),
+(11, 11, 12, 20, '2502500.00', '0.00');
 
 --
 -- Disparadores `detalle_venta`
 --
+DROP TRIGGER IF EXISTS `tr_updStockVenta`;
 DELIMITER $$
 CREATE TRIGGER `tr_updStockVenta` AFTER INSERT ON `detalle_venta` FOR EACH ROW BEGIN
 UPDATE articulo SET stock = stock -
@@ -157,6 +170,7 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `ingreso`
 --
 
+DROP TABLE IF EXISTS `ingreso`;
 CREATE TABLE `ingreso` (
   `idingreso` int NOT NULL,
   `idproveedor` int NOT NULL,
@@ -173,11 +187,9 @@ CREATE TABLE `ingreso` (
 --
 
 INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `fecha_hora`, `impuesto`, `estado`) VALUES
-(14, 5, 'Factura', '122332', '122132', '2020-06-23 16:54:35', '19.00', 'Anulado'),
-(15, 4, 'Boleta', '3334455', '3774455', '2020-06-23 17:05:44', '19.00', 'Anulado'),
-(16, 4, 'Boleta', '123452', '654321', '2020-06-23 17:06:51', '19.00', 'Aprobado'),
-(17, 4, 'Factura', '123213', '123333', '2020-06-23 17:14:11', '19.00', 'Aprobado'),
-(18, 8, 'Boleta', '21342', '123213', '2020-06-23 18:22:59', '19.00', 'Aprobado');
+(20, 6, 'Factura', '1', '1', '2020-06-26 21:23:55', '0.00', 'Aprobado'),
+(21, 7, 'Factura', '2', '2', '2020-06-26 21:33:16', '0.00', 'Aprobado'),
+(22, 8, 'Boleta', '3', '3', '2020-06-27 00:19:01', '0.00', 'Aprobado');
 
 -- --------------------------------------------------------
 
@@ -185,6 +197,7 @@ INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_co
 -- Estructura de tabla para la tabla `migrations`
 --
 
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `migration` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `batch` int NOT NULL
@@ -204,6 +217,7 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 -- Estructura de tabla para la tabla `password_resets`
 --
 
+DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets` (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -216,6 +230,7 @@ CREATE TABLE `password_resets` (
 -- Estructura de tabla para la tabla `persona`
 --
 
+DROP TABLE IF EXISTS `persona`;
 CREATE TABLE `persona` (
   `idpersona` int NOT NULL,
   `tipo_persona` varchar(20) NOT NULL,
@@ -235,7 +250,7 @@ INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, 
 (1, 'Cliente', 'Sebastian Acosta', 'DNI', '123123123123', '11 de septiembre #2554', '962969091', 'sebastian.ipchile@gmail.com'),
 (3, 'Cliente', 'Marcos Oyarzo', 'RUC', '12635123576', 'Puente Alto #666', '812938921', 'oyarzo@gmail.com'),
 (4, 'Proveedor', 'Jose Pinto', 'RUC', '1728129812', 'Los Lagos #3322', '962999721', 'JosePinto@gmail.com'),
-(5, 'Proveedor', 'Juan Costa', 'RUC', '1251624561', 'Libertador #2254', '962329091', 'juan.costaipchile@gmail.com'),
+(5, 'Inactivo', 'Juan Costa', 'RUC', '1251624561', 'Libertador #2254', '962329091', 'juan.costaipchile@gmail.com'),
 (6, 'Proveedor', 'Carla Acosta', 'RUC', '21123123', '12 de septiembre #2534', '962969093', 'CarlaAcosta@gmail.com'),
 (7, 'Proveedor', 'Cecilia Alvarez', 'RUC', '44524553', 'Bellavista #3443', '962364091', 'Cecilia.Alvarez@gmail.com'),
 (8, 'Proveedor', 'Jordan Castillo', 'RUC', '1245345', 'La torre #2333', '962999722', 'JordanCastillo@gmail.com');
@@ -246,6 +261,7 @@ INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, 
 -- Estructura de tabla para la tabla `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int UNSIGNED NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -261,7 +277,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Francisco Guerrero', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', 'U1lnxPL92XMMD47rH36Ea09aZ3hi8TnJOXphmGefHDVHKhUrF0yicgLfXwOT', '2020-06-19 20:08:38', '2020-06-23 14:47:14');
+(1, 'Francisco Guerrero', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', 'MEnUVMsLUr7C8cP8WyrbJPAUO8Ghrm2gOK6qpfCDIcT2Osih82poPVlbQlhE', '2020-06-19 20:08:38', '2020-06-26 20:33:35'),
+(3, 'Sebastian', 'sebastian.ipchile@gmail.com', '$2y$10$jWOHQQZZXkJGFqe6OVEH2.yQY7hnPmcMkNbAfascrRWGoEcDqfXlO', 'm60JyF6kSgU3EUsQlS5AIaqtkX9NCEOcNm5nX1kYwCFEL6JspRaMDS6MQ0Wf', '2020-06-26 20:33:27', '2020-06-27 06:33:49');
 
 -- --------------------------------------------------------
 
@@ -269,6 +286,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `creat
 -- Estructura de tabla para la tabla `venta`
 --
 
+DROP TABLE IF EXISTS `venta`;
 CREATE TABLE `venta` (
   `idventa` int NOT NULL,
   `idcliente` int NOT NULL,
@@ -286,17 +304,24 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`idventa`, `idcliente`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `fecha_hora`, `impuesto`, `total_venta`, `estado`) VALUES
-(5, 1, 'Boleta', '222', '222', '2020-06-21 01:58:21', '19.00', '600.00', 'Anulada');
+(5, 1, 'Boleta', '222', '222', '2020-06-21 01:58:21', '19.00', '600.00', 'Anulada'),
+(6, 1, 'Factura', '1232132', '12321312', '2020-06-26 15:52:52', '18.00', '36071.00', 'Anulada'),
+(7, 3, 'Factura', '123123', '213213', '2020-06-26 16:57:32', '19.00', '104360.00', 'Anulada'),
+(8, 1, 'Boleta', '1234567', '1223231', '2020-06-26 19:11:35', '19.00', '540198.00', 'Aprobado'),
+(9, 3, 'Factura', '1234567', '2132133', '2020-06-26 19:41:53', '19.00', '3600000.00', 'Aprobado'),
+(10, 1, 'Boleta', '1231', '1231', '2020-06-26 20:21:21', '19.00', '352500.00', 'Aprobado'),
+(11, 3, 'Factura', '4', '4', '2020-06-27 00:19:48', '19.00', '50950000.00', 'Aprobado');
 
 --
 -- Disparadores `venta`
 --
+DROP TRIGGER IF EXISTS `tr_updStockAnularVenta`;
 DELIMITER $$
-CREATE TRIGGER `tr_updStockAnularVenta` AFTER UPDATE ON `venta` FOR EACH ROW update articulo a
-    join detalleventa di
-      on di.Id_Articulo = a.Id_Articulo
-     and di.IdVenta = new.IdVenta
-     set a.stock = a.stock + di.cantidad
+CREATE TRIGGER `tr_updStockAnularVenta` AFTER UPDATE ON `venta` FOR EACH ROW update articulo
+    join detalle_venta
+      on detalle_venta.idarticulo = articulo.idarticulo
+     and detalle_venta.idVenta = new.idVenta
+     set articulo.stock = articulo.stock + detalle_venta.cantidad
 $$
 DELIMITER ;
 
@@ -387,19 +412,19 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detalle_ingreso`
 --
 ALTER TABLE `detalle_ingreso`
-  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `iddetalle_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `iddetalle_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
@@ -411,13 +436,13 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idventa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
