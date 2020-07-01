@@ -29,6 +29,17 @@
             </div>
         </div>
 
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label>Rol</label>
+                <select name="role" class="form-control" id="role" selected->{{$usuario->role}}">
+                    <option value="Administrador">Administrador</option>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Operador">Operador</option>            
+                </select>
+            </div>
+        </div>
+    
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email" class="col-md-4 control-label">Correo</label>

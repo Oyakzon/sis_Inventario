@@ -14,6 +14,7 @@
 				<thead>
 					<th>Id</th>
 					<th>Nombre</th>
+					<th>Rol</th>
 					<th>Correo</th>
 					<th>Opciones</th>
 				</thead>
@@ -21,6 +22,7 @@
 				<tr>
 					<td>{{ $usu->id}}</td>
 					<td>{{ $usu->name}}</td>
+					<td>{{ $usu->role}}</td>
 					<td>{{ $usu->email}}</td>
 					<td>
 						<a href="{{URL::action('UsuarioController@edit',$usu->id)}}"><button class="btn btn-info">Editar</button></a>

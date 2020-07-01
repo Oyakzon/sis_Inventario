@@ -20,6 +20,9 @@
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
 
   </head>
+  <!-- /.SE OBTIENE EL VALOR DEL ROL QUE ESTA INGRESADO -->
+  <p type="hidden" {{$rol = Auth::user()->role }}></p>
+
   <body class="hold-transition skin-black-light sidebar-mini">
     <div class="wrapper">
 
@@ -49,6 +52,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <small class="bg-green">Online</small>
                   <span class="hidden-xs">{{ Auth::user()->name }}</span>
+                  <span class="hidden-xs">{{ Auth::user()->role }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
@@ -64,7 +68,7 @@
                   <li class="user-footer">
                     
                     <div class="pull-right">
-                      <a href="{{url('/logout')}}" class="btn btn-default btn-flat">Cerrar</a>
+                      <a href="{{url('/logout')}}" class="btn btn-default btn-flat">Cerrar Sesion</a>
                     </div>
                   </li>
                 </ul>
@@ -85,13 +89,13 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header"></li>
-
             <li id="liEscritorio">
               <a href="{{url('home')}}">
                 <i class="fa fa-bar-chart"></i> <span>Estadisticas</span>
               </a>
             </li>
-            
+
+            @if($rol == 'Gerente' || $rol == 'Administrador')
             <li id="liAlmacen" class="treeview">
               <a href="#">
                 <i class="fa fa-archive"></i>
@@ -103,7 +107,9 @@
                 <li id="liCategorias"><a href="{{url('almacen/categoria')}}"><i class="fa fa-circle-o"></i> Categorías</a></li>
               </ul>
             </li>
+            @endif
             
+            @if($rol == 'Gerente' || $rol == 'Administrador')
             <li id="liCompras" class="treeview">
               <a href="#">
                 <i class="fa fa-money"></i>
@@ -115,28 +121,34 @@
                 <li id="liProveedores"><a href="{{url('compras/proveedor')}}"><i class="fa fa-circle-o"></i> Proveedores</a></li>
               </ul>
             </li>
-            <li id="liVentas" class="treeview">
-              <a href="#">
-                <i class="fa fa-shopping-cart"></i>
-                <span>Ventas</span>
-                 <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li id="liVentass"><a href="{{url('ventas/venta')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
-                <li id="liClientes"><a href="{{url('ventas/cliente')}}"><i class="fa fa-circle-o"></i> Clientes</a></li>
-              </ul>
-            </li>
-                       
+            @endif
+            
+            @if($rol == 'Gerente' || $rol == 'Administrador')
+              <li id="liVentas" class="treeview">
+                <a href="#">
+                  <i class="fa fa-shopping-cart"></i>
+                  <span>Ventas</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li id="liVentass"><a href="{{url('ventas/venta')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
+                  <li id="liClientes"><a href="{{url('ventas/cliente')}}"><i class="fa fa-circle-o"></i> Clientes</a></li>
+                </ul>
+              </li>
+            @endif
+
+            @if($rol == 'Administrador')
             <li id="liAcceso" class="treeview">
               <a href="#">
                 <i class="fa fa-user"></i> <span>Usuarios</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li id="liUsuarios"><a href="{{url('seguridad/usuario')}}"><i class="fa fa-circle-o"></i> Registrar</a></li>
-                
+                <li id="liUsuarios"><a href="{{url('seguridad/usuario')}}"><i class="fa fa-circle-o"></i> Registrar</a></li> 
               </ul>
             </li>
+            
+            @endif
             <li>
               <a href="" target="_blank">
                 <i class="fa fa-question-circle"></i> <span>Ayuda</span>
@@ -197,7 +209,7 @@
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
       <!--Fin-Contenido-->
-      <footer class="main-footer">>
+      <footer class="main-footer">
         <strong>Copyright &copy; 2020 <a href="https://www.ipchile.cl/">REPTECH</a>.</strong> Todos los derechos reservados.
       </footer>
 

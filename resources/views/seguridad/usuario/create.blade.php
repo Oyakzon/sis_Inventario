@@ -27,6 +27,18 @@
 
             </div>
         </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label>Rol</label>
+                <select name="role" class="form-control" id="role">
+                    <option value="Administrador">Administrador</option>
+                    <option value="Gerente">Gerente</option>
+                    <option value="Operador">Operador</option>            
+                </select>
+            </div>
+        </div>
+
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email" class="col-md-4 control-label">Correo</label>
@@ -38,6 +50,7 @@
                 @endif
             </div>
         </div>
+
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                 <label for="password" class="col-md-4 control-label">Contraseña</label>
@@ -61,12 +74,14 @@
                 @endif
             </div>
         </div>
+
         <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
             <div class="form-group">
                 <button class="btn btn-primary" type="submit">Guardar</button>
                 <button class="btn btn-danger" type="reset">Cancelar</button>
             </div>
         </div>
+        
         {!!Form::close()!!}
     </div>
 </div>
