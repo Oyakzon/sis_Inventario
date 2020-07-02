@@ -34,7 +34,7 @@
 					<td>{{ $cat->descripcion}}</td>
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Operador')
-							<a href="{{URL::action('CategoriaController@edit',$cat->idcategoria)}}"><button class="btn btn-info">Editar</button></a>
+							<a href="{{URL::action('CategoriaController@edit',$cat->idcategoria)}}"><button class="btn btn-warning">Editar</button></a>
 						@endif
 						@if($rol == 'Administrador')
 							<a href="" data-target="#modal-delete-{{$cat->idcategoria}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>

@@ -20,9 +20,9 @@
         {{Form::token()}}
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="name" class="col-md-4 control-label">Nombre</label>
+                <label for="name" class="control-label">Nombre</label>
                 
-                    <input id="name" type="text" class="form-control" name="name" value="{{$usuario->name}}">
+                    <input id="name" type="text" class="form-control" name="name" value="{{$usuario->name}}" placeholder="Nombre completo">
                     @if ($errors->has('name'))
                     <span class="help-block">
                         <strong>{{ $errors->first('name') }}</strong>
@@ -42,12 +42,12 @@
                 </select>
             </div>
         </div>
-    
+        
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email" class="col-md-4 control-label">Correo</label>
+                <label for="email" class="control-label">Correo</label>
                 
-                    <input id="email" type="email" class="form-control" name="email" value="{{$usuario->email}}">
+                    <input id="email" type="email" class="form-control" name="email" value="{{$usuario->email}}" placeholder="email@ejemplo.com">
                     @if ($errors->has('email'))
                     <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -59,8 +59,8 @@
 
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                <label for="password" class="col-md-4 control-label">Contraseña</label>              
-                    <input id="password" type="password" class="form-control" name="password">
+                <label for="password" class="control-label">Contraseña</label>              
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Ingrese contraseña">
                     @if ($errors->has('password'))
                     <span class="help-block">
                         <strong>{{ $errors->first('password') }}</strong>
@@ -71,8 +71,8 @@
 
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                <label for="password-confirm" class="col-md-4 control-label">Confirmar Contraseña</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                <label for="password-confirm" class="control-label">Confirmar Contraseña</label>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirmar contraseña">
                     @if ($errors->has('password_confirmation'))
                     <span class="help-block">
                         <strong>{{ $errors->first('password_confirmation') }}</strong>

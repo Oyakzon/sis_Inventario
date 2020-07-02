@@ -4,14 +4,16 @@
 @if($rol == 'Administrador'||$rol == 'Operador')
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Artículos 
+		<h3>Listado de Artículos
 			@if($rol == 'Administrador' || $rol == 'Operador')
-				<a href="articulo/create"><button class="btn btn-success">Nuevo</button></a>
+			<a href="articulo/create"><button class="btn btn-success">Nuevo</button></a>
 			@endif
-			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador') 
-				<a href="{{url('reportearticulos')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
-			@endif
+			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+			<a href="{{url('reportearticulos')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+		@endif
+		</h3>
 		@include('almacen.articulo.search')
+
 	</div>
 </div>
 
@@ -29,7 +31,7 @@
 					<th>Estado</th>
 					<th>Opciones</th>
 				</thead>
-               @foreach ($articulos as $art)
+				@foreach ($articulos as $art)
 				<tr>
 					<td>{{ $art->idarticulo}}</td>
 					<td>{{ $art->nombre}}</td>
@@ -44,10 +46,10 @@
 
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Operador')
-							<a href="{{URL::action('ArticuloController@edit',$art->idarticulo)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="{{URL::action('ArticuloController@edit',$art->idarticulo)}}"><button class="btn btn-warning">Editar</button></a>
 						@endif
 						@if($rol == 'Administrador')
-							<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 						@endif
 					</td>
 				</tr>
@@ -60,15 +62,15 @@
 </div>
 @push ('scripts')
 <script>
-$('#liAlmacen').addClass("treeview active");
-$('#liArticulos').addClass("active");
+	$('#liAlmacen').addClass("treeview active");
+	$('#liArticulos').addClass("active");
 </script>
 @endpush
 @endif
 @if($rol == 'Gerente')
-    <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">Permisos Insuficientes!</h4>
-        No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link">Click Aqui</a>.
-    </div>
+<div class="alert alert-danger" role="alert">
+	<h4 class="alert-heading">Permisos Insuficientes!</h4>
+	No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link">Click Aqui</a>.
+</div>
 @endif
 @endsection

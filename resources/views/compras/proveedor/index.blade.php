@@ -39,7 +39,7 @@
 					<td>{{ $per->email}}</td>
 					<td>
 						@if($rol == 'Administrador')
-							<a href="{{URL::action('ProveedorController@edit',$per->idpersona)}}"><button class="btn btn-info">Editar</button></a>
+							<a href="{{URL::action('ProveedorController@edit',$per->idpersona)}}"><button class="btn btn-warning">Editar</button></a>
 						@endif
 						@if($rol == 'Administrador')
 							<a href="" data-target="#modal-delete-{{$per->idpersona}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>

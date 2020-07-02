@@ -33,7 +33,7 @@
 					<td>{{ $usu->role}}</td>
 					<td>{{ $usu->email}}</td>
 					<td>
-						<a href="{{URL::action('UsuarioController@edit',$usu->id)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="{{URL::action('UsuarioController@edit',$usu->id)}}"><button class="btn btn-warning">Editar</button></a>
                          <a href="" data-target="#modal-delete-{{$usu->id}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>
