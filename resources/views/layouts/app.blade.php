@@ -61,7 +61,7 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fas fa-power-off text-center"></i>Cerrar Sesión</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-power-off text-center"></i> Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     @endif
@@ -72,13 +72,13 @@
     @if (Auth::guest())
     @yield('content')
     @else
+    
     <div class="alert alert-success" role="alert">
         <h3 class="alert-heading text-center">Conectado!</h3>
         <hr>
         <p class="text-center">Una sesion se encuentra abierta, para volver al menu principal, presione <a href="{{url('home')}}" class="alert-link">Click Aqui</a>.</p>
     </div>
     @endif
-
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>

@@ -66,7 +66,6 @@
                   
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    
                     <div class="pull-right">
                       <a href="{{url('/logout')}}" class="fa fa-power-off text-center"> Cerrar Sesion</a>
                     </div>
