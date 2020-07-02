@@ -54,15 +54,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/login') }}">Iniciar sesion</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fas fa-power-off text-center"></i>Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     @endif
@@ -70,8 +69,15 @@
             </div>
         </div>
     </nav>
-
+    @if (Auth::guest())
     @yield('content')
+    @else
+    <div class="alert alert-success" role="alert">
+        <h3 class="alert-heading text-center">Conectado!</h3>
+        <hr>
+        <p class="text-center">Una sesion se encuentra abierta, para volver al menu principal, presione <a href="{{url('home')}}" class="alert-link">Click Aqui</a>.</p>
+    </div>
+    @endif
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>

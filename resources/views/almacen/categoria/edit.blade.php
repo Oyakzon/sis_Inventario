@@ -42,6 +42,10 @@ $('#liCategorias').addClass("active");
 @endpush
 @endif
 @if($rol == 'Gerente' )
-	<p class="h1">No dispone de permisos</p>
+<div class="alert alert-danger text-center" role="alert">
+        <h3 class="alert-heading text-center">Acceso Denegado!</h3>
+        <hr>
+        <p class="text-center">No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link text-center">Click Aqui</a>.</p>
+    </div>
 @endif
 @endsection

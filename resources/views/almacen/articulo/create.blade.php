@@ -1,5 +1,7 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+@if($rol == 'Administrador'||$rol == 'Operador')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<h3>Nuevo Articulo</h3>
@@ -105,5 +107,11 @@ function imprimir()
 }
 </script>
 @endpush 
-
+@endif
+@if($rol == 'Gerente')
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Permisos Insuficientes!</h4>
+        No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link">Click Aqui</a>.
+    </div>
+@endif
 @endsection

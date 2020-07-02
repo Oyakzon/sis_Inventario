@@ -50,14 +50,14 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <small class="bg-green">Online</small>
+                  <small class="bg-green">Conectado</small>
                   <span class="hidden-xs">{{ Auth::user()->name }}</span>
+                  <small>:</small>
                   <span class="hidden-xs">{{ Auth::user()->role }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    
                     <p>
                       www.REPTECH.com - Desarrollando Software
                       <small>Gracias por preferirnos como su empresa<br></small>
@@ -68,7 +68,7 @@
                   <li class="user-footer">
                     
                     <div class="pull-right">
-                      <a href="{{url('/logout')}}" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                      <a href="{{url('/logout')}}" class="fa fa-power-off text-center"> Cerrar Sesion</a>
                     </div>
                   </li>
                 </ul>
@@ -95,7 +95,7 @@
               </a>
             </li>
 
-            @if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+            @if($rol == 'Administrador' || $rol == 'Operador')
             <li id="liAlmacen" class="treeview">
               <a href="#">
                 <i class="fa fa-archive"></i>
