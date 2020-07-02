@@ -41,7 +41,6 @@
 		<div class="form-group">
 
 			<label for="codigo">Código</label>
-			
 			<input type="text" name="codigo" id="codigobar" required value="{{old('codigo')}}" class="form-control" placeholder="Código del artículo...">
 			<hr>
 			<button class="btn btn-success" type="button" onclick="generarBarcode()">Generar</button>

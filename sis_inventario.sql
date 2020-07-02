@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 02-07-2020 a las 00:06:45
+-- Tiempo de generación: 02-07-2020 a las 19:41:04
 -- Versión del servidor: 8.0.20
 -- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -187,8 +186,8 @@ CREATE TABLE `ingreso` (
 --
 
 INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `fecha_hora`, `impuesto`, `estado`) VALUES
-(20, 6, 'Factura', '1', '1', '2020-06-26 21:23:55', '0.00', 'Aprobado'),
-(21, 7, 'Factura', '2', '2', '2020-06-26 21:33:16', '0.00', 'Aprobado'),
+(20, 6, 'Factura', '1', '1', '2020-04-26 21:23:55', '0.00', 'Aprobado'),
+(21, 7, 'Factura', '2', '2', '2020-03-26 21:33:16', '0.00', 'Aprobado'),
 (22, 8, 'Boleta', '3', '3', '2020-06-27 00:19:01', '0.00', 'Aprobado');
 
 -- --------------------------------------------------------
@@ -199,7 +198,7 @@ INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_co
 
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -219,10 +218,17 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('sebastian.ipchile@gmail.com', 'caa4941cc660c5bbe8411a49b9d7970cb9cb9a86b4d27c83247435d61f428926', '2020-07-02 05:21:28');
 
 -- --------------------------------------------------------
 
@@ -264,11 +270,11 @@ INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `role` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `role` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -279,8 +285,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Francisco Guerrero', 'Operador', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 00:08:38', '2020-07-01 23:04:12'),
-(2, 'Sebastian', 'Gerente', 'sebastian.ipchile@gmail.com', '$2y$10$jWOHQQZZXkJGFqe6OVEH2.yQY7hnPmcMkNbAfascrRWGoEcDqfXlO', 'KGCQZGLUiuwj4dOFIRo4Bp2Bp5a7hicoieiVCLYrMTxHDOpekbonBXGTJc8D', '2020-06-27 00:33:27', '2020-07-01 23:53:57'),
-(4, 'Marcos Oyarzo', 'Administrador', 'marcos_oyarzo97@outlook.com', '$2y$10$birhFte9Oc7GwLRV2rSeneczA0MSDRWTvYYnU1ozZVbrYZYqy5p4a', 'Px0sRyKaAaTHzCSU4h4BTtqQXIVJHbNop0DmZhndg1pqYRB8y5Cz5cGgaghv', '2020-07-01 22:56:00', '2020-07-01 23:39:20');
+(2, 'Sebastian', 'Administrador', 'sebastian.ipchile@gmail.com', '$2y$10$jWOHQQZZXkJGFqe6OVEH2.yQY7hnPmcMkNbAfascrRWGoEcDqfXlO', 'RoLkzoJCQ6jdsr4queX6XSZh8VENU8BCNiDiHoHSl3qFfjWmkIvdiD0maHPQ', '2020-06-27 00:33:27', '2020-07-02 19:26:42'),
+(4, 'Marcos Oyarzo', 'Administrador', 'marcos_oyarzo97@outlook.com', '$2y$10$birhFte9Oc7GwLRV2rSeneczA0MSDRWTvYYnU1ozZVbrYZYqy5p4a', 'Px0sRyKaAaTHzCSU4h4BTtqQXIVJHbNop0DmZhndg1pqYRB8y5Cz5cGgaghv', '2020-07-01 22:56:00', '2020-07-01 23:39:20'),
+(5, 'Damian Acosta', 'Gerente', 'damianguerra@gmail.com', '$2y$10$q7uRHuDACI4XKt2.iT3kTeapkGlpNNpcyQOec6JSnnh.5gKdN2JqK', '03MDsMAnSaKA1iJWnhzPX1ITjr6JJsX6wwUHHZMbYRXwRKZPre8aMpHC2tr0', '2020-07-02 03:35:20', '2020-07-02 14:47:21');
 
 -- --------------------------------------------------------
 
@@ -312,7 +319,14 @@ INSERT INTO `venta` (`idventa`, `idcliente`, `tipo_comprobante`, `serie_comproba
 (8, 1, 'Boleta', '1234567', '1223231', '2020-06-26 19:11:35', '19.00', '540198.00', 'Aprobado'),
 (9, 3, 'Factura', '1234567', '2132133', '2020-06-26 19:41:53', '19.00', '3600000.00', 'Aprobado'),
 (10, 1, 'Boleta', '1231', '1231', '2020-06-26 20:21:21', '19.00', '352500.00', 'Aprobado'),
-(11, 3, 'Factura', '4', '4', '2020-06-27 00:19:48', '19.00', '50950000.00', 'Aprobado');
+(11, 3, 'Factura', '4', '4', '2020-06-27 00:19:48', '19.00', '50950000.00', 'Aprobado'),
+(12, 1, 'Boleta', '2252', '2252', '2020-05-21 01:58:21', '19.00', '600.00', 'Aprobado'),
+(13, 1, 'Factura', '153132', '12132', '2020-04-26 15:52:52', '18.00', '36071.00', 'Aprobado'),
+(14, 3, 'Factura', '123523', '23513', '2020-03-26 16:57:32', '19.00', '104360.00', 'Aprobado'),
+(15, 1, 'Boleta', '123467', '122321', '2020-02-26 19:11:35', '19.00', '540198.00', 'Aprobado'),
+(16, 3, 'Factura', '123457', '213213', '2020-01-26 19:41:53', '19.00', '3600000.00', 'Aprobado'),
+(17, 1, 'Boleta', '1531', '1531', '2020-01-26 20:21:21', '19.00', '352500.00', 'Aprobado'),
+(18, 3, 'Factura', '425', '425', '2020-01-27 00:19:48', '19.00', '50950000.00', 'Aprobado');
 
 --
 -- Disparadores `venta`
@@ -438,13 +452,13 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idventa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas

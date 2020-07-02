@@ -31,6 +31,7 @@ Route::resource('compras/ingreso','IngresoController');
 Route::resource('ventas/venta','VentaController');
 Route::resource('seguridad/usuario','UsuarioController');
 
+
 //Reportes
 Route::get('reportecategorias', 'CategoriaController@reporte');
 Route::get('reportearticulos', 'ArticuloController@reporte');
@@ -41,6 +42,24 @@ Route::get('reporteventa/{id}', 'VentaController@reportec');
 Route::get('reporteingresos', 'IngresoController@reporte'); 
 Route::get('reporteingreso/{id}', 'IngresoController@reportec'); 
 Route::get('/{slug?}', 'HomeController@index');
+
+Route::get('sendemail', function () {
+
+    $data = array(
+        'name' => "REPTECH",
+    );
+
+    Mail::send('auth.emails.password', $data, function ($message) {
+
+        $message->from('sebastian.ipchile@gmail.com', 'REPTECH');
+
+        $message->to('susoconde@gmail.com')->subject('test email Curso Laravel');
+
+    });
+
+    return "Tú email ha sido enviado correctamente";
+
+});
 
 
 
