@@ -1,5 +1,7 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+@if($rol == 'Administrador' || $rol == 'Operador')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<h3>Nueva Categoría</h3>
@@ -38,4 +40,10 @@ $('#liAlmacen').addClass("treeview active");
 $('#liCategorias').addClass("active");
 </script>
 @endpush
+@endif
+
+@if($rol == 'Gerente' )
+	<p class="h1">No dispone de permisos</p>
+@endif
+
 @endsection

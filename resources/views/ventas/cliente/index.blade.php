@@ -1,11 +1,22 @@
 @extends ('layouts.admin')
 @section ('contenido')
+
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Clientes <a href="cliente/create"><button class="btn btn-success">Nuevo</button></a> <a href="{{url('reporteclientes')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+		<h3>Listado de Clientes
+			@if($rol == 'Administrador' || $rol == 'Operador') 
+				<a href="cliente/create"><button class="btn btn-success">Nuevo</button></a>
+			@endif
+			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+				<a href="{{url('reporteclientes')}}" target="_blank"><button class="btn btn-info">Reporte</button></a>
+			@endif
+		</h3>
 		@include('ventas.cliente.search')
 	</div>
 </div>
+
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -29,8 +40,12 @@
 					<td>{{ $per->telefono}}</td>
 					<td>{{ $per->email}}</td>
 					<td>
-						<a href="{{URL::action('ClienteController@edit',$per->idpersona)}}"><button class="btn btn-info">Editar</button></a>
-                         <a href="" data-target="#modal-delete-{{$per->idpersona}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						@if($rol == 'Administrador' || $rol == 'Operador')
+							<a href="{{URL::action('ClienteController@edit',$per->idpersona)}}"><button class="btn btn-info">Editar</button></a>
+						@endif
+						@if($rol == 'Administrador')
+							<a href="" data-target="#modal-delete-{{$per->idpersona}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						@endif
 					</td>
 				</tr>
 				@include('ventas.cliente.modal')

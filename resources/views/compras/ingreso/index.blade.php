@@ -1,9 +1,18 @@
 @extends ('layouts.admin')
 @section ('contenido')
+
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-	<h3>Listado de Ingresos <a href="ingreso/create"><button class="btn btn-success">Nuevo</button></a> <a href="{{url('reporteingresos')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
-		@include('compras.ingreso.search')
+		<h3>Listado de Ingresos 
+			@if($rol == 'Administrador' || $rol == 'Operador')
+				<a href="ingreso/create"><button class="btn btn-success">Nuevo</button></a> 
+			@endif
+			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+				<a href="{{url('reporteingresos')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+			@endif
+			@include('compras.ingreso.search')
 	</div>
 </div>
 
@@ -29,10 +38,15 @@
 					<td>{{ $ing->total}}</td>
 					<td>{{ $ing->estado}}</td>
 					<td>
-						
-						<a href="{{URL::action('IngresoController@show',$ing->idingreso)}}"><button class="btn btn-primary">Detalles</button></a>
-						<a target="_blank" href="{{URL::action('IngresoController@reportec',$ing->idingreso)}}"><button class="btn btn-info">Reporte</button></a>
-                        <a href="" data-target="#modal-delete-{{$ing->idingreso}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+							<a href="{{URL::action('IngresoController@show',$ing->idingreso)}}"><button class="btn btn-primary">Detalles</button></a>
+						@endif
+						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+							<a target="_blank" href="{{URL::action('IngresoController@reportec',$ing->idingreso)}}"><button class="btn btn-info">Reporte</button></a>
+						@endif
+						@if($rol == 'Administrador')
+							<a href="" data-target="#modal-delete-{{$ing->idingreso}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+						@endif
 					</td>
 				</tr>
 				@include('compras.ingreso.modal')

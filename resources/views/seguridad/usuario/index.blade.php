@@ -1,11 +1,19 @@
 @extends ('layouts.admin')
 @section ('contenido')
+
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+@if($rol == 'Administrador')
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Usuarios <a href="usuario/create"><button class="btn btn-success">Nuevo</button></a></h3>
+		<h3>Listado de Usuarios
+			@if($rol == 'Administrador')	 
+				<a href="usuario/create"><button class="btn btn-success">Nuevo</button></a>
+			@endif
+		</h3>
 		@include('seguridad.usuario.search')
 	</div>
 </div>
+
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -42,4 +50,18 @@ $('#liAcceso').addClass("treeview active");
 $('#liUsuarios').addClass("active");
 </script>
 @endpush
+@endif
+@if($rol == 'Operador'|| $rol == 'Gerente' )
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vista ejemplo</title>
+</head>
+<body>
+    <h1>No dispone de permisos</h1>
+</body>
+</html>
+@endif
 @endsection

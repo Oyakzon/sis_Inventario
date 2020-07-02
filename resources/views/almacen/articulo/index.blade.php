@@ -1,8 +1,17 @@
 @extends ('layouts.admin')
 @section ('contenido')
+
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-	<h3>Listado de Artículos <a href="articulo/create"><button class="btn btn-success">Nuevo</button></a> <a href="{{url('reportearticulos')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+		<h3>Listado de Artículos 
+			@if($rol == 'Administrador' || $rol == 'Operador')
+				<a href="articulo/create"><button class="btn btn-success">Nuevo</button></a>
+			@endif
+			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador') 
+				<a href="{{url('reportearticulos')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+			@endif
 		@include('almacen.articulo.search')
 	</div>
 </div>
@@ -35,8 +44,12 @@
 					<td>{{ $art->estado}}</td>
 
 					<td>
-						<a href="{{URL::action('ArticuloController@edit',$art->idarticulo)}}"><button class="btn btn-info">Editar</button></a>
-                         <a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						@if($rol == 'Administrador' || $rol == 'Operador')
+							<a href="{{URL::action('ArticuloController@edit',$art->idarticulo)}}"><button class="btn btn-info">Editar</button></a>
+						@endif
+						@if($rol == 'Administrador')
+							<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						@endif
 					</td>
 				</tr>
 				@include('almacen.articulo.modal')

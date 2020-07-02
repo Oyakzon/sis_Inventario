@@ -95,7 +95,7 @@
               </a>
             </li>
 
-            @if($rol == 'Gerente' || $rol == 'Administrador')
+            @if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
             <li id="liAlmacen" class="treeview">
               <a href="#">
                 <i class="fa fa-archive"></i>
@@ -104,12 +104,14 @@
               </a>
               <ul class="treeview-menu">
                 <li id="liArticulos"><a href="{{url('almacen/articulo')}}"><i class="fa fa-circle-o"></i> Artículos</a></li>
+                @if($rol == 'Administrador' || $rol == 'Operador')
                 <li id="liCategorias"><a href="{{url('almacen/categoria')}}"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                @endif
               </ul>
             </li>
             @endif
             
-            @if($rol == 'Gerente' || $rol == 'Administrador')
+            @if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
             <li id="liCompras" class="treeview">
               <a href="#">
                 <i class="fa fa-money"></i>
@@ -118,12 +120,14 @@
               </a>
               <ul class="treeview-menu">
                 <li id="liIngresos"><a href="{{url('compras/ingreso')}}"><i class="fa fa-circle-o"></i> Ingresos</a></li>
+                @if($rol == 'Administrador')
                 <li id="liProveedores"><a href="{{url('compras/proveedor')}}"><i class="fa fa-circle-o"></i> Proveedores</a></li>
+                @endif
               </ul>
             </li>
             @endif
             
-            @if($rol == 'Gerente' || $rol == 'Administrador')
+            @if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
               <li id="liVentas" class="treeview">
                 <a href="#">
                   <i class="fa fa-shopping-cart"></i>
@@ -132,7 +136,9 @@
                 </a>
                 <ul class="treeview-menu">
                   <li id="liVentass"><a href="{{url('ventas/venta')}}"><i class="fa fa-circle-o"></i> Ventas</a></li>
+                  @if($rol == 'Administrador' || $rol == 'Operador')
                   <li id="liClientes"><a href="{{url('ventas/cliente')}}"><i class="fa fa-circle-o"></i> Clientes</a></li>
+                  @endif
                 </ul>
               </li>
             @endif
@@ -147,8 +153,8 @@
                 <li id="liUsuarios"><a href="{{url('seguridad/usuario')}}"><i class="fa fa-circle-o"></i> Registrar</a></li> 
               </ul>
             </li>
-            
             @endif
+
             <li>
               <a href="" target="_blank">
                 <i class="fa fa-question-circle"></i> <span>Ayuda</span>

@@ -1,8 +1,18 @@
 @extends ('layouts.admin')
 @section ('contenido')
+
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-	<h3>Listado de Ventas <a href="venta/create"><button class="btn btn-success">Nuevo</button></a> <a href="{{url('reporteventas')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+		<h3>Listado de Ventas 
+			@if($rol == 'Administrador' || $rol == 'Operador')
+				<a href="venta/create"><button class="btn btn-success">Nuevo</button></a> 
+			@endif
+			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+				<a href="{{url('reporteventas')}}" target="_blank"><button class="btn btn-info">Reporte</button></a>
+			@endif
+		</h3>
 		@include('ventas.venta.search')
 	</div>
 </div>
@@ -29,9 +39,15 @@
 					<td>{{ $ven->total_venta}}</td>
 					<td>{{ $ven->estado}}</td>
 					<td>
-						<a href="{{URL::action('VentaController@show',$ven->idventa)}}"><button class="btn btn-primary">Detalles</button></a>
-						<a target="_blank" href="{{URL::action('VentaController@reportec',$ven->idventa)}}"><button class="btn btn-info">Reporte</button></a>
-                         <a href="" data-target="#modal-delete-{{$ven->idventa}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+							<a href="{{URL::action('VentaController@show',$ven->idventa)}}"><button class="btn btn-primary">Detalles</button></a>
+						@endif
+						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+							<a target="_blank" href="{{URL::action('VentaController@reportec',$ven->idventa)}}"><button class="btn btn-info">Reporte</button></a>
+						@endif
+						@if($rol == 'Administrador')
+							<a href="" data-target="#modal-delete-{{$ven->idventa}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+						@endif
 					</td>
 				</tr>
 				@include('ventas.venta.modal')

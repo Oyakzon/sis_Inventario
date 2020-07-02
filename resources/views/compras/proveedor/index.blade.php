@@ -1,8 +1,18 @@
 @extends ('layouts.admin')
 @section ('contenido')
+
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-	<h3>Listado de Proveedores <a href="proveedor/create"><button class="btn btn-success">Nuevo</button></a> <a href="{{url('reporteproveedores')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+		<h3>Listado de Proveedores 
+			@if($rol == 'Administrador' || $rol == 'Operador')
+				<a href="proveedor/create"><button class="btn btn-success">Nuevo</button></a>
+			@endif 
+			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
+				<a href="{{url('reporteproveedores')}}" target="_blank"><button class="btn btn-info">Reporte</button></a>
+			@endif
+		</h3>
 		@include('compras.proveedor.search')
 	</div>
 </div>
@@ -29,8 +39,12 @@
 					<td>{{ $per->telefono}}</td>
 					<td>{{ $per->email}}</td>
 					<td>
-						<a href="{{URL::action('ProveedorController@edit',$per->idpersona)}}"><button class="btn btn-info">Editar</button></a>
-                         <a href="" data-target="#modal-delete-{{$per->idpersona}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						@if($rol == 'Administrador')
+							<a href="{{URL::action('ProveedorController@edit',$per->idpersona)}}"><button class="btn btn-info">Editar</button></a>
+						@endif
+						@if($rol == 'Administrador')
+							<a href="" data-target="#modal-delete-{{$per->idpersona}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						@endif
 					</td>
 				</tr>
 				@include('compras.proveedor.modal')

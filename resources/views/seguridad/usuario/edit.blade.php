@@ -1,5 +1,8 @@
 @extends ('layouts.admin')
 @section ('contenido')
+
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+@if($rol == 'Administrador')
 <div class="row">
     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
         <h3>Editar Usuario: {{ $usuario->name}}</h3>
@@ -93,4 +96,18 @@
     $('#liUsuarios').addClass("active");
 </script>
 @endpush
+@endif
+@if($rol == 'Operador'|| $rol == 'Gerente' )
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vista ejemplo</title>
+</head>
+<body>
+    <h1>No dispone de permisos</h1>
+</body>
+</html>
+@endif
 @endsection
