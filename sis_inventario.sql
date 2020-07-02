@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 27-06-2020 a las 16:43:15
+-- Tiempo de generación: 02-07-2020 a las 00:06:45
 -- Versión del servidor: 8.0.20
 -- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -20,7 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sis_inventario`
 --
-DROP DATABASE IF EXISTS `sis_inventario`;
 CREATE DATABASE IF NOT EXISTS `sis_inventario` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `sis_inventario`;
 
@@ -199,9 +199,9 @@ INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_co
 
 DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
-  `migration` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `migrations`
@@ -219,10 +219,10 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets` (
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -264,21 +264,23 @@ INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Francisco Guerrero', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', 'MEnUVMsLUr7C8cP8WyrbJPAUO8Ghrm2gOK6qpfCDIcT2Osih82poPVlbQlhE', '2020-06-19 20:08:38', '2020-06-26 20:33:35'),
-(3, 'Sebastian', 'sebastian.ipchile@gmail.com', '$2y$10$jWOHQQZZXkJGFqe6OVEH2.yQY7hnPmcMkNbAfascrRWGoEcDqfXlO', 'm60JyF6kSgU3EUsQlS5AIaqtkX9NCEOcNm5nX1kYwCFEL6JspRaMDS6MQ0Wf', '2020-06-26 20:33:27', '2020-06-27 06:33:49');
+INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Francisco Guerrero', 'Operador', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 00:08:38', '2020-07-01 23:04:12'),
+(2, 'Sebastian', 'Gerente', 'sebastian.ipchile@gmail.com', '$2y$10$jWOHQQZZXkJGFqe6OVEH2.yQY7hnPmcMkNbAfascrRWGoEcDqfXlO', 'KGCQZGLUiuwj4dOFIRo4Bp2Bp5a7hicoieiVCLYrMTxHDOpekbonBXGTJc8D', '2020-06-27 00:33:27', '2020-07-01 23:53:57'),
+(4, 'Marcos Oyarzo', 'Administrador', 'marcos_oyarzo97@outlook.com', '$2y$10$birhFte9Oc7GwLRV2rSeneczA0MSDRWTvYYnU1ozZVbrYZYqy5p4a', 'Px0sRyKaAaTHzCSU4h4BTtqQXIVJHbNop0DmZhndg1pqYRB8y5Cz5cGgaghv', '2020-07-01 22:56:00', '2020-07-01 23:39:20');
 
 -- --------------------------------------------------------
 
