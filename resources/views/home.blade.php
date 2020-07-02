@@ -154,16 +154,13 @@ foreach ($totales as $total )
          * -------
          * Here we will create a few charts using ChartJS
          */
-
         //--------------
         //- AREA CHART -
         //--------------
-
         // Get context with jQuery - using jQuery's .get() method.
         var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
         // This will get the first returned node in the jQuery collection.
         var areaChart = new Chart(areaChartCanvas);
-
         var ComprasMes = {
           labels: [<?php foreach ($comprasmes as $reg)
           			{echo '"'. $reg->mes.'",';} ?>],
@@ -191,7 +188,6 @@ foreach ($totales as $total )
             }
           ]
         };
-
         var VentasMes = {
           labels: [<?php foreach ($ventasmes as $reg)
           			{echo '"'. $reg->mes.'",';} ?>],
@@ -219,7 +215,6 @@ foreach ($totales as $total )
             }
           ]
         };
-
         var VentasDias = {
           labels: [<?php foreach ($ventasdia as $reg)
           			{echo '"'. $reg->dia.'",';} ?>],
@@ -247,7 +242,6 @@ foreach ($totales as $total )
             }
           ]
         };
-
         var areaChartOptions = {
           //Boolean - If we should show the scale at all
           showScale: true,
@@ -285,10 +279,8 @@ foreach ($totales as $total )
           //Boolean - whether to make the chart responsive to window resizing
           responsive: true
         };
-
         //Create the line chart
         areaChart.Line(ComprasMes, areaChartOptions);
-
         //-------------
         //- LINE CHART -
         //--------------
@@ -297,7 +289,6 @@ foreach ($totales as $total )
         var lineChartOptions = areaChartOptions;
         lineChartOptions.datasetFill = false;
         lineChart.Line(VentasMes, lineChartOptions);
-
         //-------------
         //- PIE CHART -
         //-------------
@@ -308,7 +299,6 @@ foreach ($totales as $total )
           <?php 
             $cont=1;
             $cadena='';
-
             foreach ($productosvendidos as $reg)
                        {
                        	$cadena=$cadena.'{ value:'.$reg->cantidad.',color:"';
@@ -345,7 +335,6 @@ foreach ($totales as $total )
                             $color='#ADFF2F';
                             break;
                        }
-
                        $cadena=$cadena.$color;
                        $cadena=$cadena.'",highlight: "';
                        $cadena=$cadena.$color.'",label: "'.$reg->articulo.'" },';
@@ -378,7 +367,6 @@ foreach ($totales as $total )
         //Create pie or douhnut chart
         // You can switch between pie and douhnut using the method below.
         pieChart.Doughnut(PieData, pieOptions);
-
         //-------------
         //- BAR CHART -
         //-------------
@@ -412,14 +400,11 @@ foreach ($totales as $total )
           responsive: true,
           maintainAspectRatio: true
         };
-
         barChartOptions.datasetFill = false;
         barChart.Bar(barChartData, barChartOptions);
       });
-
       $('#liEstadistica').addClass("treeview active");
       $('#liEscritorio').addClass("active");
-
     </script>
 @endpush
 @endsection
