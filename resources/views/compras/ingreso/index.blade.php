@@ -22,7 +22,7 @@
 				<thead>
 					<th>Fecha</th>
 					<th>Proveedor</th>
-					<th>Comprobante</th>
+					<th>Tipo Comprobante-S-N</th>
 					<th>Impuesto</th>
 					<th>Total</th>
 					<th>Estado</th>

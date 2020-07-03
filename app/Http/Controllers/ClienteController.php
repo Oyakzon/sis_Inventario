@@ -26,7 +26,11 @@ class ClienteController extends Controller
             $personas=DB::table('persona')
             ->where('nombre','LIKE','%'.$query.'%')
             ->where ('tipo_persona','=','Cliente')
-            ->orwhere('nombre','LIKE','%'.$query.'%')
+            ->orwhere('num_documento','LIKE','%'.$query.'%')
+            ->where ('tipo_persona','=','Cliente')
+            ->orwhere('tipo_documento','LIKE','%'.$query.'%')
+            ->where ('tipo_persona','=','Cliente')
+            ->orwhere('email','LIKE','%'.$query.'%')
             ->where ('tipo_persona','=','Cliente')
             ->orderBy('idpersona','desc')
             ->paginate(7);

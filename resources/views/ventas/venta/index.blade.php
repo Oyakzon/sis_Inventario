@@ -24,7 +24,7 @@
 				<thead>
 					<th>Fecha</th>
 					<th>Cliente</th>
-					<th>Comprobante</th>
+					<th>Tipo Comprobante-S-N</th>
 					<th>Impuesto</th>
 					<th>Total</th>
 					<th>Estado</th>

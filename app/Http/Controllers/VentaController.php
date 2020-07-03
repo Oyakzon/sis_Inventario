@@ -34,7 +34,10 @@ class VentaController extends Controller
         ->join('detalle_venta as dv','v.idventa','=','dv.idventa')
         ->select('v.idventa','v.fecha_hora','p.nombre','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta')
         ->where('v.num_comprobante','LIKE','%'.$query.'%')
-        ->orderBy('v.idventa','desc')
+        ->orwhere('v.tipo_comprobante','LIKE','%'.$query.'%')
+        ->orwhere('v.estado','LIKE','%'.$query.'%')
+        ->orwhere('v.serie_comprobante','LIKE','%'.$query.'%')
+        ->orderBy('v.fecha_hora','desc')
         ->groupBy('v.idventa','v.fecha_hora','p.nombre','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado')
         ->paginate(5);
         return view("ventas.venta.index",["ventas" => $ventas,"searchText"=>$query]);
