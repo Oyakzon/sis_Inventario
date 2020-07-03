@@ -6,10 +6,11 @@
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Listado de Artículos
 			@if($rol == 'Administrador' || $rol == 'Operador')
-			<a href="articulo/create"><button class="btn btn-success">Nuevo</button></a>
+			<a href="articulo/create"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"> Nuevo</i></button></a>
 			@endif
 			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-			<a href="{{url('reportearticulos')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+			<a href="{{url('reportearticulos')}}" target="_blank"><button class="btn btn-info"><i class="fa fa-book" aria-hidden="true"> Reportes</i></button></a>
+		</h3>
 		@endif
 		</h3>
 		@include('almacen.articulo.search')
@@ -46,10 +47,10 @@
 
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Operador')
-						<a href="{{URL::action('ArticuloController@edit',$art->idarticulo)}}"><button class="btn btn-warning">Editar</button></a>
+						<a href="{{URL::action('ArticuloController@edit',$art->idarticulo)}}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"> Editar</i></button></a>
 						@endif
 						@if($rol == 'Administrador')
-						<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+						<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Eliminar</i></button></a>
 						@endif
 					</td>
 				</tr>

@@ -6,10 +6,10 @@
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Listado de Proveedores 
 			@if($rol == 'Administrador' || $rol == 'Operador')
-				<a href="proveedor/create"><button class="btn btn-success">Nuevo</button></a>
+				<a href="proveedor/create"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"> Nuevo</i></button></a>
 			@endif 
 			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-				<a href="{{url('reporteproveedores')}}" target="_blank"><button class="btn btn-info">Reporte</button></a>
+				<a href="{{url('reporteproveedores')}}" target="_blank"><button class="btn btn-info"><i class="fa fa-book" aria-hidden="true"> Reportes</i></button></a>
 			@endif
 		</h3>
 		@include('compras.proveedor.search')
@@ -39,10 +39,10 @@
 					<td>{{ $per->email}}</td>
 					<td>
 						@if($rol == 'Administrador')
-							<a href="{{URL::action('ProveedorController@edit',$per->idpersona)}}"><button class="btn btn-warning">Editar</button></a>
+							<a href="{{URL::action('ProveedorController@edit',$per->idpersona)}}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"> Editar</i></button></a>
 						@endif
 						@if($rol == 'Administrador')
-							<a href="" data-target="#modal-delete-{{$per->idpersona}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+							<a href="" data-target="#modal-delete-{{$per->idpersona}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Eliminar</i></button></a>
 						@endif
 					</td>
 				</tr>

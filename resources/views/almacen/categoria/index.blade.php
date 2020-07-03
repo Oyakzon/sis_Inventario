@@ -7,10 +7,10 @@
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Listado de Categorías 
 			@if($rol == 'Administrador' || $rol == 'Operador')
-				<a href="categoria/create"><button class="btn btn-success">Nuevo</button></a> 
+				<a href="categoria/create"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"> Nuevo</i></button></a> 
 			@endif
 			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-				<a href="{{url('reportecategorias')}}" target="_blank"><button class="btn btn-info">Reporte</button></a>
+				<a href="{{url('reportecategorias')}}" target="_blank"><button class="btn btn-info"><i class="fa fa-book" aria-hidden="true"> Reportes</i></button></a>
 			@endif
 		</h3>
 		@include('almacen.categoria.search')
@@ -34,10 +34,10 @@
 					<td>{{ $cat->descripcion}}</td>
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Operador')
-							<a href="{{URL::action('CategoriaController@edit',$cat->idcategoria)}}"><button class="btn btn-warning">Editar</button></a>
+							<a href="{{URL::action('CategoriaController@edit',$cat->idcategoria)}}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"> Editar</i></button></a>
 						@endif
 						@if($rol == 'Administrador')
-							<a href="" data-target="#modal-delete-{{$cat->idcategoria}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
+							<a href="" data-target="#modal-delete-{{$cat->idcategoria}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Eliminar</i></button></a>
 						@endif
 					</td>
 				</tr>

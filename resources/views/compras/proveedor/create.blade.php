@@ -62,8 +62,8 @@
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
-					<button class="btn btn-primary" type="submit">Guardar</button>
-					<button class="btn btn-danger" type="reset">Cancelar</button>
+					<button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
+					<button class="btn btn-danger" type="reset"><i class="fa fa-times" aria-hidden="true"> Cancelar</i></button>
 				</div>
 			</div>
 					

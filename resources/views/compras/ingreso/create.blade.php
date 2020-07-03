@@ -88,10 +88,10 @@
 							<input type="number" name="pprecio_venta" id="pprecio_venta" class="form-control" placeholder="P. Venta">
 						</div>
 					</div>
-
+					<br>
 					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
 						<div class="form-group">
-							<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+							<button type="button" id="bt_add" class="btn btn-primary"><i class="fa fa-cart-plus" aria-hidden="true">  Agregar</i></button>
 						</div>
 					</div>
 					

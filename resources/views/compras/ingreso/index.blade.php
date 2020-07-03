@@ -6,10 +6,10 @@
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Listado de Ingresos 
 			@if($rol == 'Administrador' || $rol == 'Operador')
-				<a href="ingreso/create"><button class="btn btn-success">Nuevo</button></a> 
+				<a href="ingreso/create"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true">  Nuevo</i></button></a> 
 			@endif
 			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-				<a href="{{url('reporteingresos')}}" target="_blank"><button class="btn btn-info">Reporte</button></a></h3>
+				<a href="{{url('reporteingresos')}}" target="_blank"><button class="btn btn-info"><i class="fa fa-book" aria-hidden="true"> Reportes</i></button></a></h3>
 			@endif
 			@include('compras.ingreso.search')
 	</div>
@@ -38,13 +38,13 @@
 					<td>{{ $ing->estado}}</td>
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-							<a href="{{URL::action('IngresoController@show',$ing->idingreso)}}"><button class="btn btn-primary">Detalles</button></a>
+							<a href="{{URL::action('IngresoController@show',$ing->idingreso)}}"><button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"> Detalles</i></button></a>
 						@endif
 						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-							<a target="_blank" href="{{URL::action('IngresoController@reportec',$ing->idingreso)}}"><button class="btn btn-info">Reporte</button></a>
+							<a target="_blank" href="{{URL::action('IngresoController@reportec',$ing->idingreso)}}"><button class="btn btn-info"><i class="fa fa-file-text" aria-hidden="true"> Reporte</i></button></a>
 						@endif
 						@if($rol == 'Administrador')
-							<a href="" data-target="#modal-delete-{{$ing->idingreso}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+							<a href="" data-target="#modal-delete-{{$ing->idingreso}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"> Anular</i></button></a>
 						@endif
 					</td>
 				</tr>

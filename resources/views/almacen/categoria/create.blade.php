@@ -26,8 +26,8 @@
             	<input type="text" name="descripcion" class="form-control" placeholder="Descripción...">
             </div>
             <div class="form-group">
-            	<button class="btn btn-primary" type="submit">Guardar</button>
-            	<button class="btn btn-danger" type="reset">Cancelar</button>
+            	<button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
+            	<button class="btn btn-danger" type="reset"><i class="fa fa-times" aria-hidden="true"> Cancelar</i></button>
             </div>
 
 			{!!Form::close()!!}		

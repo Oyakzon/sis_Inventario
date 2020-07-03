@@ -7,10 +7,10 @@
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Listado de Ventas 
 			@if($rol == 'Administrador' || $rol == 'Operador')
-				<a href="venta/create"><button class="btn btn-success">Nuevo</button></a> 
+				<a href="venta/create"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"> Nuevo</i></button></a> 
 			@endif
 			@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-				<a href="{{url('reporteventas')}}" target="_blank"><button class="btn btn-info">Reporte</button></a>
+				<a href="{{url('reporteventas')}}" target="_blank"><button class="btn btn-info"><i class="fa fa-book" aria-hidden="true"> Reportes</i></button></a>
 			@endif
 		</h3>
 		@include('ventas.venta.search')
@@ -40,13 +40,13 @@
 					<td>{{ $ven->estado}}</td>
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-							<a href="{{URL::action('VentaController@show',$ven->idventa)}}"><button class="btn btn-primary">Detalles</button></a>
+							<a href="{{URL::action('VentaController@show',$ven->idventa)}}"><button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"> Detalles</i></button></a>
 						@endif
 						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
-							<a target="_blank" href="{{URL::action('VentaController@reportec',$ven->idventa)}}"><button class="btn btn-info">Reporte</button></a>
+							<a target="_blank" href="{{URL::action('VentaController@reportec',$ven->idventa)}}"><button class="btn btn-info"><i class="fa fa-file-text" aria-hidden="true"> Reporte</i></button></a>
 						@endif
 						@if($rol == 'Administrador')
-							<a href="" data-target="#modal-delete-{{$ven->idventa}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+							<a href="" data-target="#modal-delete-{{$ven->idventa}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"> Anular</i></button></a>
 						@endif
 					</td>
 				</tr>

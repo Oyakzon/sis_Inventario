@@ -103,7 +103,7 @@
     		</div> 
     		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
      			<div class="form-group">
-      				<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+      				<button type="button" id="bt_add" class="btn btn-primary"><i class="fa fa-cart-plus" aria-hidden="true"> Agregar</i></button>
      			</div>
     		</div>
     		<div class="col-lg-12">
@@ -138,8 +138,8 @@
   	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12" id="guardar">
    		<div class="form-group">
      		<input name="_token" value="{{ csrf_token() }}" type="hidden"></input>
-     		<button class="btn bg-primary" type="submit">Guardar</button>
-     		<button class="btn btn-danger" type="reset">Cancelar</button>
+     		<button class="btn bg-primary" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
+     		<button class="btn btn-danger" type="reset"><i class="fa fa-times" aria-hidden="true"> Cancelar</i></button>
    		</div>
   	</div>
 </div>

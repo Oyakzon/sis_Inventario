@@ -156,7 +156,7 @@
 
             <li>
               <a href="" target="_blank">
-                <i class="fa fa-question-circle"></i> <span>Ayuda</span>
+                <i class="fa fa-file-pdf-o"></i> <span>Ayuda</span>
                 <small class="label pull-right bg-red">PDF</small>
               </a>
             </li>

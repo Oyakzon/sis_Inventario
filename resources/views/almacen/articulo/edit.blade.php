@@ -47,8 +47,8 @@
 			<label for="codigo">Código</label>
 			<input type="text" name="codigo" id="codigobar" required value="{{$articulo->codigo}}" class="form-control">
 			<hr>
-			<button class="btn btn-success" type="button" onclick="generarBarcode()">Generar</button>
-			<button class="btn btn-info" onclick="imprimir()" type="button">imprimir</button>
+			<button class="btn btn-success" type="button" onclick="generarBarcode()"><i class="fa fa-barcode" aria-hidden="true"> Generar</i></button>
+			<button class="btn btn-info" onclick="imprimir()" type="button"><i class="fa fa-print" aria-hidden="true"> Imprimir</i></button>
 			<hr>
 			<div id="print">
 				<svg id="barcode"></svg>
@@ -82,8 +82,8 @@
 	</div>
 	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<div class="form-group">
-			<button class="btn btn-primary" type="submit">Guardar</button>
-			<button class="btn btn-danger" type="reset">Cancelar</button>
+			<button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
+			<button class="btn btn-danger" type="reset"><i class="fa fa-times" aria-hidden="true"> Cancelar</i></button>
 		</div>
 	</div>
 </div>
