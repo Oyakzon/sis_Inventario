@@ -36,7 +36,7 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             <div class="form-group">
                 <label>Rol</label>
-                <select name="role" class="form-control" id="role">         
+                <select name="role" class="form-control" id="role" >         
                     <option value="Administrador">Administrador</option>
                     <option value="Gerente">Gerente</option>
                     <option value="Operador">Operador</option>            
