@@ -89,7 +89,7 @@ class ProveedorController extends Controller
         $pdf::AddPage();
         $pdf::SetTextColor(35,56,113);
         $pdf::SetFont('Arial','B',11);
-        $pdf::Cell(0,10,utf8_decode("Listado Proveedores"),0,"","C");
+        $pdf::Cell(0,10,utf8_decode("Listado de Proveedores"),0,"","C");
         $pdf::Ln();
         $pdf::Ln();
         $pdf::SetTextColor(0,0,0);  // Establece el color del texto 
@@ -97,7 +97,7 @@ class ProveedorController extends Controller
         $pdf::SetFont('Arial','B',10); 
         //El ancho de las columnas debe de sumar promedio 190        
         $pdf::cell(80,8,utf8_decode("Nombre"),1,"","L",true);
-        $pdf::cell(35,8,utf8_decode("Documento"),1,"","L",true);
+        $pdf::cell(35,8,utf8_decode("N° Documento"),1,"","L",true);
         $pdf::cell(50,8,utf8_decode("Email"),1,"","L",true);
         $pdf::cell(25,8,utf8_decode("Teléfono"),1,"","L",true);
         

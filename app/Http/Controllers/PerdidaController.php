@@ -106,7 +106,7 @@ class PerdidaController extends Controller
         $pdf::AddPage();
         $pdf::SetTextColor(35,56,113);
         $pdf::SetFont('Arial','B',11);
-        $pdf::Cell(0,10,utf8_decode("Listado Perdidas"),0,"","C");
+        $pdf::Cell(0,10,utf8_decode("Listado de Perdidas"),0,"","C");
         $pdf::Ln();
         $pdf::Ln();
         $pdf::SetTextColor(0,0,0);  // Establece el color del texto 

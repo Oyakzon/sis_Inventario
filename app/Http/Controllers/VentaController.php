@@ -220,7 +220,7 @@ class VentaController extends Controller
         $pdf::AddPage();
         $pdf::SetTextColor(35,56,113);
         $pdf::SetFont('Arial','B',11);
-        $pdf::Cell(0,10,utf8_decode("Listado Ventas"),0,"","C");
+        $pdf::Cell(0,10,utf8_decode("Listado de Ventas"),0,"","C");
         $pdf::Ln();
         $pdf::Ln();
         $pdf::SetTextColor(0,0,0);  // Establece el color del texto 
@@ -230,7 +230,7 @@ class VentaController extends Controller
         $pdf::cell(35,8,utf8_decode("Fecha"),1,"","L",true);
         $pdf::cell(80,8,utf8_decode("Cliente"),1,"","L",true);
         $pdf::cell(45,8,utf8_decode("Comprobante"),1,"","L",true);
-        $pdf::cell(10,8,utf8_decode("Imp"),1,"","C",true);
+        $pdf::cell(10,8,utf8_decode("IVA"),1,"","C",true);
         $pdf::cell(25,8,utf8_decode("Total"),1,"","R",true);
         
         $pdf::Ln();

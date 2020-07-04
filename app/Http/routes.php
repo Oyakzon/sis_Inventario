@@ -40,6 +40,7 @@ Route::get('reporteventas', 'VentaController@reporte');
 Route::get('reporteventa/{id}', 'VentaController@reportec');
 Route::get('reporteingresos', 'IngresoController@reporte');
 Route::get('reporteingreso/{id}', 'IngresoController@reportec');
+Route::get('reporteusuarios', 'UsuarioController@reporte');
 Route::get('/{slug?}', 'HomeController@index');
 
 

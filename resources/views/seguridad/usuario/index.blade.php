@@ -8,6 +8,7 @@
 		<h3>Listado de Usuarios
 			@if($rol == 'Administrador')	 
 				<a href="usuario/create"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"> Nuevo</i></button></a>
+				<a href="{{url('reporteusuarios')}}" target="_blank"><button class="btn btn-info"><i class="fa fa-book" aria-hidden="true"> Reportes</i></button></a>
 			@endif
 		</h3>
 		@include('seguridad.usuario.search')
