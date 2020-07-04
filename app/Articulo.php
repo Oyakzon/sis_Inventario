@@ -5,7 +5,8 @@ namespace sis_Inventario;
 use Illuminate\Database\Eloquent\Model;
 
 class Articulo extends Model
-{protected $table='articulo';
+{
+    protected $table='articulo';
 
     protected $primaryKey='idarticulo';
 

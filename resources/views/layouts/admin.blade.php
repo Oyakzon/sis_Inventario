@@ -106,6 +106,9 @@
                 @if($rol == 'Administrador' || $rol == 'Operador')
                 <li id="liCategorias"><a href="{{url('almacen/categoria')}}"><i class="fa fa-circle-o"></i> Categorías</a></li>
                 @endif
+                @if($rol == 'Administrador' || $rol == 'Operador')
+                <li id="liCategorias"><a href="{{url('perdidas/perdida')}}"><i class="fa fa-circle-o"></i> Perdidas</a></li>
+                @endif
               </ul>
             </li>
             @endif

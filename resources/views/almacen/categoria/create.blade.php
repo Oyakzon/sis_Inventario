@@ -14,7 +14,6 @@
 				</ul>
 			</div>
 			@endif
-
 			{!!Form::open(array('url'=>'almacen/categoria','method'=>'POST','autocomplete'=>'off'))!!}
             {{Form::token()}}
             <div class="form-group">

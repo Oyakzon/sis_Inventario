@@ -4,7 +4,7 @@ namespace sis_Inventario\Http\Requests;
 
 use sis_Inventario\Http\Requests\Request;
 
-class IngresoFormRequest extends Request
+class PerdidaFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,12 @@ class IngresoFormRequest extends Request
     public function rules()
     {
         return [
-            'idproveedor'=>'required',
-            'tipo_comprobante'=>'required|max:20',
-            'serie_comprobante'=>'max:7',
-            'num_comprobante'=>'required|max:10',
             'idarticulo'=>'required',
-            'cantidad'=>'required',
-            'precio_compra'=>'required',
-            'precio_venta'=>'required',
+            'stock'=>'required|numeric',
+            'descripcion'=>'required|max:512',
+            'imagen'=>'mimes:jpeg,bmp,png',
+            'fecha_hora'=>'required|date_format:Y-m-d',
+            
         ];
     }
 }

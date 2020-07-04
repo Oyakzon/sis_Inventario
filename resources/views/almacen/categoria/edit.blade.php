@@ -14,7 +14,6 @@
 				</ul>
 			</div>
 			@endif
-
 			{!!Form::model($categoria,['method'=>'PATCH','route'=>['almacen.categoria.update',$categoria->idcategoria]])!!}
             {{Form::token()}}
             <div class="form-group">
