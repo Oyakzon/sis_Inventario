@@ -102,12 +102,12 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li id="liArticulos"><a href="{{url('almacen/articulo')}}"><i class="fa fa-circle-o"></i> Artículos</a></li>
                 @if($rol == 'Administrador' || $rol == 'Operador')
                 <li id="liCategorias"><a href="{{url('almacen/categoria')}}"><i class="fa fa-circle-o"></i> Categorías</a></li>
                 @endif
+                <li id="liArticulos"><a href="{{url('almacen/articulo')}}"><i class="fa fa-circle-o"></i> Artículos</a></li>
                 @if($rol == 'Administrador' || $rol == 'Operador')
-                <li id="liCategorias"><a href="{{url('perdidas/perdida')}}"><i class="fa fa-circle-o"></i> Perdidas</a></li>
+                <li id="liPerdidas"><a href="{{url('perdidas/perdida')}}"><i class="fa fa-circle-o"></i> Perdidas</a></li>
                 @endif
               </ul>
             </li>
