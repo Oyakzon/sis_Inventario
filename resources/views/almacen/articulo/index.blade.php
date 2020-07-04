@@ -42,9 +42,11 @@
 					<td>
 						<img src="{{asset('imagenes/articulos/'.$art->imagen)}}" alt="{{ $art->nombre}}" height="100px" width="100px" class="img-thumbnail">
 					</td>
-
-					<td>{{ $art->estado}}</td>
-
+					@if ($art->estado == 'Activo')
+					<td><small class="bg-green">{{ $art->estado}}</small></td>			
+					@else
+					<td><small class="bg-red">{{ $art->estado}}</small></td>
+					@endif
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Operador')
 						<a href="{{URL::action('ArticuloController@edit',$art->idarticulo)}}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"> Editar</i></button></a>

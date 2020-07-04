@@ -1,5 +1,7 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
+@if($rol == 'Administrador')
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
 		<h3>Editar Perdida: {{ $perdida->idarticulo}} </h3>
@@ -15,8 +17,8 @@
 		<hr>
 		{!!Form::model($perdida,['method'=>'PATCH','route'=>['perdidas.perdida.update',$perdida->idperdida],'files'=>'true'])!!}
 		{{Form::token()}}
-		<div class="row">
 
+		<div class="row">
 			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 				<div class="form-group">
 					<label for="descripcion">Descripcion: </label>
@@ -58,14 +60,6 @@
 					<input type="number" id="stock" name="stock" required value="{{$perdida->stock}}" class="form-control" placeholder="Perdida" min="1" max="1000">
 				</div>
 			</div>
-			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-				<div class="form-group">
-					<label for="">Fecha</label>
-					<input type="date" name="fecha_hora" required value="{{$perdida->fecha_hora}}" id="fecha_hora" class="form-control" required="true">
-					
-				</div>					
-			</div>
-
 		</div>
 		<br>
 		<div class="row">
@@ -81,4 +75,12 @@
 		{!!Form::close()!!}
 	</div>
 </div>
+@endif
+@if($rol == 'Gerente'||$rol == 'Operador')
+<div class="alert alert-danger text-center" role="alert">
+	<h3 class="alert-heading text-center">Acceso Denegado!</h3>
+	<hr>
+	<p class="text-center">No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link text-center">Click Aqui</a>.</p>
+</div>
+@endif
 @endsection

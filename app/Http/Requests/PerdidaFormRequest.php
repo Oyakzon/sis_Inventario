@@ -28,8 +28,6 @@ class PerdidaFormRequest extends Request
             'stock'=>'required|numeric',
             'descripcion'=>'required|max:512',
             'imagen'=>'mimes:jpeg,bmp,png',
-            'fecha_hora'=>'required|date_format:Y-m-d',
-            
         ];
     }
 }

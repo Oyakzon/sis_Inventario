@@ -37,7 +37,11 @@
 					<td>{{ $ven->tipo_comprobante.': '.$ven->serie_comprobante.'-'.$ven->num_comprobante}}</td>
 					<td>{{ $ven->impuesto}}</td>
 					<td>{{ $ven->total_venta}}</td>
-					<td>{{ $ven->estado}}</td>
+					@if ($ven->estado == 'Aprobado')
+					<td><small class="bg-green">{{ $ven->estado}}</small></td>
+					@else
+					<td><small class="bg-red">{{ $ven->estado}}</small></td>
+					@endif
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
 							<a href="{{URL::action('VentaController@show',$ven->idventa)}}"><button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"> Detalles</i></button></a>

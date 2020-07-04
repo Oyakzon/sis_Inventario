@@ -35,7 +35,11 @@
 					<td>{{ $ing->tipo_comprobante.': '.$ing->serie_comprobante.'-'.$ing->num_comprobante}}</td>
 					<td>{{ $ing->impuesto}}</td>
 					<td>{{ $ing->total}}</td>
-					<td>{{ $ing->estado}}</td>
+					@if ($ing->estado == 'Aprobado')
+					<td><small class="bg-green">{{ $ing->estado}}</small></td>
+					@else
+					<td><small class="bg-red">{{ $ing->estado}}</small></td>
+					@endif
 					<td>
 						@if($rol == 'Administrador' || $rol == 'Gerente' || $rol == 'Operador')
 							<a href="{{URL::action('IngresoController@show',$ing->idingreso)}}"><button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"> Detalles</i></button></a>

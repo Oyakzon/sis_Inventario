@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use sis_Inventario\Http\Requests\PerdidaFormRequest;
 use sis_Inventario\Perdida;
 use DB;
+use Carbon\Carbon;
 
 use Fpdf;
 
@@ -55,7 +56,8 @@ class PerdidaController extends Controller
             $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
             $perdida->imagen=$file->getClientOriginalName();
         }
-        $perdida->fecha_hora=$request->get('fecha_hora');
+        $mytime = Carbon::now('America/Santiago');
+        $perdida->fecha_hora=$mytime->toDateTimeString();
         $perdida->save();
         return Redirect::to('perdidas/perdida');
 
@@ -82,7 +84,8 @@ class PerdidaController extends Controller
             $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
             $perdida->imagen=$file->getClientOriginalName();
         }
-        $perdida->fecha_hora=$request->get('fecha_hora'); 
+        $mytime = Carbon::now('America/Santiago');
+        $perdida->fecha_hora=$mytime->toDateTimeString(); 
         $perdida->update();
         return Redirect::to('perdidas/perdida');
     }
