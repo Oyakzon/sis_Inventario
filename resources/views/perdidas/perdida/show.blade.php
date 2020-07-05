@@ -17,8 +17,8 @@
 	</div>
 	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 		<div class="form-group">
-			<label for="serie_comprobante">Codigo</label>
-			<p>{{$perdida->codigo}}</p>
+			<label for="serie_comprobante">Fecha Creacion</label>
+			<p>{{$perdida->fecha_hora}}</p>
 		</div>
 	</div>
 	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
