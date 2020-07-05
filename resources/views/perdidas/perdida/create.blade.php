@@ -39,8 +39,10 @@
 			</div>
 			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 				<div class="form-group">
+					
 					<label for="stock">Perdida</label>
 					<input type="number" id="stock" name="stock" required value="{{old('stock')}}" class="form-control" placeholder="Perdida" min="1" max="1000" maxlength="4">
+				
 				</div>
 			</div>
 		</div>
@@ -50,12 +52,14 @@
 				<div class="form-group">
 					<input name"_token" value="{{ csrf_token() }}" type="hidden"></input>
 					<button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
+	
 					<button class="btn btn-danger" type="reset"><i class="fa fa-times" aria-hidden="true"> Cancelar</i></button>
 				</div>
 			</div>
 		</div>
 		{!!Form::close()!!}
 	</div>
+	
 </div>
 @endif
 @push ('scripts')

@@ -94,7 +94,6 @@
                 <i class="fa fa-bar-chart"></i><span>Estadisticas</span>
               </a>
             </li>
-            <hr>
             @if($rol == 'Administrador' || $rol == 'Operador')
             <li id="liAlmacen" class="treeview">
               <a href="#">

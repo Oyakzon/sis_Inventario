@@ -47,8 +47,8 @@
 					</td>
 					@if($rol == 'Administrador')
 					<td>
-						<a href="{{URL::action('PerdidaController@edit',$perd->idperdida)}}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"> Editar</i></button></a>
-						<a href="" data-target="#modal-delete-{{$perd->idperdida}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Eliminar</i></button></a>	
+						<a href="{{URL::action('PerdidaController@show',$perd->idperdida)}}"><button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"> Detalles</i></button></a>
+						<a href="" data-target="#modal-delete-{{$perd->idperdida}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Eliminar</i></button></a>
 					</td>
 					@endif
 				</tr>
@@ -62,8 +62,8 @@
 @endif
 @push ('scripts')
 <script>
-$('#liAlmacen').addClass("treeview active");
-$('#liPerdidas').addClass("active");
+	$('#liAlmacen').addClass("treeview active");
+	$('#liPerdidas').addClass("active");
 </script>
 @endpush
 @if($rol == 'Gerente')

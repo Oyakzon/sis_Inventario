@@ -64,7 +64,12 @@ class PerdidaController extends Controller
     }
     public function show($id)
     {
-        return view("perdidas.perdida.show",["perdida"=>Perdida::findOrFail($id)]);
+        $perdida=DB::table('perdida as p')
+            ->join('articulo as a','a.idarticulo','=','p.idperdida')
+            ->select('p.idperdida','p.fecha_hora','p.stock','p.descripcion','p.idarticulo','a.codigo','a.stock as real','a.nombre')
+            ->first();
+            
+        return view("perdidas.perdida.show",["perdida"=>$perdida]);
     }
     public function edit($id)
     {
