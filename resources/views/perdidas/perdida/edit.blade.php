@@ -19,7 +19,7 @@
 		{{Form::token()}}
 
 		<div class="row">
-			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 				<div class="form-group">
 					<label for="descripcion">Descripcion: </label>
 					<select class="selectpicker" id="descripcion" name="descripcion" data-max-options="3">
@@ -33,7 +33,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 				<div class="form-group">
 					<label for="idarticulo">Articulo: </label>
 					<select class="selectpicker" name="idarticulo" id="idarticulo" data-live-search="true">
@@ -47,14 +47,8 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-				<div class="form-group">
-					<label for="imagen">Imagen</label>
-					<input type="file" name="imagen" class="form-control">
-				</div>
-			</div>
 
-			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 				<div class="form-group">
 					<label for="stock">Perdida</label>
 					<input type="number" id="stock" name="stock" required value="{{$perdida->stock}}" class="form-control" placeholder="Perdida" min="1" max="1000">
@@ -76,6 +70,12 @@
 	</div>
 </div>
 @endif
+@push ('scripts')
+<script>
+$('#liAlmacen').addClass("treeview active");
+$('#liPerdidas').addClass("active");
+</script>
+@endpush
 @if($rol == 'Gerente'||$rol == 'Operador')
 <div class="alert alert-danger text-center" role="alert">
 	<h3 class="alert-heading text-center">Acceso Denegado!</h3>

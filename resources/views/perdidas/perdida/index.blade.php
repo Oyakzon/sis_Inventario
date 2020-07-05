@@ -60,6 +60,12 @@
 	</div>
 </div>
 @endif
+@push ('scripts')
+<script>
+$('#liAlmacen').addClass("treeview active");
+$('#liPerdidas').addClass("active");
+</script>
+@endpush
 @if($rol == 'Gerente')
 <div class="alert alert-danger text-center" role="alert">
 	<h3 class="alert-heading text-center">Acceso Denegado!</h3>

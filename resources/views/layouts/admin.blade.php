@@ -86,14 +86,15 @@
           <!-- Sidebar user panel -->
                     
           <!-- sidebar menu: : style can be found in sidebar.less -->
+         
           <ul class="sidebar-menu">
             <li class="header"></li>
             <li id="liEscritorio">
               <a href="{{url('home')}}">
-                <i class="fa fa-bar-chart"></i> <span>Estadisticas</span>
+                <i class="fa fa-bar-chart"></i><span>Estadisticas</span>
               </a>
             </li>
-
+            <hr>
             @if($rol == 'Administrador' || $rol == 'Operador')
             <li id="liAlmacen" class="treeview">
               <a href="#">
@@ -156,7 +157,7 @@
               </ul>
             </li>
             @endif
-
+            <hr>
             <li>
               <a href="" target="_blank">
                 <i class="fa fa-file-pdf-o"></i> <span>Ayuda</span>
