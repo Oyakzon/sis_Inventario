@@ -158,7 +158,7 @@
             @endif
             <hr>
             <li>
-              <a href="" target="_blank">
+              <a href="https://drive.google.com/file/d/1WYgiSC3zvQBsAB_GBEnEs_rNMoOpjXuP/view?usp=sharing" target="_blank">
                 <i class="fa fa-file-pdf-o"></i> <span>Ayuda</span>
                 <small class="label pull-right bg-red">PDF</small>
               </a>
