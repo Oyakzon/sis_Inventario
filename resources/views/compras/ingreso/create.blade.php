@@ -1,5 +1,6 @@
 @extends ('layouts.admin')
 @section ('contenido')
+@if($rol == 'Administrador' || $rol == 'Operador')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<h3>Nuevo Ingreso</h3>
@@ -212,4 +213,12 @@
 $('#liIngresos').addClass("active");
 </script>
 @endpush
+@endif
+@if($rol == 'Gerente')
+<div class="alert alert-danger text-center" role="alert">
+	<h3 class="alert-heading text-center">Acceso Denegado!</h3>
+	<hr>
+	<p class="text-center">No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link text-center">Click Aqui</a>.</p>
+</div>
+@endif	
 @endsection
