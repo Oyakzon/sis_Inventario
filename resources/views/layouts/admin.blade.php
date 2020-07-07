@@ -157,12 +157,38 @@
             </li>
             @endif
             <hr>
+            @if($rol == 'Administrador')
             <li>
-              <a href="https://drive.google.com/file/d/1WYgiSC3zvQBsAB_GBEnEs_rNMoOpjXuP/view?usp=sharing" target="_blank">
+              <a href="https://drive.google.com/file/d/1VzL_gyVFOt_hiMUrAbBaFmvj2abZv3PS/view?usp=sharing" target="_blank">
                 <i class="fa fa-file-pdf-o"></i> <span>Ayuda</span>
                 <small class="label pull-right bg-red">PDF</small>
               </a>
             </li>
+            @endif
+            @if($rol == 'Administrador')
+            <li>
+              <a href="https://drive.google.com/file/d/1oiAGJo8iLJHABkok1A4PPOlKgPB0xQzu/view?usp=sharing" target="_blank">
+                <i class="fa fa-file-pdf-o"></i> <span>Instalación</span>
+                <small class="label pull-right bg-red">PDF</small>
+              </a>
+            </li>
+            @endif
+            @if($rol == 'Gerente')
+            <li>
+              <a href="https://drive.google.com/file/d/1v8-BjAwlwCrmD4yKH5ptk74vlDn4Jb8Q/view?usp=sharing" target="_blank">
+                <i class="fa fa-file-pdf-o"></i> <span>Ayuda</span>
+                <small class="label pull-right bg-red">PDF</small>
+              </a>
+            </li>
+            @endif
+            @if($rol == 'Operador')
+            <li>
+              <a href="https://drive.google.com/file/d/1AuXYr8Vy48_UFZX34ao-2IVUISW_cJk9/view?usp=sharing" target="_blank">
+                <i class="fa fa-file-pdf-o"></i> <span>Ayuda</span>
+                <small class="label pull-right bg-red">PDF</small>
+              </a>
+            </li>
+            @endif
             <li>
               <a href="{{url('acerca')}}">
                 <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
