@@ -41,7 +41,7 @@
 		<div class="form-group">
 
 			<label for="codigo">Código</label>
-			<input type="text" name="codigo" id="codigobar" required value="{{old('codigo')}}" class="form-control" placeholder="Código del artículo...">
+			<input type="number" name="codigo" id="codigobar" required value="{{old('codigo')}}" min="0" class="form-control" placeholder="Código del artículo...">
 			<hr>
 			<button class="btn btn-success" type="button" onclick="generarBarcode()"><i class="fa fa-barcode" aria-hidden="true"> Generar</i></button>
 			<button class="btn btn-info" onclick="imprimir()" type="button"><i class="fa fa-print" aria-hidden="true"> Imprimir</i></button>
@@ -55,7 +55,7 @@
 	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<div class="form-group">
 			<label for="stock">Stock</label>
-			<input type="text" name="stock" required value="{{old('stock')}}" class="form-control" placeholder="Stock del articulo...">
+			<input type="number" name="stock" required value="{{old('stock')}}" class="form-control" min="0" max="5000000" placeholder="Stock del articulo...">
 		</div>
 	</div>
 

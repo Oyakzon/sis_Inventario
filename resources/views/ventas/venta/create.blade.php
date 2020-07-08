@@ -44,14 +44,14 @@
 	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
   		<div class="form-group">
    			<label for="serie_comprobante">Serie de Comprobante</label>
-   			<input type="text" name="serie_comprobante"  value="{{old('serie_comprobante')}}" class="form-control" placeholder="Serie de Comprobante....">
+   			<input type="number" min="0" name="serie_comprobante"  value="{{old('serie_comprobante')}}" class="form-control" placeholder="Serie de Comprobante....">
   		</div>
 	</div>
 
 	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
   		<div class="form-group">
    			<label for="num_comprobante">Numero de Comprobante</label>
-   			<input type="text" name="num_comprobante" required value="{{old('num_comprobante')}}" class="form-control"  placeholder="Numero de Comprobante....">
+   			<input type="number" min="0" name="num_comprobante" required value="{{old('num_comprobante')}}" class="form-control"  placeholder="Numero de Comprobante....">
   		</div>
 	</div>
 
@@ -80,25 +80,25 @@
     		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
      			<div class="form-group">
       				<label for="cantidad">Cantidad</label>
-      				<input type="number" name="pcantidad" id="pcantidad" class="form-control" placeholder="cantidad">
+      				<input type="number" min="0" name="pcantidad" id="pcantidad" class="form-control" placeholder="Cantidad">
      			</div>
     		</div>
     		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
      			<div class="form-group">
       				<label for="stock">Stock</label>
-      				<input type="number" disabled name="pstock" id="pstock" class="form-control" placeholder="Stock">
+      				<input type="number" min="0" disabled name="pstock" id="pstock" class="form-control" placeholder="Stock">
      			</div>
      		</div>
     		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
       				<label for="precio_venta">Precio de Venta</label>
-      				<input type="number" disabled name="pprecio_venta" id="pprecio_venta" class="form-control" placeholder="Precio de venta">
+      				<input type="number" min="0" disabled name="pprecio_venta" id="pprecio_venta" class="form-control" placeholder="Precio de venta">
      			</div>
     		</div>
     		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
      			<div class="form-group">
       				<label for="descuento">Descuento</label>
-      				<input type="number" name="pdescuento" id="pdescuento" class="form-control" placeholder="Descuento">
+      				<input type="number" min="0" name="pdescuento" id="pdescuento" class="form-control" placeholder="Descuento">
      			</div> 
     		</div> 
     		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">

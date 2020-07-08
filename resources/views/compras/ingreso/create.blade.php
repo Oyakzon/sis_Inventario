@@ -1,5 +1,6 @@
 @extends ('layouts.admin')
 @section ('contenido')
+<p type="hidden" {{$rol = Auth::user()->role }}></p>
 @if($rol == 'Administrador' || $rol == 'Operador')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -41,13 +42,13 @@
     	<div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="serie_comprobante">Serie Comprobante</label>
-                <input type="text" name="serie_comprobante" value="{{old('serie_comprobante')}}" class="form-control" placeholder="Serie comprobante...">
+                <input type="number" min="0" name="serie_comprobante" value="{{old('serie_comprobante')}}" class="form-control" placeholder="Serie comprobante...">
             </div>
         </div>
         <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
             <div class="form-group">
                 <label for="num_comprobante">Número Comprobante</label>
-                <input type="text" name="num_comprobante" required value="{{old('num_comprobante')}}" class="form-control" placeholder="Número comprobante...">
+                <input type="number" min="0" name="num_comprobante" required value="{{old('num_comprobante')}}" class="form-control" placeholder="Número comprobante...">
             </div>
         </div>
         <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
@@ -73,22 +74,22 @@
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
                         <label for="cantidad">Cantidad</label>
-                        <input type="number" name="pcantidad" id="pcantidad" class="form-control" 
-                        placeholder="cantidad">
+                        <input type="number" min="0" name="pcantidad" id="pcantidad" class="form-control" 
+                        placeholder="Cantidad">
                     </div>
                 </div> 
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
                         <label for="precio_compra">Precio Compra</label>
-                        <input type="number" name="pprecio_compra" id="pprecio_compra" class="form-control" 
+                        <input type="number" min="0" name="pprecio_compra" id="pprecio_compra" class="form-control" 
                         placeholder="P. Compra">
                     </div>
                 </div> 
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
-                        <label for="precio_venta">Precio venta</label>
-                        <input type="number" name="pprecio_venta" id="pprecio_venta" class="form-control" 
-                        placeholder="P. venta">
+                        <label for="precio_venta">Precio Venta</label>
+                        <input type="number" min="0" name="pprecio_venta" id="pprecio_venta" class="form-control" 
+                        placeholder="P. Venta">
                     </div>
 				</div>
 				

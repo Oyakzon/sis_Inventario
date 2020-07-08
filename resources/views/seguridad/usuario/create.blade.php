@@ -58,6 +58,19 @@
         </div>
 
         <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+            <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                <label for="phone" class="control-label">Telefono</label>
+                <input type="number" class="form-control" id="phone" name="phone" placeholder="56934550000">
+                <small id="phoneHelp" class="form-text text-muted">Ingrese su numero de telefono con 569</small>
+                @if ($errors->has('phone'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('phone') }}</strong>
+                </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                 <label for="password" class="control-label">Contraseña</label>
                 <input id="password" type="password" class="form-control" name="password" placeholder="Ingrese su contraseña">

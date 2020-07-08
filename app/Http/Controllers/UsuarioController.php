@@ -40,6 +40,7 @@ class UsuarioController extends Controller
         $usuario->role = $request->get('role');
         $usuario->email = $request->get('email');
         $usuario->password = bcrypt($request->get('password'));
+        $usuario->phone = $request->get('phone');
         $usuario->save();
         return Redirect::to('seguridad/usuario');
     }
@@ -55,6 +56,7 @@ class UsuarioController extends Controller
         $usuario->role = $request->get('role');
         $usuario->email = $request->get('email');
         $usuario->password = bcrypt($request->get('password'));
+        $usuario->phone = $request->get('phone');
         $usuario->update();
         return Redirect::to('seguridad/usuario');
     }
@@ -69,7 +71,7 @@ class UsuarioController extends Controller
 
 
         $usuario = DB::table('users')
-            ->select('id', 'name', 'role', 'email','created_at','updated_at')
+            ->select('id', 'name', 'role', 'email','created_at','updated_at','phone')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -84,12 +86,13 @@ class UsuarioController extends Controller
         $pdf::SetFillColor(206, 246, 245); // establece el color del fondo de la celda 
         $pdf::SetFont('Arial', 'B', 10);
         //El ancho de las columnas debe de sumar promedio 190        
-        $pdf::cell(10, 8, utf8_decode("ID"), 1, "", "L", true);
-        $pdf::cell(35, 8, utf8_decode("Nombre"), 1, "", "L", true);
-        $pdf::cell(25, 8, utf8_decode("Rol"), 1, "", "L", true);
-        $pdf::cell(55, 8, utf8_decode("Email"), 1, "", "L", true);
-        $pdf::cell(35, 8, utf8_decode("Creado"), 1, "", "L", true);
-        $pdf::cell(35, 8, utf8_decode("Actualizado"), 1, "", "L", true);
+        $pdf::cell(7, 8, utf8_decode("ID"), 1, "", "L", true);
+        $pdf::cell(30, 8, utf8_decode("Nombre"), 1, "", "L", true);
+        $pdf::cell(22, 8, utf8_decode("Rol"), 1, "", "L", true);
+        $pdf::cell(50, 8, utf8_decode("Email"), 1, "", "L", true);
+        $pdf::cell(22, 8, utf8_decode("Telefono"), 1, "", "L", true);
+        $pdf::cell(33, 8, utf8_decode("Creado"), 1, "", "L", true);
+        $pdf::cell(33, 8, utf8_decode("Actualizado"), 1, "", "L", true);
 
         $pdf::Ln();
         $pdf::SetTextColor(0, 0, 0);  // Establece el color del texto 
@@ -97,12 +100,13 @@ class UsuarioController extends Controller
         $pdf::SetFont("Arial", "", 9);
 
         foreach ($usuario as $usu) {
-            $pdf::cell(10, 6, utf8_decode($usu->id), 1, "", "L", true);
-            $pdf::cell(35, 6, utf8_decode($usu->name), 1, "", "L", true);
-            $pdf::cell(25, 6, utf8_decode($usu->role), 1, "", "L", true);
-            $pdf::cell(55, 6, utf8_decode($usu->email), 1, "", "L", true);
-            $pdf::cell(35, 6, utf8_decode($usu->created_at), 1, "", "L", true);
-            $pdf::cell(35, 6, utf8_decode($usu->updated_at), 1, "", "L", true);
+            $pdf::cell(7, 6, utf8_decode($usu->id), 1, "", "L", true);
+            $pdf::cell(30, 6, utf8_decode($usu->name), 1, "", "L", true);
+            $pdf::cell(22, 6, utf8_decode($usu->role), 1, "", "L", true);
+            $pdf::cell(50, 6, utf8_decode($usu->email), 1, "", "L", true);
+            $pdf::cell(22, 6, utf8_decode($usu->phone), 1, "", "L", true);
+            $pdf::cell(33, 6, utf8_decode($usu->created_at), 1, "", "L", true);
+            $pdf::cell(33, 6, utf8_decode($usu->updated_at), 1, "", "L", true);
             $pdf::Ln();
         }
 

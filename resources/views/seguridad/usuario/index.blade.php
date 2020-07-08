@@ -25,6 +25,7 @@
 					<th>Nombre</th>
 					<th>Rol</th>
 					<th>Correo</th>
+					<th>Telefono</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($usuarios as $usu)
@@ -33,6 +34,7 @@
 					<td>{{ $usu->name}}</td>
 					<td>{{ $usu->role}}</td>
 					<td>{{ $usu->email}}</td>
+					<td>{{ $usu->phone}}</td>
 					<td>
 						<a href="{{URL::action('UsuarioController@edit',$usu->id)}}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"> Editar</i></button></a>
                          <a href="" data-target="#modal-delete-{{$usu->id}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Eliminar</i></button></a>

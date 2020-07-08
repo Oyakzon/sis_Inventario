@@ -41,7 +41,7 @@
 				<div class="form-group">
 					
 					<label for="stock">Perdida</label>
-					<input type="number" id="stock" name="stock" required value="{{old('stock')}}" class="form-control" placeholder="Perdida" min="1" max="1000" maxlength="4">
+					<input type="number" id="stock" name="stock" required value="{{old('stock')}}" class="form-control" placeholder="Perdida" min="0" max="1000" maxlength="4">
 				
 				</div>
 			</div>

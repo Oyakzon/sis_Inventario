@@ -54,13 +54,13 @@
         <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
             <div class="form-group">
                 <label for="num_documento">Número documento</label>
-                <input type="text" name="num_documento" value="{{$persona->num_documento}}" class="form-control" placeholder="Número de Documento...">
+                <input type="number" name="num_documento" value="{{$persona->num_documento}}" min="0" class="form-control" placeholder="Número de Documento...">
             </div>
         </div>
         <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
             <div class="form-group">
                 <label for="telefono">Teléfono</label>
-                <input type="text" name="telefono" value="{{$persona->telefono}}" class="form-control" placeholder="Teléfono...">
+                <input type="number" min="0" name="telefono" value="{{$persona->telefono}}" class="form-control" placeholder="Teléfono...">
             </div>
         </div>
         <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">

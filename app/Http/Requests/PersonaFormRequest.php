@@ -24,11 +24,11 @@ class PersonaFormRequest extends Request
     public function rules()
     {
         return [
-            'nombre'=>'required|max:100',
+            'nombre'=>'required|max:100|regex:/^([A-Z][a-z]+([ ]?[a-z]?[-]?[A-Z][a-z]+)*)$/',
             'tipo_documento'=>'required|max:20',
             'num_documento'=>'required|max:15',
             'direccion'=>'required|max:70',
-            'telefono'=>'required|max:15',
+            'telefono'=>'required|min:9|max:11',
             'email'=>'required|max:50',
         ];
     }
