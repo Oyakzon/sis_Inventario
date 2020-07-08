@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 04-07-2020 a las 20:11:27
+-- Tiempo de generación: 08-07-2020 a las 01:50:04
 -- Versión del servidor: 8.0.20
 -- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -47,13 +46,13 @@ CREATE TABLE `articulo` (
 --
 
 INSERT INTO `articulo` (`idarticulo`, `idcategoria`, `codigo`, `nombre`, `stock`, `descripcion`, `imagen`, `estado`) VALUES
-(5, 1, '21231233', 'Fechadores-Numeradores', 71, 'Impresión instantánea', 'db9c9e2e1f7c796f1d857257b23ab0a8.png', 'Activo'),
-(7, 1, '125254531', 'Cubiletes', 224, 'Portalapiz', '540.png', 'Activo'),
-(8, 1, '1234567', 'Abrecartas', 1240, 'Abrir cartas de forma sencilla', 'unnamed.jpg', 'Activo'),
-(9, 2, '4216512', 'Blocs de notas y cartas', 586, 'Variedad de blocs de notas y cartas', 'blocs-notas.jpg', 'Activo'),
+(5, 1, '21231233', 'Fechadores-Numeradores', 51, 'Impresión instantánea', 'db9c9e2e1f7c796f1d857257b23ab0a8.png', 'Inactivo'),
+(7, 1, '125254531', 'Cubiletes', 210, 'Portalapiz', '540.png', 'Activo'),
+(8, 1, '1234567', 'Abrecartas', 1338, 'Abrir cartas de forma sencilla', 'unnamed.jpg', 'Activo'),
+(9, 2, '4216512', 'Blocs de notas y cartas', 566, 'Variedad de blocs de notas y cartas', 'blocs-notas.jpg', 'Activo'),
 (10, 2, '126377', 'Libretas espiral', 804, 'Libretas de tipo espiral variedad', 'rite-673.png', 'Activo'),
-(11, 4, '123123', 'Calculadoras y accesorios', 40, 'Calculadoras y sus accesorios', 'product-nspire-cx-cas-hero.png', 'Activo'),
-(12, 4, '12365216323', 'Destructor de documentos', 240, 'Para destruir archivos basura', 'Destructora_de_papel_Despacho.png', 'Activo');
+(11, 4, '123123', 'Calculadoras y accesorios', 44, 'Calculadoras y sus accesorios', 'product-nspire-cx-cas-hero.png', 'Activo'),
+(12, 4, '12365216323', 'Destructor de documentos', 275, 'Para destruir archivos basura', 'Destructora_de_papel_Despacho.png', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -111,7 +110,9 @@ INSERT INTO `detalle_ingreso` (`iddetalle_ingreso`, `idingreso`, `idarticulo`, `
 (31, 26, 10, 102, '1000.00', '20000.00'),
 (32, 27, 8, 12, '12.00', '12.00'),
 (33, 28, 8, 100, '2000.00', '5000.00'),
-(34, 28, 12, 30, '3000.00', '5000.00');
+(34, 28, 12, 30, '3000.00', '5000.00'),
+(35, 29, 11, 2, '2.00', '2.00'),
+(36, 29, 12, 3, '12.00', '33.00');
 
 --
 -- Disparadores `detalle_ingreso`
@@ -203,7 +204,9 @@ INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `tipo_comprobante`, `serie_co
 (25, 6, 'Boleta', '123123', '12321', '2020-07-02 23:11:50', '0.00', 'Aprobado'),
 (26, 13, 'Ticket', '123456', '645321', '2020-07-02 23:22:36', '0.00', 'Aprobado'),
 (27, 7, 'Factura', '1232', '123212', '2020-07-03 00:15:41', '19.00', 'Aprobado'),
-(28, 13, 'Factura', '123456', '65423', '2020-07-03 00:31:13', '19.00', 'Aprobado');
+(28, 13, 'Factura', '123456', '65423', '2020-07-03 00:31:13', '19.00', 'Anulado'),
+(29, 5, 'Ticket', '12322', '12344', '2020-07-04 23:45:48', '19.00', 'Anulado'),
+(30, 5, 'Factura', '123', '123', '2020-07-05 00:48:34', '19.00', 'Aprobado');
 
 --
 -- Disparadores `ingreso`
@@ -281,10 +284,10 @@ CREATE TABLE `perdida` (
 --
 
 INSERT INTO `perdida` (`idperdida`, `idarticulo`, `stock`, `descripcion`, `imagen`, `fecha_hora`) VALUES
-(2, 7, 12, 'Dañado', 'png-clipart-citizen-calculator-cit-cpc-citizen-hol', '2020-07-03 00:00:00'),
-(8, 8, 50, 'Dañado', 'db9c9e2e1f7c796f1d857257b23ab0a8.png', '2020-07-04 00:00:00'),
-(9, 10, 12, 'Extraviado', 'rite-673.png', '2020-07-04 00:00:00'),
-(10, 7, 77, 'Extraviado', '540.png', '2020-07-04 00:00:00');
+(11, 5, 20, 'Extraviado', 'PicsArt_12-30-02.59.40.jpg', '2020-07-04 16:27:29'),
+(15, 7, 2, 'Dañado', NULL, '2020-07-04 23:18:22'),
+(17, 9, 20, 'Extraviado', NULL, '2020-07-05 01:00:39'),
+(18, 12, 1, 'Dañado', NULL, '2020-07-05 15:32:52');
 
 --
 -- Disparadores `perdida`
@@ -328,11 +331,12 @@ INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, 
 (6, 'Proveedor', 'Carla Acosta', 'RUC', '21123123', '12 de septiembre #2534', '962969093', 'CarlaAcosta@gmail.com'),
 (7, 'Proveedor', 'Cecilia Alvarez', 'RUC', '44524553', 'Bellavista #3443', '962364091', 'Cecilia.Alvarez@gmail.com'),
 (8, 'Proveedor', 'Jordan Castillo', 'RUC', '1245345', 'La torre #2333', '962999722', 'JordanCastillo@gmail.com'),
-(9, 'Proveedor', 'Prueba Prueba', 'RUC', '1263566532', 'Prueba #2554', '962999721', 'PruebaPrueba@gmail.com'),
-(10, 'Proveedor', 'prueba', 'RUC', '1231231', 'Los Lagos #3322', '962999721', 'prueba@gmail.com'),
-(11, 'Proveedor', 'Jose pinto', 'RUC', '123213213', 'Los Lagos #3322', '962999722', 'JosePinto@gmail.com'),
-(12, 'Proveedor', 'ipchile prueba 2', 'RUC', '123432', 'Los magos #12322', '962999721', 'prueba@gmail.com'),
-(13, 'Proveedor', 'Prueba', 'RUC', '1234567', 'Los magos #12322', '962999721', 'prueba@gmail.com');
+(9, 'Inactivo', 'Prueba Prueba', 'RUC', '1263566532', 'Prueba #2554', '962999721', 'PruebaPrueba@gmail.com'),
+(10, 'Inactivo', 'prueba', 'RUC', '1231231', 'Los Lagos #3322', '962999721', 'prueba@gmail.com'),
+(11, 'Inactivo', 'Jose pinto', 'RUC', '123213213', 'Los Lagos #3322', '962999722', 'JosePinto@gmail.com'),
+(12, 'Inactivo', 'ipchile prueba 2', 'RUC', '123432', 'Los magos #12322', '962999721', 'prueba@gmail.com'),
+(13, 'Inactivo', 'Prueba', 'RUC', '1234567', 'Los magos #12322', '962999721', 'prueba@gmail.com'),
+(14, 'Inactivo', 'PedroTorres', 'DNI', '12233212', 'Bellavista #3443', '56962364091', 'PedroTorres@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -347,6 +351,7 @@ CREATE TABLE `users` (
   `role` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -356,10 +361,12 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Francisco Guerrero', 'Operador', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 00:08:38', '2020-07-01 23:04:12'),
-(2, 'Sebastian', 'Administrador', 'sebastian.ipchile@gmail.com', '$2y$10$wjpco2s.2sMrWQMleJmA2O7.H0uiwNEJpytoowp06Z8kh6FcFzkzW', 'TbFHwzfBXegB0nNmakdPjuX8fCMMR6XGaPgM4jn6F4ScNLqZidqocjrY4dVk', '2020-06-27 00:33:27', '2020-07-03 04:54:11'),
-(4, 'Marcos Oyarzo', 'Administrador', 'marcos_oyarzo97@hotmail.com', '$2y$10$/W78HQURy0Ca8CJ0HNn3uuhpdC940NDwz3jdUX5l750txKfuMsOcy', 'Px0sRyKaAaTHzCSU4h4BTtqQXIVJHbNop0DmZhndg1pqYRB8y5Cz5cGgaghv', '2020-07-01 22:56:00', '2020-07-04 18:19:34');
+INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `phone`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Francisco Guerrero', 'Operador', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '56932459091', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 00:08:38', '2020-07-01 23:04:12'),
+(2, 'Sebastian Acosta', 'Administrador', 'sebastian.ipchile@gmail.com', '$2y$10$wjpco2s.2sMrWQMleJmA2O7.H0uiwNEJpytoowp06Z8kh6FcFzkzW', '56962768099', 'NieUS5010ebfIrLv8bbV0BzkqqLV7VYo7BgXaJEeQWgke4ApbA7DEVv2qpdo', '2020-06-27 00:33:27', '2020-07-06 19:01:51'),
+(4, 'Marcos Oyarzo', 'Administrador', 'marcos_oyarzo97@hotmail.com', '$2y$10$/W78HQURy0Ca8CJ0HNn3uuhpdC940NDwz3jdUX5l750txKfuMsOcy', '56962469094', 'Px0sRyKaAaTHzCSU4h4BTtqQXIVJHbNop0DmZhndg1pqYRB8y5Cz5cGgaghv', '2020-07-01 22:56:00', '2020-07-04 18:19:34'),
+(6, 'Jose Costa', 'Gerente', 'Jose@gmail.com', '$2y$10$INro9q0nQ/RZ6g.2U2f0ie5VdSM9beAzgXHPUYREhrdUTlkYIb91i', '56962969091', 'xoQUJujdYHRy0BKe5rB7NlTQ5cc405UyE178wj2E4M57rU5wRSFc79b7ucfD', '2020-07-05 03:34:45', '2020-07-07 23:14:31'),
+(13, 'Sebastian Acosta', 'Gerente', 'Luis1sBriceno@gmail.com', '$2y$10$.0F/lgMAGgzQFSQs4GUSUeapidCqrLdWmhnND69FY6b9zLDAFgtBm', '962969091', NULL, '2020-07-08 00:23:29', '2020-07-08 00:23:29');
 
 -- --------------------------------------------------------
 
@@ -497,7 +504,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -509,7 +516,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detalle_ingreso`
 --
 ALTER TABLE `detalle_ingreso`
-  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
@@ -521,25 +528,25 @@ ALTER TABLE `detalle_venta`
 -- AUTO_INCREMENT de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `perdida`
 --
 ALTER TABLE `perdida`
-  MODIFY `idperdida` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idperdida` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idpersona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idpersona` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
