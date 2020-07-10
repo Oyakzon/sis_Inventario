@@ -26,6 +26,7 @@
 					<th>Nombre</th>
 					<th>Tipo Doc.</th>
 					<th>Número Doc.</th>
+					<th>Direccion</th>
 					<th>Teléfono</th>
 					<th>Email</th>
 					<th>Opciones</th>
@@ -36,6 +37,7 @@
 					<td>{{ $per->nombre}}</td>
 					<td>{{ $per->tipo_documento}}</td>
 					<td>{{ $per->num_documento}}</td>
+					<td>{{ $per->direccion}}</td>
 					<td>{{ $per->telefono}}</td>
 					<td>{{ $per->email}}</td>
 					<td>
