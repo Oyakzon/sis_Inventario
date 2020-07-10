@@ -96,7 +96,8 @@ class ProveedorController extends Controller
         $pdf::SetFillColor(206, 246, 245); // establece el color del fondo de la celda 
         $pdf::SetFont('Arial','B',10); 
         //El ancho de las columnas debe de sumar promedio 190        
-        $pdf::cell(80,8,utf8_decode("Nombre"),1,"","L",true);
+        $pdf::cell(50,8,utf8_decode("Nombre"),1,"","L",true);
+        $pdf::cell(30,8,utf8_decode("Tipo Documento"),1,"","L",true);
         $pdf::cell(35,8,utf8_decode("N° Documento"),1,"","L",true);
         $pdf::cell(50,8,utf8_decode("Email"),1,"","L",true);
         $pdf::cell(25,8,utf8_decode("Teléfono"),1,"","L",true);
@@ -108,7 +109,8 @@ class ProveedorController extends Controller
         
         foreach ($registros as $reg)
         {
-           $pdf::cell(80,6,utf8_decode($reg->nombre),1,"","L",true);
+           $pdf::cell(50,6,utf8_decode($reg->nombre),1,"","L",true);
+           $pdf::cell(30,6,utf8_decode($reg->tipo_documento),1,"","L",true);
            $pdf::cell(35,6,utf8_decode($reg->num_documento),1,"","L",true);
            $pdf::cell(50,6,utf8_decode($reg->email),1,"","L",true);
            $pdf::cell(25,6,utf8_decode($reg->telefono),1,"","L",true);
