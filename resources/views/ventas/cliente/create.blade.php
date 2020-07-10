@@ -33,7 +33,7 @@
 				<label>Documento</label>
 				<select name="tipo_documento" class="form-control">
 					<option value="DNI">DNI</option>
-					<option value="RUC">RUC</option>
+					<option value="RUT">RUT</option>
 					<option value="PAS">PAS</option>
 				</select>
 			</div>

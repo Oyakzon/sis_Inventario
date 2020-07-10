@@ -27,7 +27,8 @@ class ArticuloController extends Controller
             $query=trim($request->get('searchText'));
             $articulos=DB::table('articulo as a')
             ->join('categoria as c','a.idcategoria','=','c.idcategoria')
-            ->select('a.idarticulo','a.nombre','a.codigo','a.stock','c.nombre as categoria','a.descripcion','a.imagen','a.estado')
+            ->join('persona as p','a.idproveedor','=','p.idpersona')
+            ->select('a.idarticulo','a.nombre','a.codigo','a.stock','c.nombre as categoria','a.descripcion','a.imagen','a.estado','p.nombre as proveedor')
             ->where('a.nombre','LIKE','%'.$query.'%')
             ->orwhere('a.codigo','LIKE','%'.$query.'%')
             ->orwhere('c.nombre','LIKE','%'.$query.'%')
@@ -38,13 +39,15 @@ class ArticuloController extends Controller
     }
     public function create()
     {
+        $persona=DB::table('persona')->where('tipo_persona','=','Proveedor')->get();
         $categorias=DB::table('categoria')->where('condicion','=','1')->get();
-        return view("almacen.articulo.create",["categorias"=>$categorias]);
+        return view("almacen.articulo.create",["categorias"=>$categorias, "persona"=>$persona]);
     }
     public function store (ArticuloFormRequest $request)
     {
         $articulo=new Articulo();
         $articulo->idcategoria=$request->get('idcategoria');
+        $articulo->idproveedor=$request->get('idproveedor');
         $articulo->codigo=$request->get('codigo');
         $articulo->nombre=$request->get('nombre');
         $articulo->stock=$request->get('stock');
@@ -68,8 +71,9 @@ class ArticuloController extends Controller
     public function edit($id)
     {
         $articulo=Articulo::findOrFail($id);
+        $persona=DB::table('persona')->where('tipo_persona','=','Proveedor')->get();
         $categorias=DB::table('categoria')->where('condicion','=','1')->get();
-        return view("almacen.articulo.edit",["articulo"=>$articulo,"categorias"=>$categorias]);
+        return view("almacen.articulo.edit",["articulo"=>$articulo,"categorias"=>$categorias,"persona"=>$persona]);
     }
     public function update(ArticuloFormRequest $request,$id)
     {
@@ -103,7 +107,8 @@ class ArticuloController extends Controller
         //Obtenemos los registros
         $registros=DB::table('articulo as a')
            ->join('categoria as c','a.idcategoria','=','c.idcategoria')
-           ->select('a.idarticulo','a.nombre','a.codigo','a.stock','c.nombre as categoria','a.descripcion','a.imagen','a.estado')
+           ->join('persona as p','a.idproveedor','=','p.idpersona')
+           ->select('a.idarticulo','a.nombre','a.codigo','a.stock','c.nombre as categoria','a.descripcion','a.imagen','a.estado','p.nombre as proveedor')
            ->orderBy('a.nombre','asc')
            ->get();
 
@@ -117,9 +122,10 @@ class ArticuloController extends Controller
         $pdf::SetTextColor(0,0,0);  // Establece el color del texto 
         $pdf::SetFillColor(206, 246, 245); // establece el color del fondo de la celda 
         $pdf::SetFont('Arial','B',10); 
-        //El ancho de las columnas debe de sumar promedio 190        
-        $pdf::cell(30,8,utf8_decode("Código"),1,"","L",true);
-        $pdf::cell(80,8,utf8_decode("Nombre"),1,"","L",true);
+        //El ancho de las columnas debe de sumar promedio 190 
+        $pdf::cell(30,8,utf8_decode("Codigo"),1,"","L",true);       
+        $pdf::cell(30,8,utf8_decode("Proveedor"),1,"","L",true);
+        $pdf::cell(50,8,utf8_decode("Nombre"),1,"","L",true);
         $pdf::cell(65,8,utf8_decode("Categoría"),1,"","L",true);
         $pdf::cell(15,8,utf8_decode("Stock"),1,"","L",true);
         
@@ -131,7 +137,8 @@ class ArticuloController extends Controller
         foreach ($registros as $reg)
         {
            $pdf::cell(30,6,utf8_decode($reg->codigo),1,"","L",true);
-           $pdf::cell(80,6,utf8_decode($reg->nombre),1,"","L",true);
+           $pdf::cell(30,6,utf8_decode($reg->proveedor),1,"","L",true);
+           $pdf::cell(50,6,utf8_decode($reg->nombre),1,"","L",true);
            $pdf::cell(65,6,utf8_decode($reg->categoria),1,"","L",true);
            $pdf::cell(15,6,utf8_decode($reg->stock),1,"","L",true);
            $pdf::Ln(); 

@@ -37,15 +37,15 @@
                 <select name="tipo_documento" class="form-control">
                     @if ($persona->tipo_documento=='DNI')
                         <option value="DNI" selected>DNI</option>
-                        <option value="RUC">RUC</option>
+                        <option value="RUT">RUT</option>
                         <option value="PAS">PAS</option>
-                    @elseif ($persona->tipo_documento=='RUC')
+                    @elseif ($persona->tipo_documento=='RUT')
                        <option value="DNI">DNI</option>
-                       <option value="RUC" selected>RUC</option>
+                       <option value="RUT" selected>RUT</option>
                        <option value="PAS">PAS</option>
                     @else
                         <option value="DNI">DNI</option>
-                       <option value="RUC">RUC</option>
+                       <option value="RUT">RUT</option>
                        <option value="PAS" selected>PAS</option>
                     @endif
                 </select>

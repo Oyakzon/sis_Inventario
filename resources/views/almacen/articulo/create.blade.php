@@ -19,13 +19,7 @@
 {!!Form::open(array('url'=>'almacen/articulo','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
 {{Form::token()}}
 <div class="row">
-	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-		<div class="form-group">
-			<label for="nombre">Nombre</label>
-			<input type="text" name="nombre" required value="{{old('nombre')}}" class="form-control" placeholder="Nombre...">
-		</div>
-	</div>
-
+	
 	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<div class="form-group">
 			<label>Categoria</label>
@@ -39,16 +33,34 @@
 
 	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<div class="form-group">
+			<label>Proveedor</label>
+			<select name="idproveedor" class="form-control selectpicker" data-live-search="true">
+				@foreach ($persona as $per)
+				<option value="{{$per->idpersona}}">{{$per->nombre}}</option>
+				@endforeach
+			</select>
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+		<div class="form-group">
 
 			<label for="codigo">Código</label>
 			<input type="number" name="codigo" id="codigobar" required value="{{old('codigo')}}" min="0" class="form-control" placeholder="Código del artículo...">
 			<hr>
 			<button class="btn btn-success" type="button" onclick="generarBarcode()"><i class="fa fa-barcode" aria-hidden="true"> Generar</i></button>
 			<button class="btn btn-info" onclick="imprimir()" type="button"><i class="fa fa-print" aria-hidden="true"> Imprimir</i></button>
-			<hr>
+
 			<div id="print">
 				<svg id="barcode"></svg>
 			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+		<div class="form-group">
+			<label for="nombre">Nombre</label>
+			<input type="text" name="nombre" required value="{{old('nombre')}}" class="form-control" placeholder="Nombre...">
 		</div>
 	</div>
 
@@ -72,6 +84,7 @@
 			<input type="file" name="imagen" class="form-control">
 		</div>
 	</div>
+
 	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<div class="form-group">
 			<button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>

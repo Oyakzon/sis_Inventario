@@ -15,6 +15,7 @@ class Articulo extends Model
 
     protected $fillable =[
         'idcategoria',
+        'idpersona',
         'codigo',
     	'nombre',
         'stock',

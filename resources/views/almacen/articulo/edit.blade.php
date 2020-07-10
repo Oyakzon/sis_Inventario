@@ -22,13 +22,6 @@
 <div class="row">
 	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<div class="form-group">
-			<label for="nombre">Nombre</label>
-			<input type="text" name="nombre" required value="{{$articulo->nombre}}" class="form-control">
-		</div>
-	</div>
-
-	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-		<div class="form-group">
 			<label>Categoria</label>
 			<select name="idcategoria" class="form-control selectpicker" data-live-search="true">
 				@foreach ($categorias as $cat)
@@ -36,6 +29,21 @@
 				<option value="{{$cat->idcategoria}}" selected>{{$cat->nombre}}</option>
 				@else
 				<option value="{{$cat->idcategoria}}">{{$cat->nombre}}</option>
+				@endif
+				@endforeach
+			</select>
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+		<div class="form-group">
+			<label>Proveedor</label>
+			<select name="idproveedor" class="form-control selectpicker" data-live-search="true">
+				@foreach ($persona as $per)
+				@if ($per->idpersona==$articulo->idproveedor)
+				<option value="{{$per->idpersona}}" selected>{{$per->nombre}}</option>
+				@else
+				<option value="{{$per->idpersona}}">{{$per->nombre}}</option>
 				@endif
 				@endforeach
 			</select>
@@ -54,6 +62,13 @@
 				<svg id="barcode"></svg>
 			</div>
 
+		</div>
+	</div>
+	
+	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+		<div class="form-group">
+			<label for="nombre">Nombre</label>
+			<input type="text" name="nombre" required value="{{$articulo->nombre}}" class="form-control">
 		</div>
 	</div>
 
@@ -80,6 +95,7 @@
 			@endif
 		</div>
 	</div>
+
 	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 		<div class="form-group">
 			<button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>

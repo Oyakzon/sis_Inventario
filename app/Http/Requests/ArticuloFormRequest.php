@@ -25,6 +25,7 @@ class ArticuloFormRequest extends Request
     {
         return [
             'idcategoria'=>'required',
+            'idproveedor'=>'required',
             'codigo'=>'required|max:50',
             'nombre'=>'required|max:100',
             'stock'=>'required|numeric',
