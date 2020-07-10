@@ -49,13 +49,6 @@ class PerdidaController extends Controller
         $perdida->idarticulo=$request->get('idarticulo');
         $perdida->stock=$request->get('stock');
         $perdida->descripcion=$request->get('descripcion');
-        $perdida->imagen=$request->get('imagen');
-        
-        if (Input::hasFile('imagen')){
-            $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
-            $perdida->imagen=$file->getClientOriginalName();
-        }
         $mytime = Carbon::now('America/Santiago');
         $perdida->fecha_hora=$mytime->toDateTimeString();
         $perdida->save();
@@ -83,12 +76,6 @@ class PerdidaController extends Controller
         $perdida->idarticulo=$request->get('idarticulo');
         $perdida->stock=$request->get('stock');
         $perdida->descripcion=$request->get('descripcion');
-        $perdida->imagen=$request->get('imagen');        
-        if (Input::hasFile('imagen')){
-            $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
-            $perdida->imagen=$file->getClientOriginalName();
-        }
         $mytime = Carbon::now('America/Santiago');
         $perdida->fecha_hora=$mytime->toDateTimeString(); 
         $perdida->update();
