@@ -24,6 +24,7 @@ class VentaFormRequest extends Request
     public function rules()
     {
         return [
+            'idresponsable'=>'required',
             'idcliente'=>'required',
             'tipo_comprobante'=>'required|max:20',
             'serie_comprobante'=>'max:7',

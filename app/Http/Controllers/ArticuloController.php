@@ -103,6 +103,13 @@ class ArticuloController extends Controller
         $articulo->update();
         return Redirect::to('almacen/articulo');
     }
+    public function active($id)
+    {
+        $articulo=Articulo::findOrFail($id);
+        $articulo->estado="Activo";
+        $articulo->update();
+        return Redirect::to('almacen/articulo');
+    }
     public function reporte(){
         //Obtenemos los registros
         $registros=DB::table('articulo as a')

@@ -3,13 +3,18 @@
 <p type="hidden" {{$rol = Auth::user()->role }}></p>
 @if($rol == 'Administrador'|| $rol == 'Operador')
 		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label for="cliente">Cliente</label>
 					<p>{{$venta->nombre}}</p>
 				</div>
 			</div>
-			
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+				<div class="form-group">
+					<label for="idresponsable">Encargado</label>
+					<p>{{$venta->usuario}}</p>
+				</div>
+			</div>
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
 					<label>Tipo Comprobante</label>

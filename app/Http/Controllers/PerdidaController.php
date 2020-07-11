@@ -86,6 +86,7 @@ class PerdidaController extends Controller
         $perdida = DB::table('perdida')->where('idperdida', '=', $id)->delete();
         return Redirect::to('perdidas/perdida');
     }
+    
     public function reporte(){
         //Obtenemos los registros
         $perdidas=DB::table('perdida as p')

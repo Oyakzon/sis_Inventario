@@ -24,6 +24,7 @@ class IngresoFormRequest extends Request
     public function rules()
     {
         return [
+            'idresponsable'=>'required',
             'idproveedor'=>'required',
             'tipo_comprobante'=>'required|max:20',
             'serie_comprobante'=>'max:7',

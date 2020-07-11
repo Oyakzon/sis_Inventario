@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 10-07-2020 a las 20:50:39
+-- Tiempo de generación: 11-07-2020 a las 04:29:53
 -- Versión del servidor: 8.0.20
 -- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sis_inventario`
 --
+DROP DATABASE IF EXISTS `sis_inventario`;
 CREATE DATABASE IF NOT EXISTS `sis_inventario` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `sis_inventario`;
 
@@ -48,7 +48,9 @@ CREATE TABLE `articulo` (
 --
 
 INSERT INTO `articulo` (`idarticulo`, `idcategoria`, `idproveedor`, `codigo`, `nombre`, `stock`, `descripcion`, `imagen`, `estado`) VALUES
-(1, 3, 1, '123456', 'Tijeras', 50, 'corta', NULL, 'Activo');
+(1, 3, 1, '123456', 'Tijeras', 40, 'corta', NULL, 'Activo'),
+(21, 1, 1, '123213', 'sdasdad', -111, 'asdasd', NULL, 'Activo'),
+(22, 4, 1, '1234567', 'Destructor de archivos', 219, 'Un destructor de archivos', 'Destructora_de_papel_Despacho.png', 'Activo');
 
 -- --------------------------------------------------------
 
@@ -92,6 +94,13 @@ CREATE TABLE `detalle_ingreso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Volcado de datos para la tabla `detalle_ingreso`
+--
+
+INSERT INTO `detalle_ingreso` (`iddetalle_ingreso`, `idingreso`, `idarticulo`, `cantidad`, `precio_compra`, `precio_venta`) VALUES
+(1, 1, 22, 123, '12321.00', '123212.00');
+
+--
 -- Disparadores `detalle_ingreso`
 --
 DROP TRIGGER IF EXISTS `tr_updStockIngreso`;
@@ -120,6 +129,17 @@ CREATE TABLE `detalle_venta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Volcado de datos para la tabla `detalle_venta`
+--
+
+INSERT INTO `detalle_venta` (`iddetalle_venta`, `idventa`, `idarticulo`, `cantidad`, `precio_venta`, `descuento`) VALUES
+(1, 1, 21, 123, '123123.00', '0.00'),
+(14, 21, 22, 12, '123212.00', '0.00'),
+(15, 22, 22, 12, '123212.00', '12.00'),
+(16, 23, 22, 12, '123212.00', '12.00'),
+(17, 24, 22, 1, '123212.00', '0.00');
+
+--
 -- Disparadores `detalle_venta`
 --
 DROP TRIGGER IF EXISTS `tr_updStockVenta`;
@@ -142,6 +162,7 @@ DROP TABLE IF EXISTS `ingreso`;
 CREATE TABLE `ingreso` (
   `idingreso` int NOT NULL,
   `idproveedor` int NOT NULL,
+  `idresponsable` int NOT NULL,
   `tipo_comprobante` varchar(20) NOT NULL,
   `serie_comprobante` varchar(7) DEFAULT NULL,
   `num_comprobante` varchar(10) NOT NULL,
@@ -149,6 +170,13 @@ CREATE TABLE `ingreso` (
   `impuesto` decimal(4,2) NOT NULL,
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ingreso`
+--
+
+INSERT INTO `ingreso` (`idingreso`, `idproveedor`, `idresponsable`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `fecha_hora`, `impuesto`, `estado`) VALUES
+(1, 1, 1, 'Factura', '12', '21', '2020-07-10 19:27:22', '19.00', 'Aprobado');
 
 --
 -- Disparadores `ingreso`
@@ -221,6 +249,13 @@ CREATE TABLE `perdida` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Volcado de datos para la tabla `perdida`
+--
+
+INSERT INTO `perdida` (`idperdida`, `idarticulo`, `stock`, `descripcion`, `fecha_hora`) VALUES
+(20, 22, 2, 'Dañado', '2020-07-10 18:54:19');
+
+--
 -- Disparadores `perdida`
 --
 DROP TRIGGER IF EXISTS `tr_updStockPerdida`;
@@ -255,7 +290,8 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`) VALUES
-(1, 'Proveedor', 'Tu Empresa', 'RUT', '13131313', 'Aroca 1038', '10504687', 'empresatu@hotmail.com');
+(1, 'Proveedor', 'Tu Empresa', 'RUT', '13131313', 'Aroca 1038', '10504687', 'empresatu@hotmail.com'),
+(2, 'Cliente', 'Jose Manuel Rivera', 'RUT', '12635123', '11 de septiembre #5543', '56962969892', 'JoseManuelClliente@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -265,7 +301,7 @@ INSERT INTO `persona` (`idpersona`, `tipo_persona`, `nombre`, `tipo_documento`, 
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `role` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -281,9 +317,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `phone`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Marcos Oyarzo', 'Administrador', 'marcos_oyarzo97@outlook.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '933279376', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 04:08:38', '2020-07-02 03:04:12'),
-(2, 'Sebastian Acosta', 'Gerente', 'sebastian.ipchile@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '962969091', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 04:08:38', '2020-07-02 03:04:12'),
-(3, 'Francisco Guerrero', 'Operador', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '988539601', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 04:08:38', '2020-07-02 03:04:12');
+(1, 'Marcos Oyarzo', 'Gerente', 'marcos_oyarzo97@outlook.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '933279376', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 04:08:38', '2020-07-02 03:04:12'),
+(2, 'Sebastian Acosta', 'Administrador', 'sebastian.ipchile@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '962969091', '2Qj3eTBnBmydVC4AmSVrf62qS1GG9CF0R8XRygK3fs3Dyql7yPDZCfVKa3Zd', '2020-06-20 04:08:38', '2020-07-11 00:09:36'),
+(3, 'Francisco Guerrero', 'Operador', 'fran@gmail.com', '$2y$10$FNNXPnJnSjqlmDwxOECUIu2pw2h7N.jIMr/D1vwu/2l7ED3X2mN3m', '988539601', '0fOXQRTIYeky4vNrWwVPz6yhDiPOOxeyDSKa103LxWbGtFMyzoJzVzB8Dms8', '2020-06-20 04:08:38', '2020-07-02 03:04:12'),
+(18, 'Damian Acosta', 'Administrador', 'admin@gmail.com', '$2y$10$vDCADfwKwcAYFww1f6bYkejwIyqs31j/FhSJHniURa8wjUt.zbJhm', '962969091', NULL, '2020-07-11 00:09:33', '2020-07-11 00:09:33');
 
 -- --------------------------------------------------------
 
@@ -295,6 +332,7 @@ DROP TABLE IF EXISTS `venta`;
 CREATE TABLE `venta` (
   `idventa` int NOT NULL,
   `idcliente` int NOT NULL,
+  `idresponsable` int NOT NULL,
   `tipo_comprobante` varchar(20) NOT NULL,
   `serie_comprobante` varchar(7) NOT NULL,
   `num_comprobante` varchar(10) NOT NULL,
@@ -303,6 +341,17 @@ CREATE TABLE `venta` (
   `total_venta` decimal(11,2) NOT NULL,
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `venta`
+--
+
+INSERT INTO `venta` (`idventa`, `idcliente`, `idresponsable`, `tipo_comprobante`, `serie_comprobante`, `num_comprobante`, `fecha_hora`, `impuesto`, `total_venta`, `estado`) VALUES
+(1, 2, 2, 'Boleta', '001', '0008', '2020-07-10 19:39:17', '19.00', '700000.00', 'Aprobado'),
+(21, 2, 2, 'Factura', '12321', '12312', '2020-07-10 20:08:58', '19.00', '1478544.00', 'Aprobado'),
+(22, 2, 18, 'Factura', '12321', '12321', '2020-07-10 20:10:10', '19.00', '1478532.00', 'Aprobado'),
+(23, 2, 18, 'Factura', '34455', '45454', '2020-07-10 22:02:24', '19.00', '1478532.00', 'Aprobado'),
+(24, 2, 18, 'Factura', '77657', '65456', '2020-07-10 22:45:44', '19.00', '123212.00', 'Aprobado');
 
 --
 -- Disparadores `venta`
@@ -356,7 +405,8 @@ ALTER TABLE `detalle_venta`
 --
 ALTER TABLE `ingreso`
   ADD PRIMARY KEY (`idingreso`),
-  ADD KEY `fk_ingreso_persona_idx` (`idproveedor`);
+  ADD KEY `fk_ingreso_persona_idx` (`idproveedor`),
+  ADD KEY `idresponsable` (`idresponsable`);
 
 --
 -- Indices de la tabla `password_resets`
@@ -390,7 +440,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `venta`
   ADD PRIMARY KEY (`idventa`),
-  ADD KEY `fk_venta_cliente_idx` (`idcliente`);
+  ADD KEY `fk_venta_cliente_idx` (`idcliente`),
+  ADD KEY `id` (`idresponsable`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -400,7 +451,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `articulo`
 --
 ALTER TABLE `articulo`
-  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idarticulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -412,25 +463,25 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detalle_ingreso`
 --
 ALTER TABLE `detalle_ingreso`
-  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `iddetalle_ingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `iddetalle_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `iddetalle_venta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idingreso` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `perdida`
 --
 ALTER TABLE `perdida`
-  MODIFY `idperdida` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idperdida` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
@@ -442,13 +493,13 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `idventa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idventa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas
@@ -479,7 +530,8 @@ ALTER TABLE `detalle_venta`
 -- Filtros para la tabla `ingreso`
 --
 ALTER TABLE `ingreso`
-  ADD CONSTRAINT `fk_ingreso_persona` FOREIGN KEY (`idproveedor`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_ingreso_persona` FOREIGN KEY (`idproveedor`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ingreso_ibfk_1` FOREIGN KEY (`idresponsable`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `perdida`
@@ -491,7 +543,8 @@ ALTER TABLE `perdida`
 -- Filtros para la tabla `venta`
 --
 ALTER TABLE `venta`
-  ADD CONSTRAINT `fk_venta_cliente` FOREIGN KEY (`idcliente`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_venta_cliente` FOREIGN KEY (`idcliente`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idresponsable`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

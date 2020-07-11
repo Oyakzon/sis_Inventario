@@ -55,6 +55,7 @@
 						@endif
 						@if($rol == 'Administrador')
 						<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Eliminar</i></button></a>
+						<a href="" data-target="#modal-activate-{{$art->idarticulo}}" data-toggle="modal2"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Activar</i></button></a>
 						@endif
 					</td>
 				</tr>
