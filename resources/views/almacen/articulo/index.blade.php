@@ -42,7 +42,7 @@
 					<td>{{ $art->categoria}}</td>
 					<td>{{ $art->stock}}</td>
 					<td>
-						<img src="{{asset('imagenes/articulos/'.$art->imagen)}}" alt="{{ $art->nombre}}" height="100px" width="100px" class="img-thumbnail">
+						<img src="{{asset('/imagenes/articulos/'.$art->imagen)}}" alt="{{ $art->nombre}}" height="100px" width="100px" class="img-thumbnail">
 					</td>
 					@if ($art->estado == 'Activo')
 					<td><small class="bg-green">{{ $art->estado}}</small></td>

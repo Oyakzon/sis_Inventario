@@ -36,7 +36,7 @@
 					<td>{{ $ing->nombre}}</td>
 					<td>{{ $ing->tipo_comprobante.': '.$ing->serie_comprobante.'-'.$ing->num_comprobante}}</td>
 					<td>{{ $ing->impuesto}}</td>
-					<td>{{ $ing->total}}</td>
+					<td>${{ number_format($ing->total) }}</td> 
 					@if ($ing->estado == 'Aprobado')
 					<td><small class="bg-green">{{ $ing->estado}}</small></td>
 					@else

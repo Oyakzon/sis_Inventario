@@ -19,7 +19,7 @@ foreach ($totales as $total )
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h4 style="font-size:17px;"><strong><?php echo $total->totalingreso;?></strong></h4>
+                  <h4 style="font-size:17px;"><strong><?php echo number_format($total->totalingreso);?></strong></h4>
                   <p>Compras</p>
                 </div>
                 <div class="icon">
@@ -33,7 +33,7 @@ foreach ($totales as $total )
               <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h4 style="font-size:17px;"><strong><?php echo $total->totalventa;?></strong></h4>
+                  <h4 style="font-size:17px;"><strong><?php echo number_format($total->totalventa);?></strong></h4>
                   <p>Ventas</p>
                 </div>
                 <div class="icon">

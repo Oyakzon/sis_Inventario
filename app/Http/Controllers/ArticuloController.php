@@ -80,13 +80,12 @@ class ArticuloController extends Controller
         $articulo=Articulo::findOrFail($id);
 
         $articulo->idcategoria=$request->get('idcategoria');
+        $articulo->idproveedor=$request->get('idproveedor');
         $articulo->codigo=$request->get('codigo');
         $articulo->nombre=$request->get('nombre');
         $articulo->stock=$request->get('stock');
         $articulo->descripcion=$request->get('descripcion');
         $articulo->estado='Activo';
-        
-        
         if (Input::hasFile('imagen')){
             $file=Input::file('imagen');
             $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
