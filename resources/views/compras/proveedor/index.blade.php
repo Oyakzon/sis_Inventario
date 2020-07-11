@@ -21,7 +21,6 @@
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
-					<th>Id</th>
 					<th>Nombre</th>
 					<th>Tipo Doc.</th>
 					<th>Número Doc.</th>
@@ -32,7 +31,6 @@
 				</thead>
                @foreach ($personas as $per)
 				<tr>
-					<td>{{ $per->idpersona}}</td>
 					<td>{{ $per->nombre}}</td>
 					<td>{{ $per->tipo_documento}}</td>
 					<td>{{ $per->num_documento}}</td>

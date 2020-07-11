@@ -21,6 +21,7 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
 					<th>Fecha</th>
+					<th>Responsable</th>
 					<th>Proveedor</th>
 					<th>Tipo Comprobante-S-N</th>
 					<th>Impuesto</th>
@@ -31,6 +32,7 @@
                @foreach ($ingresos as $ing)
 				<tr>
 					<td>{{ $ing->fecha_hora}}</td>
+					<td>{{ $ing->responsable}}</td>
 					<td>{{ $ing->nombre}}</td>
 					<td>{{ $ing->tipo_comprobante.': '.$ing->serie_comprobante.'-'.$ing->num_comprobante}}</td>
 					<td>{{ $ing->impuesto}}</td>

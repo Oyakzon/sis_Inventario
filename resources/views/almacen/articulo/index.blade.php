@@ -45,7 +45,7 @@
 						<img src="{{asset('imagenes/articulos/'.$art->imagen)}}" alt="{{ $art->nombre}}" height="100px" width="100px" class="img-thumbnail">
 					</td>
 					@if ($art->estado == 'Activo')
-					<td><small class="bg-green">{{ $art->estado}}</small></td>			
+					<td><small class="bg-green">{{ $art->estado}}</small></td>
 					@else
 					<td><small class="bg-red">{{ $art->estado}}</small></td>
 					@endif
@@ -54,8 +54,30 @@
 						<a href="{{URL::action('ArticuloController@edit',$art->idarticulo)}}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"> Editar</i></button></a>
 						@endif
 						@if($rol == 'Administrador')
-						<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Eliminar</i></button></a>
-						<a href="" data-target="#modal-activate-{{$art->idarticulo}}" data-toggle="modal2"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Activar</i></button></a>
+						@if ($art->estado == 'Activo')
+						<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-toggle-off" aria-hidden="true"> Desactivar</i></button></a>
+						@else
+						<a data-target="#modal-aceptar" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-toggle-on" aria-hidden="true"> Activar </i></button></a>
+						<div class="modal fade modal-slide-in-right" tabindex="-1" role="dialog" id="modal-aceptar">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title">Activar Articulo</h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p>Confirme si desea Activar el Articulo</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+										<a href="{{URL::action('ArticuloController@activar',$art->idarticulo)}}"><button type="button" class="btn btn-primary">Confirmar</button></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						@endif
 						@endif
 					</td>
 				</tr>

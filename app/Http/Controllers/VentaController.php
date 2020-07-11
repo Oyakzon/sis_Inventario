@@ -226,14 +226,14 @@ class VentaController extends Controller
 
             $pdf::SetFont('Arial', '', 10);
             $pdf::SetXY(134, $y);
-            $pdf::MultiCell(25, 0, $det->precio_venta - $det->descuento);
+            $pdf::MultiCell(25, 0, "$".sprintf("%0.0F", ($det->precio_venta - $det->descuento)));
             $pdf::SetFont('Arial', 'B', 10);
             $pdf::SetXY(110, $y);
             $pdf::Cell(0, 0, utf8_decode("Precio Venta: "));
 
             $pdf::SetFont('Arial', '', 10);
             $pdf::SetXY(178, $y);
-            $pdf::MultiCell(25, 0, sprintf("%0.2F", (($det->precio_venta - $det->descuento) * $det->cantidad)));
+            $pdf::MultiCell(25, 0, "$".sprintf("%0.0F", (($det->precio_venta - $det->descuento) * $det->cantidad)));
             $pdf::SetFont('Arial', 'B', 10);
             $pdf::SetXY(160, $y);
             $pdf::Cell(0, 0, utf8_decode("Sub Total: "));
@@ -247,15 +247,15 @@ class VentaController extends Controller
         $pdf::Cell(0, 0, utf8_decode("Total sin IVA: "));
         $pdf::SetFont('Arial', '', 10);
         $pdf::SetXY(180, 153);
-        $pdf::MultiCell(30, 0, "$/. " . sprintf("%0.2F", $venta->total_venta - ($venta->total_venta * $venta->impuesto / ($venta->impuesto + 100))));
+        $pdf::MultiCell(30, 0, "$".sprintf("%0.0F", $venta->total_venta - ($venta->total_venta * $venta->impuesto / ($venta->impuesto + 100))));
         $pdf::SetXY(180, 160);
-        $pdf::MultiCell(30, 0, "$/. " . sprintf("%0.2F", ($venta->total_venta * $venta->impuesto / ($venta->impuesto + 100))));
+        $pdf::MultiCell(30, 0, "$".sprintf("%0.0F", ($venta->total_venta * $venta->impuesto / ($venta->impuesto + 100))));
         $pdf::SetFont('Arial', 'B', 10);
         $pdf::SetXY(155, 160);
         $pdf::Cell(0, 0, utf8_decode("Total del IVA: "));
         $pdf::SetFont('Arial', '', 10);
         $pdf::SetXY(180, 167);
-        $pdf::MultiCell(30, 0, "$/. " . sprintf("%0.2F", $venta->total_venta));
+        $pdf::MultiCell(30, 0, "$".sprintf("%0.0F", $venta->total_venta));
         $pdf::SetFont('Arial', 'B', 10);
         $pdf::SetXY(155, 167);
         $pdf::Cell(0, 0, utf8_decode("Total con IVA: "));
@@ -305,7 +305,7 @@ class VentaController extends Controller
             $pdf::cell(40, 8, utf8_decode($reg->nombre), 1, "", "L", true);
             $pdf::cell(45, 8, utf8_decode($reg->tipo_comprobante . ': ' . $reg->serie_comprobante . '-' . $reg->num_comprobante), 1, "", "L", true);
             $pdf::cell(10, 8, utf8_decode($reg->impuesto), 1, "", "C", true);
-            $pdf::cell(25, 8, utf8_decode($reg->total_venta), 1, "", "R", true);
+            $pdf::cell(25, 8, utf8_decode("$".sprintf("%0.0F", $reg->total_venta)), 1, "", "R", true);
             $pdf::Ln();
         }
 

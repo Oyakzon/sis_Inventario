@@ -31,6 +31,7 @@ Route::resource('seguridad/usuario', 'UsuarioController');
 Route::resource('perdidas/perdida', 'PerdidaController');
 
 //REPORTES GENERALES
+Route::get('activar{id}', 'ArticuloController@activar');
 Route::get('reportecategorias', 'CategoriaController@reporte');
 Route::get('reportearticulos', 'ArticuloController@reporte');
 Route::get('reporteperdidas', 'PerdidaController@reporte');
