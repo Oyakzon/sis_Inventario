@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 11-07-2020 a las 04:29:53
+-- Tiempo de generación: 11-07-2020 a las 04:33:53
 -- Versión del servidor: 8.0.20
 -- Versión de PHP: 7.4.7
 
@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sis_inventario`
 --
-DROP DATABASE IF EXISTS `sis_inventario`;
 CREATE DATABASE IF NOT EXISTS `sis_inventario` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `sis_inventario`;
 
