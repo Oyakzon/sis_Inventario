@@ -1,7 +1,7 @@
 @extends ('layouts.admin')
 @section ('contenido')
 <p type="hidden" {{$rol = Auth::user()->role }}></p>
-@if($rol == 'Administrador'||$rol == 'Operador')
+@if($rol == 'Administrador'||$rol == 'Operador'||$rol == 'Visita')
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Listado de Artículos
@@ -31,7 +31,9 @@
 					<th>Stock</th>
 					<th>Imagen</th>
 					<th>Estado</th>
+					@if ($rol == 'Administrador'||$rol == 'Operador')
 					<th>Opciones</th>
+					@endif
 				</thead>
 				@foreach ($articulos as $art)
 				<tr>
@@ -96,9 +98,10 @@
 @endpush
 @endif
 @if($rol == 'Gerente')
-<div class="alert alert-danger" role="alert">
-	<h4 class="alert-heading">Permisos Insuficientes!</h4>
-	No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link">Click Aqui</a>.
+<div class="alert alert-danger text-center" role="alert">
+	<h3 class="alert-heading text-center">Acceso Denegado!</h3>
+	<hr>
+	<p class="text-center">No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link text-center">Click Aqui</a>.</p>
 </div>
 @endif
 @endsection

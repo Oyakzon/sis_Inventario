@@ -30,8 +30,9 @@ Route::resource('ventas/venta', 'VentaController');
 Route::resource('seguridad/usuario', 'UsuarioController');
 Route::resource('perdidas/perdida', 'PerdidaController');
 
-//REPORTES GENERALES
+//RUTA PARA ACTIVAR
 Route::get('activar{id}', 'ArticuloController@activar');
+//REPORTES GENERALES
 Route::get('reportecategorias', 'CategoriaController@reporte');
 Route::get('reportearticulos', 'ArticuloController@reporte');
 Route::get('reporteperdidas', 'PerdidaController@reporte');

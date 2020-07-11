@@ -76,7 +76,7 @@ $('#liProveedores').addClass("active");
 </script>
 @endpush
 @endif
-@if($rol == 'Gerente' || $rol == 'Operador')
+@if($rol == 'Gerente' || $rol == 'Operador'|| $rol == 'Visita')
 <div class="alert alert-danger text-center" role="alert">
         <h3 class="alert-heading text-center">Acceso Denegado!</h3>
         <hr>

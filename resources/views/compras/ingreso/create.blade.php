@@ -23,7 +23,7 @@
         <div class="form-group">
             <label for="idresponsable">Responsable</label>
             <input type="text" min="0" name="id" value="{{Auth::user()->name}}" class="form-control" readonly="readonly"">
-            <input type="hidden" min="0" name="idresponsable" value="{{Auth::user()->id}}" class="form-control" readonly="readonly"">
+            <input type=" hidden" min="0" name="idresponsable" value="{{Auth::user()->id}}" class="form-control" readonly="readonly"">
     </div>
   </div>
     	<div class=" col-lg-12 col-sm-12 col-md-12 col-xs-12">
@@ -211,7 +211,7 @@
     </script>
     @endpush
     @endif
-    @if($rol == 'Gerente')
+    @if($rol == 'Gerente'||$rol == 'Visita')
     <div class="alert alert-danger text-center" role="alert">
         <h3 class="alert-heading text-center">Acceso Denegado!</h3>
         <hr>

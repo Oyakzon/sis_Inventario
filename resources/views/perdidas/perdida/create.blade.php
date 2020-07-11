@@ -68,7 +68,7 @@ $('#liAlmacen').addClass("treeview active");
 $('#liPerdidas').addClass("active");
 </script>
 @endpush
-@if($rol == 'Gerente')
+@if($rol == 'Gerente'||$rol == 'Visita')
 <div class="alert alert-danger text-center" role="alert">
 	<h3 class="alert-heading text-center">Acceso Denegado!</h3>
 	<hr>

@@ -39,7 +39,8 @@
                 <select name="role" class="form-control" id="role" >         
                     <option value="Administrador">Administrador</option>
                     <option value="Gerente">Gerente</option>
-                    <option value="Operador">Operador</option>            
+                    <option value="Operador">Operador</option> 
+                    <option value="Visita">Visita</option>            
                 </select>
             </div>
         </div>
@@ -111,7 +112,7 @@
 </script>
 @endpush
 @endif
-@if($rol == 'Operador'|| $rol == 'Gerente')
+@if($rol == 'Operador'|| $rol == 'Gerente'|| $rol == 'Visita')
     <div class="alert alert-danger text-center" role="alert">
         <h3 class="alert-heading text-center">Acceso Denegado!</h3>
         <hr>

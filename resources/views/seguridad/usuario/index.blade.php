@@ -54,8 +54,8 @@ $('#liUsuarios').addClass("active");
 </script>
 @endpush
 @endif
-@if($rol == 'Operador'|| $rol == 'Gerente')
-<div class="alert alert-danger text-center" role="alert">
+@if($rol == 'Operador'|| $rol == 'Gerente'|| $rol == 'Visita')
+    <div class="alert alert-danger text-center" role="alert">
         <h3 class="alert-heading text-center">Acceso Denegado!</h3>
         <hr>
         <p class="text-center">No dispone de permisos para ingresar a esta ventana, para volver haga <a href="{{url('home')}}" class="alert-link text-center">Click Aqui</a>.</p>
