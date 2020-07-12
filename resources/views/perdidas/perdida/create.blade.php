@@ -3,7 +3,7 @@
 <p type="hidden" {{$rol = Auth::user()->role }}></p>
 @if($rol == 'Administrador'||$rol == 'Operador')
 <div class="row">
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 ">
 		<h3>Nueva perdida</h3>
 		@if (count($errors)>0)
 		<div class="alert alert-danger">
@@ -37,18 +37,16 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 				<div class="form-group">
-					
 					<label for="stock">Perdida</label>
-					<input type="number" id="stock" name="stock" required value="{{old('stock')}}" class="form-control" placeholder="Perdida" min="0" max="1000" maxlength="4">
-				
+					<input type="number" id="stock" name="stock" required value="{{old('stock')}}" class="form-control" placeholder="Cant" min="0" max="1000" maxlength="4">
 				</div>
 			</div>
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12" id="guardar">
+			<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12" id="guardar">
 				<div class="form-group">
 					<input name"_token" value="{{ csrf_token() }}" type="hidden"></input>
 					<button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
