@@ -60,7 +60,7 @@
                                 <th><p align="right">S/. {{$venta->total_venta}}</p></th>
                             </tr>
                             <tr>
-                                <th colspan="4"><p align="right">Total Impuesto (18%):</p></th>
+                                <th colspan="4"><p align="right">Total Impuesto (19%):</p></th>
                                 <th><p align="right">S/. {{$venta->total_venta*$venta->impuesto/100}}</p></th>
                             </tr>
                             <tr>
