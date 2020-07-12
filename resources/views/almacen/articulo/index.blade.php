@@ -57,9 +57,9 @@
 						@endif
 						@if($rol == 'Administrador')
 						@if ($art->estado == 'Activo')
-						<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-toggle-off" aria-hidden="true"> Desactivar</i></button></a>
+						<a href="" data-target="#modal-delete-{{$art->idarticulo}}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-toggle-on" aria-hidden="true"> Desactivar</i></button></a>
 						@else
-						<a data-target="#modal-aceptar" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-toggle-on" aria-hidden="true"> Activar </i></button></a>
+						<a data-target="#modal-aceptar" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-toggle-off" aria-hidden="true"> Activar </i></button></a>
 						<div class="modal fade modal-slide-in-right" tabindex="-1" role="dialog" id="modal-aceptar">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
