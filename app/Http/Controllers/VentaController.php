@@ -142,7 +142,7 @@ class VentaController extends Controller
             ->join('persona as p', 'v.idcliente', '=', 'p.idpersona')
             ->join('users as usu', 'usu.id', '=', 'v.idresponsable')
             ->join('detalle_venta as dv', 'v.idventa', '=', 'dv.idventa')
-            ->select('v.idventa', 'v.fecha_hora', 'p.nombre', 'p.direccion', 'p.num_documento', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta','usu.name as usuario')
+            ->select('v.idventa', 'v.fecha_hora', 'p.nombre', 'p.direccion', 'p.num_documento', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta', 'usu.name as usuario', 'usu.role as cargo')
             ->where('v.idventa', '=', $id)
             ->first();
 
@@ -168,8 +168,14 @@ class VentaController extends Controller
         $pdf::SetFont('Arial', 'B', 10);
         $pdf::SetXY(15, 40);
         $pdf::Cell(0, 0, utf8_decode("Vendedor: "));
-
         $pdf::SetFont('Arial', '', 10);
+        $pdf::SetXY(28, 45);
+        $pdf::Cell(0, 0, utf8_decode($venta->cargo));
+        //TITULO
+        $pdf::SetFont('Arial', 'B', 10);
+        $pdf::SetXY(15, 45);
+        $pdf::Cell(0, 0, utf8_decode("Cargo: "));
+        
         //Inicio con el reporte
         $pdf::SetXY(175, 40);
         $pdf::Cell(0, 0, utf8_decode($venta->serie_comprobante . "-" . $venta->num_comprobante));
@@ -226,14 +232,14 @@ class VentaController extends Controller
 
             $pdf::SetFont('Arial', '', 10);
             $pdf::SetXY(134, $y);
-            $pdf::MultiCell(25, 0, "$".sprintf("%0.0F", ($det->precio_venta - $det->descuento)));
+            $pdf::MultiCell(25, 0, "$" . sprintf("%0.0F", ($det->precio_venta - $det->descuento)));
             $pdf::SetFont('Arial', 'B', 10);
             $pdf::SetXY(110, $y);
             $pdf::Cell(0, 0, utf8_decode("Precio Venta: "));
 
             $pdf::SetFont('Arial', '', 10);
             $pdf::SetXY(178, $y);
-            $pdf::MultiCell(25, 0, "$".sprintf("%0.0F", (($det->precio_venta - $det->descuento) * $det->cantidad)));
+            $pdf::MultiCell(25, 0, "$" . sprintf("%0.0F", (($det->precio_venta - $det->descuento) * $det->cantidad)));
             $pdf::SetFont('Arial', 'B', 10);
             $pdf::SetXY(160, $y);
             $pdf::Cell(0, 0, utf8_decode("Sub Total: "));
@@ -247,15 +253,15 @@ class VentaController extends Controller
         $pdf::Cell(0, 0, utf8_decode("Total sin IVA: "));
         $pdf::SetFont('Arial', '', 10);
         $pdf::SetXY(180, 153);
-        $pdf::MultiCell(30, 0, "$".sprintf("%0.0F", $venta->total_venta - ($venta->total_venta * $venta->impuesto / ($venta->impuesto + 100))));
+        $pdf::MultiCell(30, 0, "$" . sprintf("%0.0F", $venta->total_venta - ($venta->total_venta * $venta->impuesto / ($venta->impuesto + 100))));
         $pdf::SetXY(180, 160);
-        $pdf::MultiCell(30, 0, "$".sprintf("%0.0F", ($venta->total_venta * $venta->impuesto / ($venta->impuesto + 100))));
+        $pdf::MultiCell(30, 0, "$" . sprintf("%0.0F", ($venta->total_venta * $venta->impuesto / ($venta->impuesto + 100))));
         $pdf::SetFont('Arial', 'B', 10);
         $pdf::SetXY(155, 160);
         $pdf::Cell(0, 0, utf8_decode("Total del IVA: "));
         $pdf::SetFont('Arial', '', 10);
         $pdf::SetXY(180, 167);
-        $pdf::MultiCell(30, 0, "$".sprintf("%0.0F", $venta->total_venta));
+        $pdf::MultiCell(30, 0, "$" . sprintf("%0.0F", $venta->total_venta));
         $pdf::SetFont('Arial', 'B', 10);
         $pdf::SetXY(155, 167);
         $pdf::Cell(0, 0, utf8_decode("Total con IVA: "));
@@ -270,7 +276,7 @@ class VentaController extends Controller
             ->join('persona as p', 'v.idcliente', '=', 'p.idpersona')
             ->join('users as usu', 'usu.id', '=', 'v.idresponsable')
             ->join('detalle_venta as dv', 'v.idventa', '=', 'dv.idventa')
-            ->select('v.idventa', 'v.fecha_hora', 'p.nombre', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta', 'usu.name as usuario')
+            ->select('v.idventa', 'v.fecha_hora', 'p.nombre', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado', 'v.total_venta', 'usu.name as usuario','usu.role as cargo')
             ->orderBy('v.idventa', 'desc')
             ->groupBy('v.idventa', 'v.fecha_hora', 'p.nombre', 'v.tipo_comprobante', 'v.serie_comprobante', 'v.num_comprobante', 'v.impuesto', 'v.estado')
             ->get();
@@ -287,10 +293,10 @@ class VentaController extends Controller
         $pdf::SetFillColor(206, 246, 245); // establece el color del fondo de la celda 
         $pdf::SetFont('Arial', 'B', 10);
         //El ancho de las columnas debe de sumar promedio 190        
-        $pdf::cell(35, 8, utf8_decode("Fecha"), 1, "", "L", true);
-        $pdf::cell(35, 8, utf8_decode("Encargado"), 1, "", "L", true);
-        $pdf::cell(40, 8, utf8_decode("Cliente"), 1, "", "L", true);
-        $pdf::cell(45, 8, utf8_decode("Comprobante"), 1, "", "L", true);
+        $pdf::cell(33, 8, utf8_decode("Fecha"), 1, "", "L", true);
+        $pdf::cell(49, 8, utf8_decode("Vendedor|Cargo"), 1, "", "L", true);
+        $pdf::cell(35, 8, utf8_decode("Cliente"), 1, "", "L", true);
+        $pdf::cell(42, 8, utf8_decode("Comprobante"), 1, "", "L", true);
         $pdf::cell(10, 8, utf8_decode("IVA"), 1, "", "C", true);
         $pdf::cell(25, 8, utf8_decode("Total"), 1, "", "R", true);
 
@@ -300,12 +306,12 @@ class VentaController extends Controller
         $pdf::SetFont("Arial", "", 9);
 
         foreach ($registros as $reg) {
-            $pdf::cell(35, 8, utf8_decode($reg->fecha_hora), 1, "", "L", true);
-            $pdf::cell(35, 8, utf8_decode($reg->usuario), 1, "", "L", true);
-            $pdf::cell(40, 8, utf8_decode($reg->nombre), 1, "", "L", true);
-            $pdf::cell(45, 8, utf8_decode($reg->tipo_comprobante . ': ' . $reg->serie_comprobante . '-' . $reg->num_comprobante), 1, "", "L", true);
+            $pdf::cell(33, 8, utf8_decode($reg->fecha_hora), 1, "", "L", true);
+            $pdf::cell(49, 8, utf8_decode($reg->usuario. ': ' . $reg->cargo), 1, "", "L", true);
+            $pdf::cell(35, 8, utf8_decode($reg->nombre), 1, "", "L", true);
+            $pdf::cell(42, 8, utf8_decode($reg->tipo_comprobante . ': ' . $reg->serie_comprobante . '-' . $reg->num_comprobante), 1, "", "L", true);
             $pdf::cell(10, 8, utf8_decode($reg->impuesto), 1, "", "C", true);
-            $pdf::cell(25, 8, utf8_decode("$".sprintf("%0.0F", $reg->total_venta)), 1, "", "R", true);
+            $pdf::cell(25, 8, utf8_decode("$" . sprintf("%0.0F", $reg->total_venta)), 1, "", "R", true);
             $pdf::Ln();
         }
 

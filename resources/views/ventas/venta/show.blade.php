@@ -1,7 +1,7 @@
 @extends ('layouts.admin')
 @section ('contenido')
 <p type="hidden" {{$rol = Auth::user()->role }}></p>
-@if($rol == 'Administrador'|| $rol == 'Operador')
+@if($rol == 'Administrador'|| $rol == 'Operador'||$rol == 'Gerente')
 		<div class="row">
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 				<div class="form-group">
@@ -91,7 +91,7 @@ $('#liVentass').addClass("active");
 </script>
 @endpush
 @endif
-@if($rol == 'Gerente'||$rol == 'Visita')
+@if($rol == 'Visita')
 <div class="alert alert-danger text-center" role="alert">
 	<h3 class="alert-heading text-center">Acceso Denegado!</h3>
 	<hr>

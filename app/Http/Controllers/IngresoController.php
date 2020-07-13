@@ -149,7 +149,7 @@ class IngresoController extends Controller
            ->join('persona as p','i.idproveedor','=','p.idpersona')
            ->join('users as usu', 'usu.id', '=', 'i.idresponsable')
            ->join('detalle_ingreso as di','i.idingreso','=','di.idingreso')
-           ->select('i.idingreso','i.fecha_hora','p.nombre','usu.name as responsable','p.direccion','p.num_documento','i.tipo_comprobante','i.serie_comprobante','i.num_comprobante','i.impuesto','i.estado',DB::raw('sum(di.cantidad*precio_compra) as total'))
+           ->select('i.idingreso','i.fecha_hora','p.nombre','usu.name as responsable','usu.role as cargo','p.direccion','p.num_documento','i.tipo_comprobante','i.serie_comprobante','i.num_comprobante','i.impuesto','i.estado',DB::raw('sum(di.cantidad*precio_compra) as total'))
            ->where('i.idingreso','=',$id)
            ->first();
 
@@ -176,6 +176,15 @@ class IngresoController extends Controller
        $pdf::SetXY(15, 40);
        $pdf::Cell(0, 0, utf8_decode("Responsable: "));
        $pdf::SetFont('Arial','',10);
+
+       $pdf::SetXY(28, 45);
+       $pdf::Cell(0, 0, utf8_decode($ingreso->cargo));
+       //TITULO
+       $pdf::SetFont('Arial', 'B', 10);
+       $pdf::SetXY(15, 45);
+       $pdf::Cell(0, 0, utf8_decode("Cargo: "));
+       $pdf::SetFont('Arial','',10);
+
        //Inicio con el reporte
        $pdf::SetXY(175,40);
        $pdf::Cell(0,0,utf8_decode($ingreso->serie_comprobante."-".$ingreso->num_comprobante));
@@ -279,7 +288,7 @@ class IngresoController extends Controller
            ->join('persona as p','i.idproveedor','=','p.idpersona')
            ->join('users as usu', 'usu.id', '=', 'i.idresponsable')
            ->join('detalle_ingreso as di','i.idingreso','=','di.idingreso')
-           ->select('i.idingreso','i.fecha_hora','p.nombre','usu.name as responsable','i.tipo_comprobante','i.serie_comprobante','i.num_comprobante','i.impuesto','i.estado',DB::raw('sum(di.cantidad*precio_compra) as total'))
+           ->select('i.idingreso','i.fecha_hora','p.nombre','usu.name as responsable','usu.role as cargo','i.tipo_comprobante','i.serie_comprobante','i.num_comprobante','i.impuesto','i.estado',DB::raw('sum(di.cantidad*precio_compra) as total'))
            ->orderBy('i.idingreso','desc')
            ->groupBy('i.idingreso','i.fecha_hora','p.nombre','i.tipo_comprobante','i.serie_comprobante','i.num_comprobante','i.impuesto','i.estado')
            ->get();
@@ -296,10 +305,10 @@ class IngresoController extends Controller
         $pdf::SetFillColor(206, 246, 245); // establece el color del fondo de la celda 
         $pdf::SetFont('Arial','B',10); 
         //El ancho de las columnas debe de sumar promedio 190        
-        $pdf::cell(35,8,utf8_decode("Fecha"),1,"","L",true);
-        $pdf::cell(35,8,utf8_decode("Responsable"),1,"","L",true);
-        $pdf::cell(40,8,utf8_decode("Proveedor"),1,"","L",true);
-        $pdf::cell(45,8,utf8_decode("N°Comprobante"),1,"","L",true);
+        $pdf::cell(33,8,utf8_decode("Fecha"),1,"","L",true);
+        $pdf::cell(49,8,utf8_decode("Responsable|Cargo"),1,"","L",true);
+        $pdf::cell(35,8,utf8_decode("Proveedor"),1,"","L",true);
+        $pdf::cell(42,8,utf8_decode("N°Comprobante"),1,"","L",true);
         $pdf::cell(10,8,utf8_decode("IVA"),1,"","C",true);
         $pdf::cell(25,8,utf8_decode("Total"),1,"","R",true);
         
@@ -310,10 +319,10 @@ class IngresoController extends Controller
         
         foreach ($registros as $reg)
         {
-           $pdf::cell(35,8,utf8_decode($reg->fecha_hora),1,"","L",true);
-           $pdf::cell(35,8,utf8_decode($reg->responsable),1,"","L",true);
-           $pdf::cell(40,8,utf8_decode($reg->nombre),1,"","L",true);
-           $pdf::cell(45,8,utf8_decode($reg->tipo_comprobante.': '.$reg->serie_comprobante.'-'.$reg->num_comprobante),1,"","L",true);
+           $pdf::cell(33,8,utf8_decode($reg->fecha_hora),1,"","L",true);
+           $pdf::cell(49,8,utf8_decode($reg->responsable. ': ' . $reg->cargo),1,"","L",true);
+           $pdf::cell(35,8,utf8_decode($reg->nombre),1,"","L",true);
+           $pdf::cell(42,8,utf8_decode($reg->tipo_comprobante.': '.$reg->serie_comprobante.'-'.$reg->num_comprobante),1,"","L",true);
            $pdf::cell(10,8,utf8_decode($reg->impuesto),1,"","C",true);
            $pdf::cell(25,8,utf8_decode("$".sprintf("%0.0F", $reg->total)),1,"","R",true);
            $pdf::Ln(); 
